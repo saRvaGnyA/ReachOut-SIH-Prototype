@@ -3,7 +3,7 @@ import Image from 'next/image';
 function Footer() {
   return (
     <div>
-      <footer class="p-4 bg-white rounded-lg shadow md:px-6 md:py-8 dark:bg-zinc-900">
+      <footer class="p-4 bg-white shadow md:px-6 md:py-8 dark:bg-zinc-900 border-t-4 border-indigo-500">
         <div class="sm:flex sm:items-center sm:justify-between">
           <a
             href="https://flowbite.com/"
