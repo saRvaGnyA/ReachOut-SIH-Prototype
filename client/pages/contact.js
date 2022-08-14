@@ -1,13 +1,19 @@
 function Contact() {
   return (
-    <form name="contact-form" class="p-10" action="https://formsubmit.co/5361246d895d8f77cc90c9d0fe998aab" method="POST">
-        <div class="relative z-0 mb-6 w-full group">
-            <h1 class="text-3xl">Contact Us</h1>
-            <br/>
-            <p>
-                Please fill this form in a descent manner so that we can revert back you as soon as possible.
-            </p>
-        </div>
+    <form
+      name="contact-form"
+      class="p-10"
+      action="https://formsubmit.co/5361246d895d8f77cc90c9d0fe998aab"
+      method="POST"
+    >
+      <div class="relative z-0 mb-6 w-full group">
+        <h1 class="text-3xl">Contact Us</h1>
+        <br />
+        <p>
+          Please fill this form in a descent manner so that we can revert back
+          you as soon as possible.
+        </p>
+      </div>
       <div class="relative z-0 mb-6 w-full group">
         <input
           type="email"

@@ -5,10 +5,10 @@ import Footer from '../components/Footer';
 
 function MyApp({ Component, pageProps }) {
   return (
-    <ThemeProvider attribute='class'>
-      <Header/>
+    <ThemeProvider attribute="class">
+      <Header />
       <Component {...pageProps} />
-      <Footer/>
+      <Footer />
     </ThemeProvider>
   );
 }
