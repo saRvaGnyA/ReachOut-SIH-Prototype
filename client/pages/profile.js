@@ -4,8 +4,8 @@ import UserProfile from '../components/UserProfile';
 function Profile() {
   return (
     <>
-      {/* <UserProfile /> */}
-      <CompanyProfile />
+      <UserProfile />
+      {/* <CompanyProfile /> */}
     </>
   );
 }
