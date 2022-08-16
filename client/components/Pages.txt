@@ -5,3 +5,4 @@
 
 4) Government Schemes
 5) Company creating job-createJob
+6) Available jobs Page
