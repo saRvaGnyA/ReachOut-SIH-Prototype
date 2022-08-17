@@ -4,6 +4,34 @@ function governmentLogin() {
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
 
+  const verify = async () => {
+    const query = JSON.stringify({
+      query: `query MyQuery {
+  admin(where: {name: {_eq: "${name}"}, _and: {password: {_eq: "${password}"}}}) {
+    name
+    id
+  }
+}
+
+`,
+    });
+
+    const response = await fetch(
+      'https://reachout-sih.herokuapp.com/v1/graphql',
+      {
+        headers: {
+          'content-type': 'application/json',
+          'x-hasura-admin-secret': process.env.HASURA_ADMIN_SECRET,
+        },
+        method: 'POST',
+        body: query,
+      },
+    );
+
+    const responseJson = await response.json();
+    console.log(responseJson);
+  };
+
   function loginSubmit(e) {
     e.preventDefault();
     const obj = {
@@ -11,6 +39,7 @@ function governmentLogin() {
       password,
     };
     console.log(obj);
+    verify();
   }
 
   return (
