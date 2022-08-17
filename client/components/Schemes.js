@@ -3,48 +3,8 @@ import { useState, useEffect } from 'react';
 
 function Schemes() {
   const [modal, setModal] = useState(false);
-  const [schemes, setSchemes] = useState([
-    {
-      scheme_no: 1,
-      scheme_name: 'The standard Lorem Ipsum passage, used since the 1500s',
-      scheme_description:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-      scheme_type:
-        'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
-      eligibility:
-        'Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-    },
-    {
-      scheme_no: 2,
-      scheme_name: 'The standard Lorem Ipsum passage, used since the 1500s',
-      scheme_description:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-      scheme_type:
-        'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
-      eligibility:
-        'Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-    },
-    {
-      scheme_no: 3,
-      scheme_name: 'The standard Lorem Ipsum passage, used since the 1500s',
-      scheme_description:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-      scheme_type:
-        'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
-      eligibility:
-        'Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-    },
-    {
-      scheme_no: 4,
-      scheme_name: 'The standard Lorem Ipsum passage, used since the 1500s',
-      scheme_description:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-      scheme_type:
-        'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
-      eligibility:
-        'Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-    },
-  ]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [schemes, setSchemes] = useState([]);
 
   const get_schemes = async () => {
     const query = JSON.stringify({
@@ -55,6 +15,9 @@ function Schemes() {
     id
     name
     type
+    admin {
+      name
+    }
   }
 }
 `,
@@ -75,12 +38,17 @@ function Schemes() {
     const responseJson = await response.json();
     console.log(responseJson);
     setSchemes(responseJson.data.scheme);
+    setIsLoading(false);
   };
 
   useEffect(() => {
     //Fetch the schemes from the database and set the state variable.
     get_schemes();
   }, []);
+
+  if (isLoading) {
+    return <h1 className="text-3xl text-center p-3">Loading...</h1>;
+  }
 
   return (
     <div>
@@ -90,19 +58,19 @@ function Schemes() {
           <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
               <th scope="col" className="py-3 px-6">
-                Scheme name
+                Scheme Name
               </th>
               <th scope="col" className="py-3 px-6">
-                Scheme Description
+                Ministry
               </th>
               <th scope="col" className="py-3 px-6">
-                Scheme type
+                Scheme Type
               </th>
               <th scope="col" className="py-3 px-6">
                 Eligibility Criteria
               </th>
               <th scope="col" className="py-3 px-6">
-                <span className="sr-only">Edit</span>
+                <span className="sr-only">Apply</span>
               </th>
             </tr>
           </thead>
@@ -119,7 +87,7 @@ function Schemes() {
                   >
                     {scheme.name}
                   </th>
-                  <td className="py-4 px-6">{scheme.description}</td>
+                  <td className="py-4 px-6">{scheme.admin.name}</td>
                   <td className="py-4 px-6">{scheme.type}</td>
                   <td className="py-4 px-6">{scheme.eligibility}</td>
                   <td className="py-4 px-6 text-right">
