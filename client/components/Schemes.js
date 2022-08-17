@@ -46,8 +46,40 @@ function Schemes() {
     },
   ]);
 
+  const get_schemes = async () => {
+    const query = JSON.stringify({
+      query: `query MyQuery {
+  scheme {
+    description
+    eligibility
+    id
+    name
+    type
+  }
+}
+`,
+    });
+
+    const response = await fetch(
+      'https://reachout-sih.herokuapp.com/v1/graphql',
+      {
+        headers: {
+          'content-type': 'application/json',
+          'x-hasura-admin-secret': process.env.HASURA_ADMIN_SECRET,
+        },
+        method: 'POST',
+        body: query,
+      },
+    );
+
+    const responseJson = await response.json();
+    console.log(responseJson);
+    setSchemes(responseJson.data.scheme);
+  };
+
   useEffect(() => {
     //Fetch the schemes from the database and set the state variable.
+    get_schemes();
   }, []);
 
   return (
@@ -79,16 +111,16 @@ function Schemes() {
               return (
                 <tr
                   className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
-                  key={scheme.scheme_no}
+                  key={scheme.id}
                 >
                   <th
                     scope="row"
                     className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                   >
-                    {scheme.scheme_name}
+                    {scheme.name}
                   </th>
-                  <td className="py-4 px-6">{scheme.scheme_description}</td>
-                  <td className="py-4 px-6">{scheme.scheme_type}</td>
+                  <td className="py-4 px-6">{scheme.description}</td>
+                  <td className="py-4 px-6">{scheme.type}</td>
                   <td className="py-4 px-6">{scheme.eligibility}</td>
                   <td className="py-4 px-6 text-right">
                     <button
