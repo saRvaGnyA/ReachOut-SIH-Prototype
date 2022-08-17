@@ -5,7 +5,7 @@ function createJob() {
   const [email, setEmail] = useState('');
   const [jobPosition, setJobPosition] = useState('');
   const [salary, setSalary] = useState('');
-  const [jobType, setJobType] = useState('');
+  const [description, setDescription] = useState('');
   const [qualification, setQualification] = useState('');
   const [sector, setSector] = useState('');
   const [disability, setDisability] = useState('');
@@ -17,7 +17,7 @@ function createJob() {
       email,
       jobPosition,
       salary,
-      jobType,
+      description,
       qualification,
       sector,
       disability,
@@ -32,14 +32,14 @@ function createJob() {
       <div className="mt-10 sm:mt-0 p-10">
         <div className="md:grid md:grid-cols-3 md:gap-6">
           <div className="md:col-span-2">
-            <h3 className="text-3xl font-medium leading-6 text-gray-900 dark:text-white px-10 py-2">
-              Create Jobs for the needy
-            </h3>
-            <p className="mt-2 text-sm text-gray-600 dark:text-gray-400 px-10">
-              ( The jobs you create will be shown to all the users registered on
-              the Reachout's server )
-            </p>
-            <form className="p-10 bg-gray-200 rounded dark:bg-transparent">
+            <form className="p-10 bg-gray-200 rounded dark:bg-zinc-900">
+              <h3 className="text-3xl font-medium leading-6 text-gray-900 dark:text-white py-2">
+                Create Jobs for the needy
+              </h3>
+              <p className="mt-2 text-sm text-gray-600 dark:text-gray-400 pb-10">
+                ( The jobs you create will be shown to all the users registered
+                on the Reachout's server )
+              </p>
               <div className="relative z-0 mb-6 w-full group">
                 <input
                   type="email"
@@ -108,9 +108,9 @@ function createJob() {
                     id="job_type"
                     className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                     placeholder=" "
-                    value={jobType}
+                    value={description}
                     onChange={(e) => {
-                      setJobType(e.target.value);
+                      setDescription(e.target.value);
                     }}
                     required
                   />

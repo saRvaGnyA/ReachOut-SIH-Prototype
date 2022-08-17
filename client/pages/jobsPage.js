@@ -122,7 +122,7 @@ function jobsPage() {
                   Salary
                 </th>
                 <th scope="col" class="py-3 px-6">
-                  Job type
+                  description 
                 </th>
                 <th scope="col" class="py-3 px-6">
                   Qualification
