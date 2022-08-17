@@ -16,7 +16,7 @@ function error() {
               Sorry we couldn't find this page.{' '}
             </p>
             <p className="mb-8">
-              But dont worry, you can find plenty of other things on our
+              But don't worry, you can find plenty of other things on our
               homepage.
             </p>
 
@@ -24,7 +24,7 @@ function error() {
               className="px-4 inline py-2 text-sm font-medium leading-5 shadow text-white transition-colors duration-150 border border-transparent rounded-lg focus:outline-none focus:shadow-outline-blue bg-blue-600 active:bg-blue-600 hover:bg-blue-700"
               onClick={redirection}
             >
-              back to homepage
+              Back to Homepage
             </button>
           </div>
           <div className="max-w-lg">
