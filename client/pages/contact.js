@@ -3,7 +3,7 @@ function Contact() {
     <form
       name="contact-form"
       class="p-10"
-      action="https://formsubmit.co/5361246d895d8f77cc90c9d0fe998aab"
+      action="https://formsubmit.co/7a6d73c92be6ee12b6dcf928175c5777 "
       method="POST"
     >
       <div class="relative z-0 mb-6 w-full group">
