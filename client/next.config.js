@@ -7,4 +7,7 @@ module.exports = withPWA({
     skipWaiting: true,
     disable: process.env.NODE_ENV === 'development',
   },
+  env: {
+    HASURA_ADMIN_SECRET: 'SIH2022',
+  },
 });

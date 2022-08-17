@@ -5,8 +5,34 @@ function createJob() {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [type, setType] = useState('');
-  const [admin, setAdmin] = useState('');
+  const [admin, setAdmin] = useState('c47fa093-7991-47bf-8950-0eefdbb1c484');
   const [eligibility, setEligibility] = useState('');
+  const insert_scheme = async () => {
+    const query = JSON.stringify({
+      query: `mutation MyMutation {
+  insert_scheme(objects: {admin_id: "${admin}", description:"${description}", eligibility: "${eligibility}", name: "${name}", type: "${type}"}) {
+    returning {
+      admin_id
+    }
+  }
+}`,
+    });
+
+    const response = await fetch(
+      'https://reachout-sih.herokuapp.com/v1/graphql',
+      {
+        headers: {
+          'content-type': 'application/json',
+          'x-hasura-admin-secret': process.env.HASURA_ADMIN_SECRET,
+        },
+        method: 'POST',
+        body: query,
+      },
+    );
+
+    const responseJson = await response.json();
+    console.log(responseJson);
+  };
 
   function createSchemeFunc(e) {
     e.preventDefault();
@@ -19,6 +45,7 @@ function createJob() {
     };
     console.log(obj);
     // Add this Scheme into the Database---
+    insert_scheme();
   }
 
   return (
