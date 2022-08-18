@@ -1,5 +1,6 @@
 import CompanyProfile from '../components/Profiles/CompanyProfile';
 import UserProfile from '../components/Profiles/UserProfile';
+import AdminProfile from '../components/Profiles/AdminProfile';
 
 function Profile() {
   const visitor = 'User';
@@ -18,7 +19,7 @@ function Profile() {
   } else {
     return (
       <div>
-        <div></div>
+        <AdminProfile />
       </div>
     );
   }
