@@ -1,13 +1,27 @@
-import CompanyProfile from '../components/CompanyProfile';
-import UserProfile from '../components/UserProfile';
+import CompanyProfile from '../components/Profiles/CompanyProfile';
+import UserProfile from '../components/Profiles/UserProfile';
 
 function Profile() {
-  return (
-    <>
-      <UserProfile />
-      {/* <CompanyProfile /> */}
-    </>
-  );
+  const visitor = 'User';
+  if (visitor === 'User') {
+    return (
+      <div>
+        <UserProfile />
+      </div>
+    );
+  } else if (visitor === 'Company') {
+    return (
+      <div>
+        <CompanyProfile />
+      </div>
+    );
+  } else {
+    return (
+      <div>
+        <div></div>
+      </div>
+    );
+  }
 }
 
 export default Profile;

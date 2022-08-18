@@ -1,21 +1,20 @@
 import { useState, useEffect } from 'react';
 
-function EnrolledSchemes() {
-  const [appliedSchemes, setAppliedSchemes] = useState([]);
+function CreatedSchemes() {
+  const [createdSchemes, setCreatedSchemes] = useState([]);
   useEffect(() => {
-    //Fetch the data for the user for the schemes he registered.
+    //Fetch the data for the government for the schemes they had created.
   }, []);
 
   return (
     <div>
-      <div class="overflow-x-auto relative shadow-md sm:rounded-lg my-10 mx-0">
+      <div class="overflow-x-auto relative shadow-md sm:rounded-lg my-10 mx-10">
         <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
           <caption class="p-5 text-lg font-semibold text-left text-gray-900 bg-white dark:text-white dark:bg-gray-800">
-            Enrolled Schemes
+            Created Schemes
             <p class="mt-1 text-sm font-normal text-gray-500 dark:text-gray-400">
-              The below are the list of schemes you have applied. You might have
-              got the response of these applications on your email. So please
-              check your mail if you haven't.
+              The below are the list of schemes you have created for the needy.
+              Click on the schemes to get the list of the applicants.
             </p>
           </caption>
           <thead class="text-xs text-gray-700 uppercase dark:text-gray-400">
@@ -35,7 +34,7 @@ function EnrolledSchemes() {
             </tr>
           </thead>
           <tbody>
-            {appliedSchemes.map((scheme) => {
+            {createdSchemes.map((scheme) => {
               return (
                 <div>
                   <tr class="border-b border-gray-200 dark:border-gray-700">
@@ -61,4 +60,4 @@ function EnrolledSchemes() {
   );
 }
 
-export default EnrolledSchemes;
+export default CreatedSchemes;

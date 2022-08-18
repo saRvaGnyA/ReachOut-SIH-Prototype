@@ -1,46 +1,47 @@
 import { useState, useEffect } from 'react';
 
-function CreatedJobs() {
-  const [createdJobs, setCreatedJobs] = useState([]);
+function EnrolledJobs() {
+  const [appliedJobs, setAppliedJobs] = useState([]);
   useEffect(() => {
-    //Fetch the data for the company for the jobs they have created .
+    //Fetch the data for the user for the jobs he registered.
   }, []);
 
   return (
     <div>
-      <div class="overflow-x-auto relative shadow-md sm:rounded-lg my-10 mx-0">
+      <div class="overflow-x-auto relative shadow-md sm:rounded-lg my-10 mx-10">
         <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
           <caption class="p-5 text-lg font-semibold text-left text-gray-900 bg-white dark:text-white dark:bg-gray-800">
-            Created Jobs
+            Enrolled Jobs
             <p class="mt-1 text-sm font-normal text-gray-500 dark:text-gray-400">
-              The below are the list of jobs that your company has created for
-              the needy. Click on the jobs to get the list of the applicants.
+              The below are the list of jobs you have applied. You might have
+              got the response of these applications on your email. So please
+              check your mail if you haven't.
             </p>
           </caption>
           <thead class="text-xs text-gray-700 uppercase dark:text-gray-400">
             <tr>
               <th scope="col" class="py-3 px-6 bg-gray-50 dark:bg-gray-800">
+                Company email
+              </th>
+              <th scope="col" class="py-3 px-6">
                 Job position
               </th>
-              <th scope="col" class="py-3 px-6">
+              <th scope="col" class="py-3 px-6 bg-gray-50 dark:bg-gray-800">
                 Description
               </th>
-              <th scope="col" class="py-3 px-6 bg-gray-50 dark:bg-gray-800">
+              <th scope="col" class="py-3 px-6">
                 Location
               </th>
-              <th scope="col" class="py-3 px-6">
+              <th scope="col" class="py-3 px-6 bg-gray-50 dark:bg-gray-800">
                 Sector
               </th>
-              <th scope="col" class="py-3 px-6 bg-gray-50 dark:bg-gray-800">
-                Disability
-              </th>
               <th scope="col" class="py-3 px-6">
-                Salary
+                Disability
               </th>
             </tr>
           </thead>
           <tbody>
-            {createdJobs.map((job) => {
+            {appliedJobs.map((job) => {
               return (
                 <div>
                   <tr class="border-b border-gray-200 dark:border-gray-700">
@@ -66,4 +67,4 @@ function CreatedJobs() {
   );
 }
 
-export default CreatedJobs;
+export default EnrolledJobs;

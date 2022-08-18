@@ -1,40 +1,46 @@
 import { useState, useEffect } from 'react';
 
-function CreatedSchemes() {
-  const [createdSchemes, setCreatedSchemes] = useState([]);
+function CreatedJobs() {
+  const [createdJobs, setCreatedJobs] = useState([]);
   useEffect(() => {
-    //Fetch the data for the government for the schemes they had created.
+    //Fetch the data for the company for the jobs they have created .
   }, []);
 
   return (
     <div>
-      <div class="overflow-x-auto relative shadow-md sm:rounded-lg my-10 mx-0">
+      <div class="overflow-x-auto relative shadow-md sm:rounded-lg my-10 mx-10">
         <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
           <caption class="p-5 text-lg font-semibold text-left text-gray-900 bg-white dark:text-white dark:bg-gray-800">
-            Created Schemes
+            Created Jobs
             <p class="mt-1 text-sm font-normal text-gray-500 dark:text-gray-400">
-              The below are the list of schemes you have created for the needy.
-              Click on the schemes to get the list of the applicants.
+              The below are the list of jobs that your company has created for
+              the needy. Click on the jobs to get the list of the applicants.
             </p>
           </caption>
           <thead class="text-xs text-gray-700 uppercase dark:text-gray-400">
             <tr>
               <th scope="col" class="py-3 px-6 bg-gray-50 dark:bg-gray-800">
-                Scheme name
+                Job position
               </th>
               <th scope="col" class="py-3 px-6">
-                Scheme description
+                Description
               </th>
               <th scope="col" class="py-3 px-6 bg-gray-50 dark:bg-gray-800">
-                Scheme type
+                Location
               </th>
               <th scope="col" class="py-3 px-6">
-                Scheme eligibility
+                Sector
+              </th>
+              <th scope="col" class="py-3 px-6 bg-gray-50 dark:bg-gray-800">
+                Disability
+              </th>
+              <th scope="col" class="py-3 px-6">
+                Salary
               </th>
             </tr>
           </thead>
           <tbody>
-            {createdSchemes.map((scheme) => {
+            {createdJobs.map((job) => {
               return (
                 <div>
                   <tr class="border-b border-gray-200 dark:border-gray-700">
@@ -60,4 +66,4 @@ function CreatedSchemes() {
   );
 }
 
-export default CreatedSchemes;
+export default CreatedJobs;
