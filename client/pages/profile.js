@@ -3,14 +3,13 @@ import UserProfile from '../components/Profiles/UserProfile';
 import AdminProfile from '../components/Profiles/AdminProfile';
 
 function Profile() {
-  const visitor = 'User';
-  if (visitor === 'User') {
+  if (localStorage.getItem('accessLevel') === 'user') {
     return (
       <div>
         <UserProfile />
       </div>
     );
-  } else if (visitor === 'Company') {
+  } else if (localStorage.getItem('accessLevel') === 'company') {
     return (
       <div>
         <CompanyProfile />
