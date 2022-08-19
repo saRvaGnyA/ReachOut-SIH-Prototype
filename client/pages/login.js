@@ -1,12 +1,22 @@
 import Router from 'next/router';
 import { Auth, Typography, Button } from '@supabase/ui';
+import { useRouter } from 'next/router';
 import { supabase } from '../utils/supabaseClient';
+import { useState } from 'react';
 
 const Home = (props) => {
   const { user } = Auth.useUser();
+  const router = useRouter();
+  const [type, setType] = useState(null);
   console.log(user);
   if (user) {
-    Router.push('/profile');
+    router.push(
+      {
+        pathname: '/profile',
+        query: { type },
+      },
+      'profile',
+    );
   }
   // return (
   //   <div className="lg:p-20 flex justify-center items-center my-10 lg:my-0">
@@ -32,6 +42,7 @@ const Home = (props) => {
             onChange={() => {
               console.log('user');
               localStorage.setItem('accessLevel', 'user');
+              setType('user');
             }}
           />
           <label
@@ -50,6 +61,7 @@ const Home = (props) => {
             onChange={() => {
               console.log('company');
               localStorage.setItem('accessLevel', 'company');
+              setType('company');
             }}
           />
           <label

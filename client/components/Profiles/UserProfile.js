@@ -1,21 +1,77 @@
 import { useState, useEffect } from 'react';
+import { Auth } from '@supabase/ui';
+import { supabase } from '../../utils/supabaseClient';
 
-function UserProfile() {
+function UserProfile({ user }) {
   const [edit, setEdit] = useState(false);
+  const [newUser, setNewUser] = useState(false);
+  const [firstName, setFirstName] = useState(''); //
+  const [lastName, setLastName] = useState(''); //
+  const [phone, setPhone] = useState(8888888888); //
+  const [disabilityType, setDisabilityType] = useState(''); //
+  const [severity, setSeverity] = useState(''); //
+  const [age, setAge] = useState(18);
+  const [aadhar, setAadhar] = useState(888888888888); //
+  const [disability, setDisability] = useState(''); //
+  const [location, setLocation] = useState(''); //
+  const [qualifications, setQualifications] = useState('');
 
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [email, setEmail] = useState('');
-  const [phone, setPhone] = useState(8888888888);
-  const [disability, setDisability] = useState('');
-  const [severity, setSeverity] = useState('');
-  const [aadhar, setAadhar] = useState(888888888888);
-  const [preference, setPreference] = useState('');
-  const [location, setLocation] = useState('');
+  const setupUser = async () => {
+    console.log(user.id);
+    const query = JSON.stringify({
+      query: `query MyQuery {
+  profile(where: {id: {_eq: "${user.id}"}}) {
+    id
+    aadhar
+    age
+    disability
+    disability_type
+    first_name
+    last_name
+    mobile
+    place
+    qualifications
+    severity
+  }
+}
+
+`,
+    });
+    const response = await fetch(
+      'https://reachout-sih.herokuapp.com/v1/graphql',
+      {
+        headers: {
+          'content-type': 'application/json',
+          'x-hasura-admin-secret': process.env.HASURA_ADMIN_SECRET,
+        },
+        method: 'POST',
+        body: query,
+      },
+    );
+
+    const responseJson = await response.json();
+    console.log(responseJson);
+    if (responseJson.data.profile.length !== 0) {
+      const u = responseJson.data.profile[0];
+      setFirstName(u.first_name);
+      setLastName(u.last_name);
+      setPhone(u.mobile);
+      setDisability(u.disability);
+      setSeverity(u.severity);
+      setAadhar(u.aadhar);
+      setLocation(u.place);
+      setDisabilityType(u.disability_type);
+      setQualifications(u.qualifications);
+    } else {
+      setNewUser(true);
+      setEdit(true);
+    }
+  };
 
   useEffect(() => {
     //fetch the data from database.
     //set the values of the state variables.
+    setupUser();
   }, []);
 
   function fileSelectedHandler(event) {
@@ -29,6 +85,49 @@ function UserProfile() {
     reader.readAsDataURL(file);
   }
 
+  const submitForm = async () => {
+    let query;
+    if (newUser) {
+      query = JSON.stringify({
+        query: `mutation MyMutation {
+        insert_profile(objects: {aadhar: "${aadhar}", age: "${age}", disability: "${disability}", disability_type: "${disabilityType}", first_name: "${firstName}", last_name: "${lastName}", mobile: "${phone}", place: "${location}", qualifications: "${qualifications}", severity: "${severity}", id: "${user.id}"}) {
+          returning {
+            id
+          }
+        }
+      }
+      `,
+      });
+      setNewUser(false);
+    } else {
+      query = JSON.stringify({
+        query: `mutation MyMutation {
+        update_profile(where: {id: {_eq: "${user.id}"}}, _set: {aadhar: "${aadhar}", age: "${age}", disability: "${disability}", disability_type: "${disabilityType}", first_name: "${firstName}", last_name: "${lastName}", mobile: "${phone}", place: "${location}", qualifications: "${qualifications}", severity: ${severity}}) {
+          returning {
+            id
+          }
+        }
+      }
+      `,
+      });
+    }
+
+    const response = await fetch(
+      'https://reachout-sih.herokuapp.com/v1/graphql',
+      {
+        headers: {
+          'content-type': 'application/json',
+          'x-hasura-admin-secret': process.env.HASURA_ADMIN_SECRET,
+        },
+        method: 'POST',
+        body: query,
+      },
+    );
+
+    const responseJson = await response.json();
+    console.log(responseJson);
+  };
+
   function formResponse(e) {
     e.preventDefault();
     if (edit) {
@@ -36,20 +135,28 @@ function UserProfile() {
       const obj = {
         firstName,
         lastName,
-        email,
         phone,
         disability,
         severity,
         aadhar,
-        preference,
+        disabilityType,
         location,
       };
       console.log(obj);
       //submit the changes made to the database.
+      submitForm();
     } else {
       setEdit(true);
     }
   }
+
+  // if (!user) {
+  //   return (
+  //     <div>
+  //       <h1>Loading...</h1>
+  //     </div>
+  //   );
+  // }
 
   return (
     <div>
@@ -86,9 +193,9 @@ function UserProfile() {
                     }}
                     disabled={!edit}
                     onFocus={() => {
-                      speak({
-                        text: 'Enter the first name',
-                      });
+                      // speak({
+                      //   text: 'Enter the first name',
+                      // });
                     }}
                     required
                   />
@@ -108,26 +215,6 @@ function UserProfile() {
                     value={lastName}
                     onChange={(e) => {
                       setLastName(e.target.value);
-                    }}
-                    disabled={!edit}
-                    required
-                  />
-                </div>
-                <div>
-                  <label
-                    for="email"
-                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                  >
-                    Email
-                  </label>
-                  <input
-                    type="email"
-                    id="email"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-zinc-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="harshadmehta@gmail.com"
-                    value={email}
-                    onChange={(e) => {
-                      setEmail(e.target.value);
                     }}
                     disabled={!edit}
                     required
@@ -159,14 +246,14 @@ function UserProfile() {
                     for="default"
                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400"
                   >
-                    Type of disability
+                    Disability Type
                   </label>
                   <select
                     id="default"
                     class="bg-gray-50 border border-gray-300 text-gray-900 mb-6 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    value={disability}
+                    value={disabilityType}
                     onChange={(e) => {
-                      setDisability(e.target.value);
+                      setDisabilityType(e.target.value);
                     }}
                     disabled={!edit}
                   >
@@ -177,6 +264,8 @@ function UserProfile() {
                     <option value="Intellectual">Intellectual</option>
                   </select>
                 </div>
+              </div>
+              <div class="grid gap-6 mb-6 md:grid-cols-2">
                 <div>
                   <label
                     for="severity"
@@ -192,6 +281,26 @@ function UserProfile() {
                     value={severity}
                     onChange={(e) => {
                       setSeverity(e.target.value);
+                    }}
+                    disabled={!edit}
+                    required
+                  />
+                </div>
+                <div>
+                  <label
+                    for="age"
+                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                  >
+                    Age
+                  </label>
+                  <input
+                    type="number"
+                    id="age"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-zinc-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    placeholder=""
+                    value={age}
+                    onChange={(e) => {
+                      setAge(e.target.value);
                     }}
                     disabled={!edit}
                     required
@@ -220,19 +329,19 @@ function UserProfile() {
               </div>
               <div class="mb-6">
                 <label
-                  for="job_preference"
+                  for="disability"
                   class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
                 >
-                  Job preference type
+                  Disability
                 </label>
                 <input
                   type="text"
-                  id="job_preference"
+                  id="disability"
                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-zinc-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  placeholder="Editor"
-                  value={preference}
+                  placeholder="Physical"
+                  value={disability}
                   onChange={(e) => {
-                    setPreference(e.target.value);
+                    setDisability(e.target.value);
                   }}
                   disabled={!edit}
                   required
@@ -254,6 +363,26 @@ function UserProfile() {
                   value={location}
                   onChange={(e) => {
                     setLocation(e.target.value);
+                  }}
+                  disabled={!edit}
+                  required
+                />
+              </div>
+              <div class="mb-6">
+                <label
+                  for="qualifications"
+                  class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                >
+                  Qualifications
+                </label>
+                <input
+                  type="text"
+                  id="qualifications"
+                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-zinc-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  placeholder="10th Pass"
+                  value={qualifications}
+                  onChange={(e) => {
+                    setQualifications(e.target.value);
                   }}
                   disabled={!edit}
                   required
@@ -366,4 +495,12 @@ function UserProfile() {
   );
 }
 
-export default UserProfile;
+export default function logi({ user }) {
+  return (
+    <Auth.UserContextProvider supabaseClient={supabase}>
+      <UserProfile supabaseClient={supabase} user={user}>
+        <Auth supabaseClient={supabase} />
+      </UserProfile>
+    </Auth.UserContextProvider>
+  );
+}
