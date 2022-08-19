@@ -1,7 +1,12 @@
 import React, { useEffect, useState } from 'react';
+import PopUpModalScheme from '../components/PopUpModals/PopUpModalScheme';
 
 function schemes() {
   const [isLoading, setIsLoading] = useState(true);
+  const [modal, setModal] = useState(false);
+  const [present, setPresent] = useState(true);
+  const [selected, setSelected] = useState({});
+
   const get_schemes = async () => {
     const query = JSON.stringify({
       query: `query MyQuery {
@@ -41,6 +46,51 @@ function schemes() {
   useEffect(() => {
     get_schemes();
   }, []);
+
+  function changePopUpState() {
+    setModal(!modal);
+  }
+
+  const get_details = async (scheme) => {
+    setSelected(scheme);
+    const query = JSON.stringify({
+      query: `
+      query MyQuery {
+        beneficiary(where: {profile_id: {_eq: "126427dc-ebc4-4362-8a53-27eb091ed536"}, scheme_id: {_eq: "${scheme.id}"}}) {
+          id
+          profile_id
+          scheme_id
+          status
+        }
+      }
+`,
+    });
+
+    const response = await fetch(
+      'https://reachout-sih.herokuapp.com/v1/graphql',
+      {
+        headers: {
+          'content-type': 'application/json',
+          'x-hasura-admin-secret': process.env.HASURA_ADMIN_SECRET,
+        },
+        method: 'POST',
+        body: query,
+      },
+    );
+
+    const responseJson = await response.json();
+    console.log(responseJson);
+    if (responseJson.data.beneficiary.length === 0) {
+      setPresent(false);
+    }
+    setIsLoading(false);
+    changePopUpState();
+  };
+
+  function openPopUp(scheme) {
+    get_details(scheme);
+  }
+
   return (
     <div>
       <div class="overflow-x-auto relative shadow-md sm:rounded-lg m-10">
@@ -78,12 +128,14 @@ function schemes() {
                   <td class="py-4 px-6">{scheme.type}</td>
                   <td class="py-4 px-6">{scheme.eligibility}</td>
                   <td class="py-4 px-6">
-                    <a
-                      href="#"
+                    <p
+                      onClick={() => {
+                        openPopUp(scheme);
+                      }}
                       class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
                     >
                       Apply
-                    </a>
+                    </p>
                   </td>
                 </tr>
               );
@@ -91,6 +143,13 @@ function schemes() {
           </tbody>
         </table>
       </div>
+      {modal && (
+        <PopUpModalScheme
+          selected={selected}
+          func={changePopUpState}
+          registered={present}
+        />
+      )}
     </div>
   );
 }

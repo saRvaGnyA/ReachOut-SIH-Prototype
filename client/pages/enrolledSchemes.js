@@ -1,9 +1,51 @@
 import { useState, useEffect } from 'react';
 
 function EnrolledSchemes() {
-  const [appliedSchemes, setAppliedSchemes] = useState([]);
+  const [enrolledSchemes, setEnrolledSchemes] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  const get_enrolledSchemes = async () => {
+    const query = JSON.stringify({
+      query: `
+      query MyQuery {
+        beneficiary(where: {profile_id: {_eq: "126427dc-ebc4-4362-8a53-27eb091ed536"}}) {
+          id
+          profile_id
+          scheme_id
+          status
+          scheme {
+            admin_id
+            description
+            eligibility
+            id
+            name
+            type
+          }
+        }
+      }      
+`,
+    });
+
+    const response = await fetch(
+      'https://reachout-sih.herokuapp.com/v1/graphql',
+      {
+        headers: {
+          'content-type': 'application/json',
+          'x-hasura-admin-secret': process.env.HASURA_ADMIN_SECRET,
+        },
+        method: 'POST',
+        body: query,
+      },
+    );
+
+    const responseJson = await response.json();
+    console.log(responseJson);
+    setEnrolledSchemes(responseJson.data.beneficiary);
+    setIsLoading(false);
+  };
   useEffect(() => {
     //Fetch the data for the user for the schemes he registered.
+    get_enrolledSchemes();
   }, []);
 
   return (
@@ -35,23 +77,21 @@ function EnrolledSchemes() {
             </tr>
           </thead>
           <tbody>
-            {appliedSchemes.map((scheme) => {
+            {enrolledSchemes.map((scheme) => {
               return (
-                <div>
-                  <tr class="border-b border-gray-200 dark:border-gray-700">
-                    <th
-                      scope="row"
-                      class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800"
-                    >
-                      Apple MacBook Pro 17"
-                    </th>
-                    <td class="py-4 px-6">Sliver</td>
-                    <td class="py-4 px-6 bg-gray-50 dark:bg-gray-800">
-                      Laptop
-                    </td>
-                    <td class="py-4 px-6">$2999</td>
-                  </tr>
-                </div>
+                <tr class="border-b border-gray-200 dark:border-gray-700">
+                  <th
+                    scope="row"
+                    class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800"
+                  >
+                    {scheme.scheme.name}
+                  </th>
+                  <td class="py-4 px-6">{scheme.scheme.description}</td>
+                  <td class="py-4 px-6 bg-gray-50 dark:bg-gray-800">
+                    {scheme.scheme.type}
+                  </td>
+                  <td class="py-4 px-6">{scheme.scheme.eligibility}</td>
+                </tr>
               );
             })}
           </tbody>
