@@ -4,33 +4,13 @@ function Body() {
   return (
     <div class="bg-zinc-600">
       <section class="text-gray-400 bg-gray-100 dark:bg-gray-900 body-font ">
-        <div class="container mx-auto flex px-5  md:flex-row flex-col items-center">
-          <div class="lg:flex-grow md:w-1/2 lg:pr-24 md:pr-16 flex flex-col md:items-start md:text-left mb-16 md:mb-0 items-center text-center">
-            <h1 class="title-font text-5xl mb-4 font-medium text-purple-400">
-              ReachOut
-              <br class="hidden lg:inline-block text-white" />
-            </h1>
-            <h2>Your one stop go!</h2>
-            <h2 class="mb-8 leading-relaxed">
-              ReachOut aims to be a one-stop Progressive Web App (PWA) that
-              provides details of various schemes by Govt. of India for
-              specially abled people. It also acts as a portal for employment
-              needs of the specially abled. It helps connect the government and
-              the companies with the disabled workforce while promoting a
-              positive environment for people wih special needs to interact. .
-            </h2>
-          </div>
-          <div class="lg:max-w-lg md:w-1/2 w-5/6  object-center relativerounded-full border-gray-300 outline-none bg-white overflow-hidden ">
-            <Image
-              src="/HomePageImg.jpeg"
-              width={600}
-              height={500}
-              className="object-cover object-center"
-              alt="FlowBite Logo"
-              objectFit="contain"
-            />
-          </div>
-        </div>
+        <img
+          src="https://mcmscache.epapr.in/post_images/website_350/post_24558985/full.jpg"
+          className="object-cover object-center"
+          width="100%"
+          alt="FlowBite Logo"
+          objectFit="contain"
+        />
       </section>
       <section class="bg-gray-100 text-zinc-900 dark:text-gray-400 dark:bg-gray-900 body-font">
         <div class="container px-5 py-44 mx-auto flex flex-wrap">
@@ -179,141 +159,139 @@ function Body() {
           </div>
         </div>
       </section>
-
-      <section class="text-gray-400 bg-gray-900 body-font">
+      <section class="text-zinc-900 bg-gray-100 dark:text-gray-400 dark:bg-gray-900 body-font">
         <div class="container px-5  mx-auto">
           <div class="flex flex-col text-center w-full mb-20">
-            <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-white">
+            <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 dark:text-white text-zinc-900">
               Features of ReachOut
             </h1>
             <p class="lg:w-2/3 mx-auto leading-relaxed text-base">
-              After logged in user can avail various governmetn schemes , apply
+              After logged in user can avail various government schemes , apply
               to to job's available.
             </p>
           </div>
-          <div class="flex flex-wrap -m-4">
-            <div class="lg:w-1/3 sm:w-1/2 p-4">
-              <div class="flex relative">
+          <div class="flex flex-wrap">
+            <div class="max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 m-10">
+              <div>
                 <img
-                  alt="gallery"
-                  class="absolute inset-0 w-full h-full object-cover object-center"
+                  class="rounded-t-lg"
                   src="https://tse3.mm.bing.net/th?id=OIP.10RJysmf12hywtib0y57FgHaHa&pid=Api&P=0"
+                  alt=""
                 />
-                <div class="px-8 py-10 relative z-10 w-full border-4 border-gray-800 bg-gray-900 opacity-0 hover:opacity-100">
-                  <h1 class="tracking-widest title-font text-lg text-indigo-400 mb-1">
-                    Job Oppertunities
-                  </h1>
-                  <h1 class="title-font text-lg font-medium text-white mb-3">
+              </div>
+              <div class="p-5">
+                <a href="#">
+                  <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
                     Get your Dream Job
-                  </h1>
-                  <p class="leading-relaxed">
-                    Register yourself for the perfect job oppertunities waiting
-                    just for you!.
-                  </p>
-                </div>
+                  </h5>
+                </a>
+                <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
+                  Register yourself for the perfect job oppertunities waiting
+                  just for you!.
+                </p>
               </div>
             </div>
-            <div class="lg:w-1/3 sm:w-1/2 p-4">
-              <div class="flex relative">
+            <div class="max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 m-10">
+              <div>
                 <img
-                  alt="gallery"
-                  class="absolute inset-0 w-full h-full object-cover object-center object-fit"
-                  src="https://tse4.mm.bing.net/th?id=OIP.vq-1vqXhrRfBER8aP6Am4AHaD3&pid=Api&P=0"
+                  class="rounded-t-lg"
+                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTbtgQEv2gCHbyF4m-E2-5TDd-T2gucPpCHLB16TmthOY9vIMCVqZfA-Buf5ZWEuNQ8aQY&usqp=CAU"
+                  width="100%"
+                  alt=""
                 />
-                <div class="px-8 py-10 relative z-10 w-full border-4 border-gray-800 bg-gray-900 opacity-0 hover:opacity-100">
-                  <h1 class="tracking-widest text-lg title-font font-medium text-indigo-400 mb-1">
-                    Government Schemes
-                  </h1>
-                  <h1 class="title-font text-lg font-medium text-white mb-3">
-                    Get aware of your rights!
-                  </h1>
-                  <p class="leading-relaxed">
-                    Benefit yourself from all the government schemes available
-                    for you.
-                  </p>
-                </div>
+              </div>
+              <div class="p-5">
+                <a href="#">
+                  <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                    Get Opportunities
+                  </h5>
+                </a>
+                <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
+                  Get access to various opportunities which are hard to find
+                  anywhere.
+                </p>
               </div>
             </div>
-            <div class="lg:w-1/3 sm:w-1/2 p-4">
-              <div class="flex relative">
+
+            <div class="max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 m-10">
+              <div>
                 <img
-                  alt="gallery"
-                  class="absolute inset-0 w-full h-full object-cover object-center"
+                  class="rounded-t-lg"
                   src="https://tse4.mm.bing.net/th?id=OIP.6vCfZ95RrqqMQdnLwJWDJAHaE7&pid=Api&P=0"
+                  alt=""
                 />
-                <div class="px-8 py-10 relative z-10 w-full border-4 border-gray-800 bg-gray-900 opacity-0 hover:opacity-100">
-                  <h1 class="tracking-widest text-lg title-font font-medium text-indigo-400 mb-1">
+              </div>
+              <div class="p-5">
+                <a href="#">
+                  <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
                     Nearest Job
-                  </h1>
-                  <h1 class="title-font text-lg font-medium text-white mb-3">
-                    Find out the nearest job available
-                  </h1>
-                  <p class="leading-relaxed">
-                    find out the nearby job oppertunities available from your
-                    location.
-                  </p>
-                </div>
+                  </h5>
+                </a>
+                <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
+                  Find out the nearby job oppertunities available from your
+                  location.
+                </p>
               </div>
             </div>
-            <div class="lg:w-1/3 sm:w-1/2 p-4">
-              <div class="flex relative">
+            <div class="max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 m-10">
+              <div>
                 <img
-                  alt="gallery"
-                  class="absolute inset-0 w-full h-full object-cover object-center"
+                  class="rounded-t-lg"
                   src="https://tse1.mm.bing.net/th?id=OIP.x6cFBl7B2EyHH4wge5V7qgHaDt&pid=Api&P=0"
+                  alt=""
                 />
-                <div class="px-8 py-10 relative z-10 w-full border-4 border-gray-800 bg-gray-900 opacity-0 hover:opacity-100">
-                  <h2 class="tracking-widest text-lg title-font font-medium text-indigo-400 mb-1">
+              </div>
+              <div class="p-5">
+                <a href="#">
+                  <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
                     Put up Job offer
-                  </h2>
-                  <h1 class="title-font text-lg font-medium text-white mb-3">
-                    Get perfect candidates
-                  </h1>
-                  <p class="leading-relaxed">
-                    Companies can put up job offers and look for hiring new
-                    recruiters.
-                  </p>
-                </div>
+                  </h5>
+                </a>
+                <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
+                  Companies can put up job offers and look for hiring new
+                  recruiters.
+                </p>
               </div>
             </div>
-            <div class="lg:w-1/3 sm:w-1/2 p-4">
-              <div class="flex relative">
+
+            <div class="max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 m-10">
+              <div>
                 <img
-                  alt="gallery"
-                  class="absolute inset-0 w-full h-full object-cover object-center"
+                  class="rounded-t-lg"
                   src="https://tse3.mm.bing.net/th?id=OIP.jssGgKh1PInTDNjuSB-A_AHaEc&pid=Api&P=0"
+                  alt=""
                 />
-                <div class="px-8 py-10 relative z-10 w-full border-4 border-gray-800 bg-gray-900 opacity-0 hover:opacity-100">
-                  <h2 class="tracking-widest text-lg title-font font-medium text-indigo-400 mb-1">
+              </div>
+              <div class="p-5">
+                <a href="#">
+                  <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
                     Add New Schemes
-                  </h2>
-                  <h1 class="title-font text-lg font-medium text-white mb-3"></h1>
-                  <p class="leading-relaxed">
-                    Government ministries can add new schemes for the disabled
-                    people.
-                  </p>
-                </div>
+                  </h5>
+                </a>
+                <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
+                  Government ministries can add new schemes for the disabled
+                  people.
+                </p>
               </div>
             </div>
-            <div class="lg:w-1/3 sm:w-1/2 p-4">
-              <div class="flex relative">
+            <div class="max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 m-10">
+              <div>
                 <img
-                  alt="gallery"
-                  class="absolute inset-0 w-full h-full object-cover object-center"
-                  src="https://dummyimage.com/606x366"
+                  class="rounded-t-lg"
+                  src="https://tse4.mm.bing.net/th?id=OIP.vq-1vqXhrRfBER8aP6Am4AHaD3&pid=Api&P=0"
+                  alt=""
                 />
-                <div class="px-8 py-10 relative z-10 w-full border-4 border-gray-800 bg-gray-900 opacity-0 hover:opacity-100">
-                  <h2 class="tracking-widest text-sm title-font font-medium text-indigo-400 mb-1">
-                    THE SUBTITLE
-                  </h2>
-                  <h1 class="title-font text-lg font-medium text-white mb-3">
-                    Alper Kamu
-                  </h1>
-                  <p class="leading-relaxed">
-                    Photo booth fam kinfolk cold-pressed sriracha leggings
-                    jianbing microdosing tousled waistcoat.
-                  </p>
-                </div>
+              </div>
+              <div class="p-5">
+                <a href="#">
+                  <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                    Government Schemes
+                  </h5>
+                </a>
+                <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
+                  Benefit yourself from all the government schemes available for
+                  you.
+                </p>
               </div>
             </div>
           </div>
