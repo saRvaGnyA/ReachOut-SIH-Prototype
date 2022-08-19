@@ -10,27 +10,10 @@ function jobsPage() {
   const [present, setPresent] = useState(true);
   const [selected, setSelected] = useState({});
 
-  const get_jobs = async () => {
-    const company_id = '';
+  const get_jobs = async (ans) => {
+    console.log(ans);
     const query = JSON.stringify({
-      query: `
-      query MyQuery {
-        job {
-          company_id
-          description
-          disability
-          id
-          location
-          position
-          qualification
-          salary
-          sector
-          company {
-            name
-          }
-        }
-      }
-`,
+      query: ans,
     });
 
     const response = await fetch(
@@ -54,7 +37,25 @@ function jobsPage() {
   useEffect(() => {
     // Fetch Jobs offered by the companies from the database.
     // set the state variables
-    get_jobs();
+    let ans = `
+      query MyQuery {
+        job {
+          company_id
+          description
+          disability
+          id
+          location
+          position
+          qualification
+          salary
+          sector
+          company {
+            name
+          }
+        }
+      }
+`;
+    get_jobs(ans);
   }, []);
 
   function changePopUpState() {
@@ -109,19 +110,89 @@ function jobsPage() {
   function filteration_02(e) {
     if (category === 'All') {
       // Fetch all the records from the database and set the react variable setJob
-      get_jobs();
+      let ans = `
+      query MyQuery {
+        job {
+          company_id
+          description
+          disability
+          id
+          location
+          position
+          qualification
+          salary
+          sector
+          company {
+            name
+          }
+        }
+      }
+`;
+      get_jobs(ans);
     } else if (e.target.value === '') {
       // Fetch all the records from the database and set the react variable setJob
-      get_jobs();
+      let ans = `
+      query MyQuery {
+        job {
+          company_id
+          description
+          disability
+          id
+          location
+          position
+          qualification
+          salary
+          sector
+          company {
+            name
+          }
+        }
+      }
+`;
+      get_jobs(ans);
     } else {
       //Fetch Based of the condition
-      setJobs(
-        jobs.filter((job) => {
-          if (item.includes(e.target.value.toLowerCase())) {
-            return item;
+      let ans = ``;
+      if (category === 'company') {
+        ans = `query MyQuery {
+          job(where: {${category}: {name: {_ilike: "${
+          '%' + e.target.value + '%'
+        }"}}}) {
+            company_id
+            description
+            disability
+            id
+            location
+            position
+            qualification
+            salary
+            sector
+            company {
+              name
+              id
+            }
           }
-        }),
-      );
+        }`;
+      } else {
+        ans = `query MyQuery {
+          job(where: {${category}: {_ilike: "${'%' + e.target.value + '%'}"}}) {
+            company_id
+            description
+            disability
+            id
+            location
+            position
+            qualification
+            salary
+            sector
+            company {
+              name
+              id
+            }
+          }
+        }`;
+      }
+      get_jobs(ans);
     }
   }
 
@@ -141,8 +212,8 @@ function jobsPage() {
             }}
           >
             <option selected>All</option>
-            <option value="email">Company</option>
-            <option value="jobPosition">Job Position</option>
+            <option value="company">Company</option>
+            <option value="position">Job Position</option>
             <option value="disability">Disability</option>
             <option value="location">Location</option>
           </select>
