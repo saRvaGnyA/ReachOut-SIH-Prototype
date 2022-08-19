@@ -1,10 +1,14 @@
 import { useState, useEffect } from 'react';
+import PopUpModal from '../components/PopUpModal';
 
 function jobsPage() {
   const [jobs, setJobs] = useState([]);
   const [category, setCategory] = useState('All');
   const [isLoading, setIsLoading] = useState(true);
   const [search, setSearch] = useState('');
+  const [modal, setModal] = useState(false);
+  const [present, setPresent] = useState(true);
+  const [selected, setSelected] = useState({});
 
   const get_jobs = async () => {
     const company_id = '';
@@ -53,6 +57,51 @@ function jobsPage() {
     get_jobs();
   }, []);
 
+  function changePopUpState() {
+    setModal(!modal);
+  }
+
+  const get_details = async (job) => {
+    setSelected(job);
+    const query = JSON.stringify({
+      query: `
+      query MyQuery {
+        application(where: {job_id: {_eq: "${job.id}"}, _and: {profile_id: {_eq: "126427dc-ebc4-4362-8a53-27eb091ed536"}}}) {
+          id
+          job_id
+          profile_id
+          job {
+            description
+            company {
+              name
+            }
+          }
+        }
+      }
+`,
+    });
+
+    const response = await fetch(
+      'https://reachout-sih.herokuapp.com/v1/graphql',
+      {
+        headers: {
+          'content-type': 'application/json',
+          'x-hasura-admin-secret': process.env.HASURA_ADMIN_SECRET,
+        },
+        method: 'POST',
+        body: query,
+      },
+    );
+
+    const responseJson = await response.json();
+    console.log(responseJson);
+    if (responseJson.data.application.length === 0) {
+      setPresent(false);
+    }
+    setIsLoading(false);
+    changePopUpState();
+  };
+
   function filteration_01(e) {
     console.log(e.target.value);
     setCategory(e.target.value);
@@ -74,6 +123,10 @@ function jobsPage() {
         }),
       );
     }
+  }
+
+  function openPopUp(job) {
+    get_details(job);
   }
 
   return (
@@ -190,12 +243,14 @@ function jobsPage() {
                     <td class="py-4 px-6">{job.disability}</td>
                     <td class="py-4 px-6">{job.location}</td>
                     <td class="py-4 px-6">
-                      <a
-                        href="#"
+                      <p
+                        onClick={() => {
+                          openPopUp(job);
+                        }}
                         class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
                       >
                         Apply
-                      </a>
+                      </p>
                     </td>
                   </tr>
                 );
@@ -204,6 +259,13 @@ function jobsPage() {
           </table>
         </div>
       </div>
+      {modal && (
+        <PopUpModal
+          selected={selected}
+          func={changePopUpState}
+          registered={present}
+        />
+      )}
     </div>
   );
 }
