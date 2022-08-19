@@ -1,19 +1,9 @@
 import { useState, useEffect } from 'react';
 
 function jobsPage() {
-  const arr = [
-    'aarya',
-    'aaryan',
-    'aarvin',
-    'bharud',
-    'bhavik',
-    'bhoswaal',
-    'chatar',
-    'chhatta',
-    'chhoooot',
-  ];
   const [jobs, setJobs] = useState([]);
   const [category, setCategory] = useState('All');
+  const [isLoading, setIsLoading] = useState(true);
   const [search, setSearch] = useState('');
 
   const get_jobs = async () => {
@@ -31,6 +21,9 @@ function jobsPage() {
           qualification
           salary
           sector
+          company {
+            name
+          }
         }
       }
 `,
@@ -50,7 +43,7 @@ function jobsPage() {
 
     const responseJson = await response.json();
     console.log(responseJson);
-    setJobs(responseJson.data.scheme);
+    setJobs(responseJson.data.job);
     setIsLoading(false);
   };
 
@@ -151,7 +144,7 @@ function jobsPage() {
             <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
               <tr>
                 <th scope="col" class="py-3 px-6">
-                  Company email
+                  Company
                 </th>
                 <th scope="col" class="py-3 px-6">
                   Job position
@@ -174,6 +167,9 @@ function jobsPage() {
                 <th scope="col" class="py-3 px-6">
                   Location
                 </th>
+                <th scope="col" class="py-3 px-6">
+                  Status
+                </th>
               </tr>
             </thead>
             <tbody>
@@ -184,15 +180,23 @@ function jobsPage() {
                       scope="row"
                       class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                     >
-                      {job}
+                      {job.company.name}
                     </th>
-                    <td class="py-4 px-6">Silver</td>
-                    <td class="py-4 px-6">Laptop</td>
-                    <td class="py-4 px-6">$2999</td>
-                    <td class="py-4 px-6">$2999</td>
-                    <td class="py-4 px-6">$2999</td>
-                    <td class="py-4 px-6">$2999</td>
-                    <td class="py-4 px-6">$2999</td>
+                    <td class="py-4 px-6">{job.position}</td>
+                    <td class="py-4 px-6">{job.salary}</td>
+                    <td class="py-4 px-6">{job.description}</td>
+                    <td class="py-4 px-6">{job.qualification}</td>
+                    <td class="py-4 px-6">{job.sector}</td>
+                    <td class="py-4 px-6">{job.disability}</td>
+                    <td class="py-4 px-6">{job.location}</td>
+                    <td class="py-4 px-6">
+                      <a
+                        href="#"
+                        class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                      >
+                        Apply
+                      </a>
+                    </td>
                   </tr>
                 );
               })}

@@ -11,10 +11,9 @@ function createJob() {
   const [location, setLocation] = useState('');
 
   const insert_job = async () => {
-    const company_id = '';
     const query = JSON.stringify({
       query: `mutation MyMutation {
-        insert_job(objects: {company_id: "${company_id}", description: "${description}", disability: "${disability}", location: "${location}", position: "${jobPosition}", qualification: "${qualification}", salary: "${salary}", sector: "${sector}"}){
+        insert_job(objects: {company_id: "1008fe2a-6a5c-425c-9db1-6711417f9959", description: "${description}", disability: "${disability}", location: "${location}", position: "${jobPosition}", qualification: "${qualification}", salary: "${salary}", sector: "${sector}"}){
           returning {
             company_id
           }
