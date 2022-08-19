@@ -2,8 +2,48 @@ import { useState, useEffect } from 'react';
 
 function CreatedJobs() {
   const [createdJobs, setCreatedJobs] = useState([]);
+
+  const get_jobs = async () => {
+    const company_id = '';
+    const query = JSON.stringify({
+      query: `
+      query MyQuery {
+        job(where: {company_id: {_eq: "${company_id}"}}) {
+          description
+          disability
+          id
+          location
+          position
+          qualification
+          salary
+          sector
+          company_id
+        }
+      } 
+`,
+    });
+
+    const response = await fetch(
+      'https://reachout-sih.herokuapp.com/v1/graphql',
+      {
+        headers: {
+          'content-type': 'application/json',
+          'x-hasura-admin-secret': process.env.HASURA_ADMIN_SECRET,
+        },
+        method: 'POST',
+        body: query,
+      },
+    );
+
+    const responseJson = await response.json();
+    console.log(responseJson);
+    setCreatedJobs(responseJson.data.scheme);
+    setIsLoading(false);
+  };
+
   useEffect(() => {
     //Fetch the data for the company for the jobs they have created .
+    get_jobs();
   }, []);
 
   return (

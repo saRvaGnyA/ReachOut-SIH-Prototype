@@ -15,10 +15,49 @@ function jobsPage() {
   const [jobs, setJobs] = useState([]);
   const [category, setCategory] = useState('All');
   const [search, setSearch] = useState('');
+
+  const get_jobs = async () => {
+    const company_id = '';
+    const query = JSON.stringify({
+      query: `
+      query MyQuery {
+        job {
+          company_id
+          description
+          disability
+          id
+          location
+          position
+          qualification
+          salary
+          sector
+        }
+      }
+`,
+    });
+
+    const response = await fetch(
+      'https://reachout-sih.herokuapp.com/v1/graphql',
+      {
+        headers: {
+          'content-type': 'application/json',
+          'x-hasura-admin-secret': process.env.HASURA_ADMIN_SECRET,
+        },
+        method: 'POST',
+        body: query,
+      },
+    );
+
+    const responseJson = await response.json();
+    console.log(responseJson);
+    setJobs(responseJson.data.scheme);
+    setIsLoading(false);
+  };
+
   useEffect(() => {
     // Fetch Jobs offered by the companies from the database.
     // set the state variables
-    setJobs(arr);
+    get_jobs();
   }, []);
 
   function filteration_01(e) {
@@ -28,21 +67,20 @@ function jobsPage() {
   function filteration_02(e) {
     if (category === 'All') {
       // Fetch all the records from the database and set the react variable setJob
-      setJobs(arr);
+      get_jobs();
     } else if (e.target.value === '') {
       // Fetch all the records from the database and set the react variable setJob
-      setJobs(arr);
+      get_jobs();
     } else {
       //Fetch Based of the condition
       setJobs(
-        arr.filter((item) => {
+        jobs.filter((job) => {
           if (item.includes(e.target.value.toLowerCase())) {
             return item;
           }
         }),
       );
     }
-    console.log(jobs);
   }
 
   return (
@@ -122,7 +160,7 @@ function jobsPage() {
                   Salary
                 </th>
                 <th scope="col" class="py-3 px-6">
-                  description 
+                  description
                 </th>
                 <th scope="col" class="py-3 px-6">
                   Qualification

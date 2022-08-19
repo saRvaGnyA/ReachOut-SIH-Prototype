@@ -2,7 +2,6 @@ import { useState } from 'react';
 import Image from 'next/image';
 
 function createJob() {
-  const [email, setEmail] = useState('');
   const [jobPosition, setJobPosition] = useState('');
   const [salary, setSalary] = useState('');
   const [description, setDescription] = useState('');
@@ -11,20 +10,39 @@ function createJob() {
   const [disability, setDisability] = useState('');
   const [location, setLocation] = useState('');
 
+  const insert_job = async () => {
+    const company_id = '';
+    const query = JSON.stringify({
+      query: `mutation MyMutation {
+        insert_job(objects: {company_id: "${company_id}", description: "${description}", disability: "${disability}", location: "${location}", position: "${jobPosition}", qualification: "${qualification}", salary: "${salary}", sector: "${sector}"}){
+          returning {
+            company_id
+          }
+        }
+      }
+      `,
+    });
+
+    const response = await fetch(
+      'https://reachout-sih.herokuapp.com/v1/graphql',
+      {
+        headers: {
+          'content-type': 'application/json',
+          'x-hasura-admin-secret': process.env.HASURA_ADMIN_SECRET,
+        },
+        method: 'POST',
+        body: query,
+      },
+    );
+
+    const responseJson = await response.json();
+    console.log(responseJson);
+  };
+
   function createJobFunc(e) {
     e.preventDefault();
-    const obj = {
-      email,
-      jobPosition,
-      salary,
-      description,
-      qualification,
-      sector,
-      disability,
-      location,
-    };
-    console.log(obj);
     // Add this job into the Database---
+    insert_job();
   }
 
   return (
@@ -40,26 +58,6 @@ function createJob() {
                 ( The jobs you create will be shown to all the users registered
                 on the Reachout's server )
               </p>
-              <div className="relative z-0 mb-6 w-full group">
-                <input
-                  type="email"
-                  name="company_email"
-                  id="company_email"
-                  className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                  placeholder=""
-                  value={email}
-                  onChange={(e) => {
-                    setEmail(e.target.value);
-                  }}
-                  required
-                />
-                <label
-                  for="company_email"
-                  className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                >
-                  Company email
-                </label>
-              </div>
               <div className="relative z-0 mb-6 w-full group">
                 <input
                   type="text"
@@ -118,7 +116,7 @@ function createJob() {
                     for="job_type"
                     className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
                   >
-                    Type of job offered by the company
+                    Description of job offered by the company
                   </label>
                 </div>
                 <div className="relative z-0 mb-6 w-full group">

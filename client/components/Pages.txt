@@ -1,8 +1,0 @@
-1) Body
-2) Contact
-3) Profile :   1) User
-               2) Company
-
-4) Government Schemes
-5) Company creating job-createJob
-6) Available jobs Page
