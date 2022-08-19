@@ -2,10 +2,7 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 
 function Schemes() {
-  const [modal, setModal] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-  const [schemes, setSchemes] = useState([]);
-
   const get_schemes = async () => {
     const query = JSON.stringify({
       query: `query MyQuery {
@@ -41,63 +38,53 @@ function Schemes() {
     setIsLoading(false);
   };
 
+  const [schemes, setSchemes] = useState([]);
   useEffect(() => {
-    //Fetch the schemes from the database and set the state variable.
     get_schemes();
   }, []);
-
-  if (isLoading) {
-    return <h1 className="text-3xl text-center p-3">Loading...</h1>;
-  }
-
   return (
     <div>
-      {/* <h1 className="text-3xl text-center p-3">Scheme provided by government</h1> */}
-      <div className="overflow-x-auto relative shadow-md sm:rounded-lg m-5">
-        <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-          <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+      <div class="overflow-x-auto relative shadow-md sm:rounded-lg m-10">
+        <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+          <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
-              <th scope="col" className="py-3 px-6">
-                Scheme Name
+              <th scope="col" class="py-3 px-6">
+                Scheme name
               </th>
-              <th scope="col" className="py-3 px-6">
-                Ministry
+              <th scope="col" class="py-3 px-6">
+                Description
               </th>
-              <th scope="col" className="py-3 px-6">
-                Scheme Type
+              <th scope="col" class="py-3 px-6">
+                Type of Scheme
               </th>
-              <th scope="col" className="py-3 px-6">
-                Eligibility Criteria
+              <th scope="col" class="py-3 px-6">
+                Eligibility
               </th>
-              <th scope="col" className="py-3 px-6">
-                <span className="sr-only">Apply</span>
+              <th scope="col" class="py-3 px-6">
+                Action
               </th>
             </tr>
           </thead>
           <tbody>
             {schemes.map((scheme) => {
               return (
-                <tr
-                  className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
-                  key={scheme.id}
-                >
+                <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
                   <th
                     scope="row"
-                    className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                    class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                   >
                     {scheme.name}
                   </th>
-                  <td className="py-4 px-6">{scheme.admin.name}</td>
-                  <td className="py-4 px-6">{scheme.type}</td>
-                  <td className="py-4 px-6">{scheme.eligibility}</td>
-                  <td className="py-4 px-6 text-right">
-                    <button
-                      class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                      type="button"
-                      data-modal-toggle="popup-modal"
+                  <td class="py-4 px-6">{scheme.description}</td>
+                  <td class="py-4 px-6">{scheme.type}</td>
+                  <td class="py-4 px-6">{scheme.eligibility}</td>
+                  <td class="py-4 px-6">
+                    <a
+                      href="#"
+                      class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
                     >
-                      Apply
-                    </button>
+                      Edit
+                    </a>
                   </td>
                 </tr>
               );
