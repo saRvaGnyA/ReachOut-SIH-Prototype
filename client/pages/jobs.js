@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import PopUpModal from '../components/PopUpModal';
+import PopUpModalJobs from '../components/PopUpModals/PopUpModalJobs';
 
 function jobsPage() {
   const [jobs, setJobs] = useState([]);
@@ -331,7 +331,7 @@ function jobsPage() {
         </div>
       </div>
       {modal && (
-        <PopUpModal
+        <PopUpModalJobs
           selected={selected}
           func={changePopUpState}
           registered={present}

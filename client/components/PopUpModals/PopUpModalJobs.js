@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-function PopUpModal(props) {
+function PopUpModalJobs(props) {
   console.log(props.selected);
 
   const apply_for_job = async () => {
@@ -96,4 +96,4 @@ function PopUpModal(props) {
   }
 }
 
-export default PopUpModal;
+export default PopUpModalJobs;
