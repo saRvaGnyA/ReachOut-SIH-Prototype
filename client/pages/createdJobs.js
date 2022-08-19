@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 
 function CreatedJobs() {
-  const [isLoadind, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
   const [createdJobs, setCreatedJobs] = useState([]);
 
   const get_jobs = async () => {
