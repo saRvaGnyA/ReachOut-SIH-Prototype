@@ -1,14 +1,14 @@
 import { useState, useEffect } from 'react';
 
 function CreatedJobs() {
+  const [isLoadind, setIsLoading] = useState(true);
   const [createdJobs, setCreatedJobs] = useState([]);
 
   const get_jobs = async () => {
-    const company_id = '';
     const query = JSON.stringify({
       query: `
       query MyQuery {
-        job(where: {company_id: {_eq: "${company_id}"}}) {
+        job(where: {company_id: {_eq: "1008fe2a-6a5c-425c-9db1-6711417f9959"}}) {
           description
           disability
           id
@@ -37,7 +37,7 @@ function CreatedJobs() {
 
     const responseJson = await response.json();
     console.log(responseJson);
-    setCreatedJobs(responseJson.data.scheme);
+    setCreatedJobs(responseJson.data.job);
     setIsLoading(false);
   };
 
@@ -72,9 +72,12 @@ function CreatedJobs() {
                 Sector
               </th>
               <th scope="col" class="py-3 px-6 bg-gray-50 dark:bg-gray-800">
+                qualification
+              </th>
+              <th scope="col" class="py-3 px-6 ">
                 Disability
               </th>
-              <th scope="col" class="py-3 px-6">
+              <th scope="col" class="py-3 px-6 bg-gray-50 dark:bg-gray-800">
                 Salary
               </th>
             </tr>
@@ -82,21 +85,26 @@ function CreatedJobs() {
           <tbody>
             {createdJobs.map((job) => {
               return (
-                <div>
-                  <tr class="border-b border-gray-200 dark:border-gray-700">
-                    <th
-                      scope="row"
-                      class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800"
-                    >
-                      Apple MacBook Pro 17"
-                    </th>
-                    <td class="py-4 px-6">Sliver</td>
-                    <td class="py-4 px-6 bg-gray-50 dark:bg-gray-800">
-                      Laptop
-                    </td>
-                    <td class="py-4 px-6">$2999</td>
-                  </tr>
-                </div>
+                <tr class="border-b border-gray-200 dark:border-gray-700">
+                  <th
+                    scope="row"
+                    class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800"
+                  >
+                    {job.position}
+                  </th>
+                  <td class="py-4 px-6">{job.description}</td>
+                  <td class="py-4 px-6 bg-gray-50 dark:bg-gray-800">
+                    {job.location}
+                  </td>
+                  <td class="py-4 px-6">{job.sector}</td>
+                  <td class="py-4 px-6 bg-gray-50 dark:bg-gray-800">
+                    {job.qualification}
+                  </td>
+                  <td class="py-4 px-6">{job.disability}</td>
+                  <td class="py-4 px-6 bg-gray-50 dark:bg-gray-800">
+                    {job.salary}
+                  </td>
+                </tr>
               );
             })}
           </tbody>
