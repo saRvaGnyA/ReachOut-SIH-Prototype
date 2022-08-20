@@ -1,16 +1,14 @@
 import { useState, useEffect } from 'react';
-import AcceptedSchemes from './acceptedSchemes';
-import RejectedSchemes from './rejectedSchemes';
 
-function EnrolledSchemes() {
-  const [enrolledSchemes, setEnrolledSchemes] = useState([]);
+function RejectedSchemes() {
+  const [rejectedSchemes, setRejectedSchemes] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  const get_enrolledSchemes = async () => {
+  const get_rejectedSchemes = async () => {
     const query = JSON.stringify({
       query: `
       query MyQuery {
-        beneficiary(where: {status: {_eq: 0}}) {
+        beneficiary(where: {status: {_eq: 2}}) {
           id
           profile_id
           scheme_id
@@ -22,6 +20,7 @@ function EnrolledSchemes() {
             name
             type
           }
+          justification
         }
       }            
 `,
@@ -41,12 +40,12 @@ function EnrolledSchemes() {
 
     const responseJson = await response.json();
     console.log(responseJson);
-    setEnrolledSchemes(responseJson.data.beneficiary);
+    setRejectedSchemes(responseJson.data.beneficiary);
     setIsLoading(false);
   };
   useEffect(() => {
     //Fetch the data for the user for the schemes he registered.
-    get_enrolledSchemes();
+    get_rejectedSchemes();
   }, []);
 
   return (
@@ -54,7 +53,7 @@ function EnrolledSchemes() {
       <div className="overflow-x-auto relative shadow-md sm:rounded-lg my-10 mx-10">
         <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
           <caption className="p-5 text-lg font-semibold text-left text-gray-900 bg-white dark:text-white dark:bg-gray-800">
-            Pending Schemes
+            Rejected Schemes
             <p className="mt-1 text-sm font-normal text-gray-500 dark:text-gray-400">
               The below are the list of schemes you have applied. You might have
               got the response of these applications on your email. So please
@@ -75,10 +74,13 @@ function EnrolledSchemes() {
               <th scope="col" className="py-3 px-6">
                 Scheme eligibility
               </th>
+              <th scope="col" className="py-3 px-6">
+                Justification
+              </th>
             </tr>
           </thead>
           <tbody>
-            {enrolledSchemes.map((scheme) => {
+            {rejectedSchemes.map((scheme) => {
               return (
                 <tr className="border-b border-gray-200 dark:border-gray-700">
                   <th
@@ -98,10 +100,8 @@ function EnrolledSchemes() {
           </tbody>
         </table>
       </div>
-      <AcceptedSchemes />
-      <RejectedSchemes />
     </div>
   );
 }
 
-export default EnrolledSchemes;
+export default RejectedSchemes;
