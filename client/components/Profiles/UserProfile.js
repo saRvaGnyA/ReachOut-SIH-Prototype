@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Auth } from '@supabase/ui';
 import { supabase } from '../../utils/supabaseClient';
+import { useSpeechSynthesis } from 'react-speech-kit';
 
 function UserProfile({ user }) {
   const [edit, setEdit] = useState(false);
@@ -150,13 +151,12 @@ function UserProfile({ user }) {
     }
   }
 
-  // if (!user) {
-  //   return (
-  //     <div>
-  //       <h1>Loading...</h1>
-  //     </div>
-  //   );
-  // }
+  //Speech recognition part.
+  const [speech, setSpeech] = useState(true);
+  const [value, setValue] = useState(
+    "Reach out works for the  society's development",
+  );
+  const { speak } = useSpeechSynthesis();
 
   return (
     <div>
@@ -193,9 +193,7 @@ function UserProfile({ user }) {
                     }}
                     disabled={!edit}
                     onFocus={() => {
-                      // speak({
-                      //   text: 'Enter the first name',
-                      // });
+                      speech && speak({ text: 'Enter your first name' });
                     }}
                     required
                   />
@@ -217,6 +215,9 @@ function UserProfile({ user }) {
                       setLastName(e.target.value);
                     }}
                     disabled={!edit}
+                    onFocus={() => {
+                      speech && speak({ text: 'Enter your last name' });
+                    }}
                     required
                   />
                 </div>
@@ -238,6 +239,9 @@ function UserProfile({ user }) {
                       setPhone(e.target.value);
                     }}
                     disabled={!edit}
+                    onFocus={() => {
+                      speech && speak({ text: 'Enter your phone number' });
+                    }}
                     required
                   />
                 </div>
@@ -256,6 +260,12 @@ function UserProfile({ user }) {
                       setDisabilityType(e.target.value);
                     }}
                     disabled={!edit}
+                    onFocus={() => {
+                      speech &&
+                        speak({
+                          text: 'Select your disability type. Press enter and use down arrow key for selection and then press enter',
+                        });
+                    }}
                   >
                     <option selected>Choose appropriate option</option>
                     <option value="Physical">Physical</option>
@@ -283,6 +293,12 @@ function UserProfile({ user }) {
                       setSeverity(e.target.value);
                     }}
                     disabled={!edit}
+                    onFocus={() => {
+                      speech &&
+                        speak({
+                          text: 'Enter your severity of disability out of 10',
+                        });
+                    }}
                     required
                   />
                 </div>
@@ -303,6 +319,12 @@ function UserProfile({ user }) {
                       setAge(e.target.value);
                     }}
                     disabled={!edit}
+                    onFocus={() => {
+                      speech &&
+                        speak({
+                          text: 'Enter your age',
+                        });
+                    }}
                     required
                   />
                 </div>
@@ -324,6 +346,12 @@ function UserProfile({ user }) {
                     setAadhar(e.target.value);
                   }}
                   disabled={!edit}
+                  onFocus={() => {
+                    speech &&
+                      speak({
+                        text: 'Enter your aadhar number',
+                      });
+                  }}
                   required
                 />
               </div>
@@ -344,6 +372,12 @@ function UserProfile({ user }) {
                     setDisability(e.target.value);
                   }}
                   disabled={!edit}
+                  onFocus={() => {
+                    speech &&
+                      speak({
+                        text: 'Enter the specific disability you have',
+                      });
+                  }}
                   required
                 />
               </div>
@@ -365,6 +399,12 @@ function UserProfile({ user }) {
                     setLocation(e.target.value);
                   }}
                   disabled={!edit}
+                  onFocus={() => {
+                    speech &&
+                      speak({
+                        text: 'Enter the location where you stay',
+                      });
+                  }}
                   required
                 />
               </div>
@@ -385,6 +425,12 @@ function UserProfile({ user }) {
                     setQualifications(e.target.value);
                   }}
                   disabled={!edit}
+                  onFocus={() => {
+                    speech &&
+                      speak({
+                        text: 'Enter your one best and highest qualification degree',
+                      });
+                  }}
                   required
                 />
               </div>
@@ -421,6 +467,12 @@ function UserProfile({ user }) {
                           type="file"
                           className="sr-only"
                           onChange={fileSelectedHandler}
+                          onFocus={() => {
+                            speech &&
+                              speak({
+                                text: 'Upload here an appropriate document that proves the your disability ',
+                              });
+                          }}
                           disabled={!edit}
                         />
                       </label>
@@ -466,6 +518,12 @@ function UserProfile({ user }) {
                           className="sr-only"
                           onChange={fileSelectedHandler}
                           disabled={!edit}
+                          onFocus={() => {
+                            speech &&
+                              speak({
+                                text: 'Upload here your resume',
+                              });
+                          }}
                         />
                       </label>
                       <p className="pl-1">or drag and drop</p>
@@ -482,6 +540,18 @@ function UserProfile({ user }) {
                   className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                   onClick={(e) => {
                     formResponse(e);
+                  }}
+                  onFocus={() => {
+                    speech &&
+                      edit &&
+                      speak({
+                        text: 'Are you sure you want to save the changes you made, If yes then press enter.',
+                      });
+                    speech &&
+                      !edit &&
+                      speak({
+                        text: 'Do you want to edit your profile, If yes then press enter.',
+                      });
                   }}
                 >
                   {edit ? 'Save' : 'Edit'}
