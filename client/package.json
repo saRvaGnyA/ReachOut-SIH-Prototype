@@ -18,6 +18,8 @@
     "next-themes": "^0.2.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-dropzone": "^14.2.2",
+    "react-pdf": "^5.7.2",
     "react-speech-kit": "^3.0.1",
     "react-speech-recognition": "^3.9.1",
     "react-webcam": "^7.0.1",

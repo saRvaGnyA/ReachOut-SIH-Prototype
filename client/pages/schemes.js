@@ -91,6 +91,10 @@ function schemes() {
     get_details(scheme);
   }
 
+  if (isLoading) {
+    return <h1 className="text-3xl text-center p-3">Loading...</h1>;
+  }
+
   return (
     <div>
       <div className="overflow-x-auto relative shadow-md sm:rounded-lg m-10">

@@ -200,6 +200,10 @@ function jobsPage() {
     get_details(job);
   }
 
+  if (isLoading) {
+    return <h1 className="text-3xl text-center p-3">Loading...</h1>;
+  }
+
   return (
     <div>
       <div className="md:grid md:grid-cols-3 md:gap-6">
