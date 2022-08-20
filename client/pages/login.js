@@ -8,7 +8,6 @@ const Home = (props) => {
   const { user } = Auth.useUser();
   const router = useRouter();
   const [type, setType] = useState(null);
-  console.log(user);
   if (user) {
     router.push(
       {

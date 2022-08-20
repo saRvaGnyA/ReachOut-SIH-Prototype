@@ -1,19 +1,117 @@
 import { useState, useEffect } from 'react';
+import { Auth } from '@supabase/ui';
+import { supabase } from '../../utils/supabaseClient';
 
-function CompanyProfile() {
+function CompanyProfile({ user }) {
   const [edit, setEdit] = useState(false);
   const [edit2, setEdit2] = useState(false);
+  const [newCompany, setNewCompany] = useState(false);
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [url, setUrl] = useState('');
   const [phone, setPhone] = useState(8888888888);
   const [date, setDate] = useState('');
-  const [locations, setLocations] = useState(1);
-  const [mission, setMission] = useState('');
-  const [address, setAddress] = useState();
+  const [head, setHead] = useState('');
+  const [gstin, setGstin] = useState('');
+  const [about, setAbout] = useState();
   const [base64, setBase64] = useState();
 
-  useEffect(() => {}, []);
+  const setupUser = async () => {
+    console.log(user.id);
+    const query = JSON.stringify({
+      query: `query MyQuery {
+  company(where: {id: {_eq: "${user.id}"}}) {
+    gstin
+    head
+    id
+    mobile
+    name
+    website
+    about
+    establishment_date
+  }
+}
+`,
+    });
+
+    const response = await fetch(
+      'https://reachout-sih.herokuapp.com/v1/graphql',
+      {
+        headers: {
+          'content-type': 'application/json',
+          'x-hasura-admin-secret': process.env.HASURA_ADMIN_SECRET,
+        },
+        method: 'POST',
+        body: query,
+      },
+    );
+
+    const responseJson = await response.json();
+    console.log(responseJson);
+    setEmail(user.email);
+
+    if (responseJson.data.company.length !== 0) {
+      const u = responseJson.data.company[0];
+      setGstin(u.gstin);
+      setHead(u.head);
+      setPhone(u.mobile);
+      setName(u.name);
+      setUrl(u.website);
+      setAbout(u.about);
+      setDate(u.establishment_date);
+    } else {
+      setNewCompany(true);
+      setEdit(true);
+      setEdit2(true);
+    }
+  };
+
+  useEffect(() => {
+    //fetch the data from database.
+    //set the values of the state variables.
+    setupUser();
+  }, []);
+
+  const submitForm = async () => {
+    let query;
+    if (newCompany) {
+      query = JSON.stringify({
+        query: `mutation MyMutation {
+  insert_company(objects: {id: "${user.id}", head: "${head}", about: "${about}", gstin: "${gstin}", establishment_date: "${date}", mobile: "${phone}", name: "${name}", website: "${url}"}) {
+    returning {
+      id
+    }
+  }
+}
+`,
+      });
+    } else {
+      query = JSON.stringify({
+        query: `mutation MyMutation {
+  update_company(where: {id: {_eq: "${user.id}"}}, _set: {about: "${about}", establishment_date: "${date}", gstin: "${gstin}", head: "${head}", mobile: "${phone}", name: "${name}", website: "${url}"}) {
+    returning {
+      id
+    }
+  }
+}
+`,
+      });
+    }
+    const response = await fetch(
+      'https://reachout-sih.herokuapp.com/v1/graphql',
+      {
+        headers: {
+          'content-type': 'application/json',
+          'x-hasura-admin-secret': process.env.HASURA_ADMIN_SECRET,
+        },
+        method: 'POST',
+        body: query,
+      },
+    );
+
+    const responseJson = await response.json();
+    console.log(responseJson);
+  };
 
   function formResponse(e) {
     e.preventDefault();
@@ -26,11 +124,13 @@ function CompanyProfile() {
         url,
         phone,
         date,
-        locations,
-        mission,
-        address,
+        head,
+        gstin,
+        about,
       };
       console.log(obj);
+      //submit the changes made to the database.
+      submitForm();
     } else {
       setEdit(true);
     }
@@ -279,20 +379,19 @@ function CompanyProfile() {
                 </div>
                 <div>
                   <label
-                    for="locations"
+                    for="head"
                     className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
                   >
-                    Number of branches
+                    Company Head
                   </label>
                   <input
-                    type="number"
-                    min="1"
-                    id="locations"
+                    type="text"
+                    id="head"
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-zinc-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder=""
-                    value={locations}
+                    placeholder="Elon Musk"
+                    value={head}
                     onChange={(e) => {
-                      setLocations(e.target.value);
+                      setHead(e.target.value);
                     }}
                     disabled={!edit}
                     required
@@ -314,10 +413,11 @@ function CompanyProfile() {
                     rows="3"
                     className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md p-2"
                     placeholder=" Location 1,
-                    Location 2,"
-                    value={address}
+                    Location 2,
+                    Other Details"
+                    value={about}
                     onChange={(e) => {
-                      setAddress(e.target.value);
+                      setAbout(e.target.value);
                     }}
                     disabled={!edit}
                   ></textarea>
@@ -330,19 +430,19 @@ function CompanyProfile() {
               </div>
               <div className="mb-6">
                 <label
-                  for="mission"
+                  for="gstin"
                   className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
                 >
-                  Company's mission
+                  Company's GSTIN Number (15 Digits)
                 </label>
                 <input
                   type="text"
-                  id="mission"
+                  id="gstin"
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-zinc-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  placeholder="Type your motive here ..."
-                  value={mission}
+                  placeholder=""
+                  value={gstin}
                   onChange={(e) => {
-                    setMission(e.target.value);
+                    setGstin(e.target.value);
                   }}
                   disabled={!edit}
                   required
@@ -367,4 +467,12 @@ function CompanyProfile() {
   );
 }
 
-export default CompanyProfile;
+export default function logi({ user }) {
+  return (
+    <Auth.UserContextProvider supabaseClient={supabase}>
+      <CompanyProfile supabaseClient={supabase} user={user}>
+        <Auth supabaseClient={supabase} />
+      </CompanyProfile>
+    </Auth.UserContextProvider>
+  );
+}

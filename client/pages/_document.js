@@ -89,6 +89,8 @@ class MyDocument extends Document {
             property="og:image"
             content="https://yourdomain.com/icons/apple-touch-icon.png"
           />
+          <script src="https://cdn.jsdelivr.net/gh/shpurohit/a11y@main/reachout-tooltip.js"></script>
+          <link href="http://fonts.cdnfonts.com/css/open-dyslexic" rel="stylesheet" />
         </Head>
         <body>
           <Main />
