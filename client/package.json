@@ -18,6 +18,7 @@
     "next-themes": "^0.2.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-webcam": "^7.0.1",
     "sass": "^1.54.4"
   },
   "devDependencies": {
