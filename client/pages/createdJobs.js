@@ -48,36 +48,36 @@ function CreatedJobs() {
 
   return (
     <div>
-      <div class="overflow-x-auto relative shadow-md sm:rounded-lg my-10 mx-10">
-        <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-          <caption class="p-5 text-lg font-semibold text-left text-gray-900 bg-white dark:text-white dark:bg-gray-800">
+      <div className="overflow-x-auto relative shadow-md sm:rounded-lg my-10 mx-10">
+        <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+          <caption className="p-5 text-lg font-semibold text-left text-gray-900 bg-white dark:text-white dark:bg-gray-800">
             Created Jobs
-            <p class="mt-1 text-sm font-normal text-gray-500 dark:text-gray-400">
+            <p className="mt-1 text-sm font-normal text-gray-500 dark:text-gray-400">
               The below are the list of jobs that your company has created for
               the needy. Click on the jobs to get the list of the applicants.
             </p>
           </caption>
-          <thead class="text-xs text-gray-700 uppercase dark:text-gray-400">
+          <thead className="text-xs text-gray-700 uppercase dark:text-gray-400">
             <tr>
-              <th scope="col" class="py-3 px-6 bg-gray-50 dark:bg-gray-800">
+              <th scope="col" className="py-3 px-6 bg-gray-50 dark:bg-gray-800">
                 Job position
               </th>
-              <th scope="col" class="py-3 px-6">
+              <th scope="col" className="py-3 px-6">
                 Description
               </th>
-              <th scope="col" class="py-3 px-6 bg-gray-50 dark:bg-gray-800">
+              <th scope="col" className="py-3 px-6 bg-gray-50 dark:bg-gray-800">
                 Location
               </th>
-              <th scope="col" class="py-3 px-6">
+              <th scope="col" className="py-3 px-6">
                 Sector
               </th>
-              <th scope="col" class="py-3 px-6 bg-gray-50 dark:bg-gray-800">
+              <th scope="col" className="py-3 px-6 bg-gray-50 dark:bg-gray-800">
                 qualification
               </th>
-              <th scope="col" class="py-3 px-6 ">
+              <th scope="col" className="py-3 px-6 ">
                 Disability
               </th>
-              <th scope="col" class="py-3 px-6 bg-gray-50 dark:bg-gray-800">
+              <th scope="col" className="py-3 px-6 bg-gray-50 dark:bg-gray-800">
                 Salary
               </th>
             </tr>
@@ -85,23 +85,23 @@ function CreatedJobs() {
           <tbody>
             {createdJobs.map((job) => {
               return (
-                <tr class="border-b border-gray-200 dark:border-gray-700">
+                <tr className="border-b border-gray-200 dark:border-gray-700">
                   <th
                     scope="row"
-                    class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800"
+                    className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800"
                   >
                     {job.position}
                   </th>
-                  <td class="py-4 px-6">{job.description}</td>
-                  <td class="py-4 px-6 bg-gray-50 dark:bg-gray-800">
+                  <td className="py-4 px-6">{job.description}</td>
+                  <td className="py-4 px-6 bg-gray-50 dark:bg-gray-800">
                     {job.location}
                   </td>
-                  <td class="py-4 px-6">{job.sector}</td>
-                  <td class="py-4 px-6 bg-gray-50 dark:bg-gray-800">
+                  <td className="py-4 px-6">{job.sector}</td>
+                  <td className="py-4 px-6 bg-gray-50 dark:bg-gray-800">
                     {job.qualification}
                   </td>
-                  <td class="py-4 px-6">{job.disability}</td>
-                  <td class="py-4 px-6 bg-gray-50 dark:bg-gray-800">
+                  <td className="py-4 px-6">{job.disability}</td>
+                  <td className="py-4 px-6 bg-gray-50 dark:bg-gray-800">
                     {job.salary}
                   </td>
                 </tr>

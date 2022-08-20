@@ -160,32 +160,32 @@ function UserProfile({ user }) {
 
   return (
     <div>
-      <div class="mt-10 sm:mt-0 p-10">
-        <div class="md:grid md:grid-cols-3 md:gap-6">
-          <div class="md:col-span-1">
-            <div class="px-4 sm:px-0">
-              <h3 class="text-3xl font-medium leading-6 text-gray-900 dark:text-white">
+      <div className="mt-10 sm:mt-0 p-10">
+        <div className="md:grid md:grid-cols-3 md:gap-6">
+          <div className="md:col-span-1">
+            <div className="px-4 sm:px-0">
+              <h3 className="text-3xl font-medium leading-6 text-gray-900 dark:text-white">
                 Personal Information
               </h3>
-              <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
+              <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
                 Use a permanent address where you can receive mail.
               </p>
             </div>
           </div>
-          <div class="mt-5 md:mt-0 md:col-span-2 ">
-            <form class="shadow sm:rounded-md sm:overflow-hidden p-5 border-gray-300 dark:bg-zinc-800">
-              <div class="grid gap-6 mb-6 md:grid-cols-2">
+          <div className="mt-5 md:mt-0 md:col-span-2 ">
+            <form className="shadow sm:rounded-md sm:overflow-hidden p-5 border-gray-300 dark:bg-zinc-800">
+              <div className="grid gap-6 mb-6 md:grid-cols-2">
                 <div>
                   <label
                     for="first_name"
-                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
                   >
                     First name
                   </label>
                   <input
                     type="text"
                     id="first_name"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-zinc-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-zinc-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     placeholder="Harshad"
                     value={firstName}
                     onChange={(e) => {
@@ -203,14 +203,14 @@ function UserProfile({ user }) {
                 <div>
                   <label
                     for="last_name"
-                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
                   >
                     Last name
                   </label>
                   <input
                     type="text"
                     id="last_name"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-zinc-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-zinc-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     placeholder="Mehta"
                     value={lastName}
                     onChange={(e) => {
@@ -223,14 +223,14 @@ function UserProfile({ user }) {
                 <div>
                   <label
                     for="phone"
-                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
                   >
                     Phone number
                   </label>
                   <input
                     type="tel"
                     id="phone"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-zinc-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-zinc-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     placeholder="8888888888"
                     pattern="[0-9]{10}"
                     value={phone}
@@ -244,13 +244,13 @@ function UserProfile({ user }) {
                 <div>
                   <label
                     for="default"
-                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400"
+                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400"
                   >
                     Disability Type
                   </label>
                   <select
                     id="default"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 mb-6 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    className="bg-gray-50 border border-gray-300 text-gray-900 mb-6 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     value={disabilityType}
                     onChange={(e) => {
                       setDisabilityType(e.target.value);
@@ -265,18 +265,18 @@ function UserProfile({ user }) {
                   </select>
                 </div>
               </div>
-              <div class="grid gap-6 mb-6 md:grid-cols-2">
+              <div className="grid gap-6 mb-6 md:grid-cols-2">
                 <div>
                   <label
                     for="severity"
-                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
                   >
                     Severity of corresponding disability (Out of 10)
                   </label>
                   <input
                     type="number"
                     id="severity"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-zinc-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-zinc-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     placeholder=""
                     value={severity}
                     onChange={(e) => {
@@ -289,14 +289,14 @@ function UserProfile({ user }) {
                 <div>
                   <label
                     for="age"
-                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
                   >
                     Age
                   </label>
                   <input
                     type="number"
                     id="age"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-zinc-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-zinc-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     placeholder=""
                     value={age}
                     onChange={(e) => {
@@ -307,17 +307,17 @@ function UserProfile({ user }) {
                   />
                 </div>
               </div>
-              <div class="mb-6">
+              <div className="mb-6">
                 <label
                   for="aadhar_number"
-                  class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
                 >
                   Aadhar number
                 </label>
                 <input
                   type="text"
                   id="aadhar_number"
-                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-zinc-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-zinc-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   placeholder="8888 8888 8888"
                   value={aadhar}
                   onChange={(e) => {
@@ -327,17 +327,17 @@ function UserProfile({ user }) {
                   required
                 />
               </div>
-              <div class="mb-6">
+              <div className="mb-6">
                 <label
                   for="disability"
-                  class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
                 >
                   Disability
                 </label>
                 <input
                   type="text"
                   id="disability"
-                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-zinc-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-zinc-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   placeholder="Physical"
                   value={disability}
                   onChange={(e) => {
@@ -347,10 +347,10 @@ function UserProfile({ user }) {
                   required
                 />
               </div>
-              <div class="mb-6">
+              <div className="mb-6">
                 <label
                   for="location"
-                  class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
                 >
                   Address of the applicant (Location will cover the jobs within
                   50kms)
@@ -358,7 +358,7 @@ function UserProfile({ user }) {
                 <input
                   type="text"
                   id="location"
-                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-zinc-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-zinc-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   placeholder="Mumbai"
                   value={location}
                   onChange={(e) => {
@@ -368,17 +368,17 @@ function UserProfile({ user }) {
                   required
                 />
               </div>
-              <div class="mb-6">
+              <div className="mb-6">
                 <label
                   for="qualifications"
-                  class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
                 >
                   Qualifications
                 </label>
                 <input
                   type="text"
                   id="qualifications"
-                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-zinc-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-zinc-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   placeholder="10th Pass"
                   value={qualifications}
                   onChange={(e) => {
@@ -389,14 +389,14 @@ function UserProfile({ user }) {
                 />
               </div>
               <div>
-                <label class="block text-sm font-medium text-gray-700 dark:text-white">
+                <label className="block text-sm font-medium text-gray-700 dark:text-white">
                   {' '}
                   Upload appropriate document that proves the your disability{' '}
                 </label>
-                <div class="mt-2 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
-                  <div class="space-y-1 text-center">
+                <div className="mt-2 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
+                  <div className="space-y-1 text-center">
                     <svg
-                      class="mx-auto h-12 w-12 text-gray-400"
+                      className="mx-auto h-12 w-12 text-gray-400"
                       stroke="currentColor"
                       fill="none"
                       viewBox="0 0 48 48"
@@ -409,38 +409,38 @@ function UserProfile({ user }) {
                         stroke-linejoin="round"
                       />
                     </svg>
-                    <div class="flex text-sm text-gray-600">
+                    <div className="flex text-sm text-gray-600">
                       <label
                         for="file-upload"
-                        class="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500"
+                        className="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500"
                       >
                         <span>Upload a file</span>
                         <input
                           id="file-upload"
                           name="file-upload"
                           type="file"
-                          class="sr-only"
+                          className="sr-only"
                           onChange={fileSelectedHandler}
                           disabled={!edit}
                         />
                       </label>
-                      <p class="pl-1">or drag and drop</p>
+                      <p className="pl-1">or drag and drop</p>
                     </div>
-                    <p class="text-xs text-gray-500">
+                    <p className="text-xs text-gray-500">
                       PNG, JPG, GIF up to 10MB
                     </p>
                   </div>
                 </div>
               </div>
               <div>
-                <label class="block text-sm font-medium text-gray-700 dark:text-white pt-5">
+                <label className="block text-sm font-medium text-gray-700 dark:text-white pt-5">
                   {' '}
                   Upload your resume{' '}
                 </label>
-                <div class="mt-2 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
-                  <div class="space-y-1 text-center">
+                <div className="mt-2 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
+                  <div className="space-y-1 text-center">
                     <svg
-                      class="mx-auto h-12 w-12 text-gray-400"
+                      className="mx-auto h-12 w-12 text-gray-400"
                       stroke="currentColor"
                       fill="none"
                       viewBox="0 0 48 48"
@@ -453,33 +453,33 @@ function UserProfile({ user }) {
                         stroke-linejoin="round"
                       />
                     </svg>
-                    <div class="flex text-sm text-gray-600">
+                    <div className="flex text-sm text-gray-600">
                       <label
                         for="file-upload"
-                        class="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500"
+                        className="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500"
                       >
                         <span>Upload a file</span>
                         <input
                           id="file-upload"
                           name="file-upload"
                           type="file"
-                          class="sr-only"
+                          className="sr-only"
                           onChange={fileSelectedHandler}
                           disabled={!edit}
                         />
                       </label>
-                      <p class="pl-1">or drag and drop</p>
+                      <p className="pl-1">or drag and drop</p>
                     </div>
-                    <p class="text-xs text-gray-500">
+                    <p className="text-xs text-gray-500">
                       PNG, JPG, GIF up to 10MB
                     </p>
                   </div>
                 </div>
               </div>
-              <div class="px-4 py-3 bg-gray-50 text-right sm:px-6 dark:bg-zinc-800">
+              <div className="px-4 py-3 bg-gray-50 text-right sm:px-6 dark:bg-zinc-800">
                 <button
                   type="submit"
-                  class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                  className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                   onClick={(e) => {
                     formResponse(e);
                   }}

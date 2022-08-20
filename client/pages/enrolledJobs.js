@@ -56,34 +56,34 @@ function EnrolledJobs() {
 
   return (
     <div>
-      <div class="overflow-x-auto relative shadow-md sm:rounded-lg my-10 mx-10">
-        <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-          <caption class="p-5 text-lg font-semibold text-left text-gray-900 bg-white dark:text-white dark:bg-gray-800">
+      <div className="overflow-x-auto relative shadow-md sm:rounded-lg my-10 mx-10">
+        <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+          <caption className="p-5 text-lg font-semibold text-left text-gray-900 bg-white dark:text-white dark:bg-gray-800">
             Enrolled Jobs
-            <p class="mt-1 text-sm font-normal text-gray-500 dark:text-gray-400">
+            <p className="mt-1 text-sm font-normal text-gray-500 dark:text-gray-400">
               The below are the list of jobs you have applied. You might have
               got the response of these applications on your email. So please
               check your mail if you haven't.
             </p>
           </caption>
-          <thead class="text-xs text-gray-700 uppercase dark:text-gray-400">
+          <thead className="text-xs text-gray-700 uppercase dark:text-gray-400">
             <tr>
-              <th scope="col" class="py-3 px-6 bg-gray-50 dark:bg-gray-800">
+              <th scope="col" className="py-3 px-6 bg-gray-50 dark:bg-gray-800">
                 Company name
               </th>
-              <th scope="col" class="py-3 px-6">
+              <th scope="col" className="py-3 px-6">
                 Job position
               </th>
-              <th scope="col" class="py-3 px-6 bg-gray-50 dark:bg-gray-800">
+              <th scope="col" className="py-3 px-6 bg-gray-50 dark:bg-gray-800">
                 Description
               </th>
-              <th scope="col" class="py-3 px-6">
+              <th scope="col" className="py-3 px-6">
                 Location
               </th>
-              <th scope="col" class="py-3 px-6 bg-gray-50 dark:bg-gray-800">
+              <th scope="col" className="py-3 px-6 bg-gray-50 dark:bg-gray-800">
                 Sector
               </th>
-              <th scope="col" class="py-3 px-6">
+              <th scope="col" className="py-3 px-6">
                 Disability
               </th>
             </tr>
@@ -91,22 +91,22 @@ function EnrolledJobs() {
           <tbody>
             {enrolledJobs.map((job) => {
               return (
-                <tr class="border-b border-gray-200 dark:border-gray-700">
+                <tr className="border-b border-gray-200 dark:border-gray-700">
                   <th
                     scope="row"
-                    class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800"
+                    className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800"
                   >
                     {job.job.company.name}
                   </th>
-                  <td class="py-4 px-6">{job.job.position}</td>
-                  <td class="py-4 px-6 bg-gray-50 dark:bg-gray-800">
+                  <td className="py-4 px-6">{job.job.position}</td>
+                  <td className="py-4 px-6 bg-gray-50 dark:bg-gray-800">
                     {job.job.description}
                   </td>
-                  <td class="py-4 px-6">{job.job.location}</td>
-                  <td class="py-4 px-6 bg-gray-50 dark:bg-gray-800">
+                  <td className="py-4 px-6">{job.job.location}</td>
+                  <td className="py-4 px-6 bg-gray-50 dark:bg-gray-800">
                     {job.job.sector}
                   </td>
-                  <td class="py-4 px-6">{job.job.disability}</td>
+                  <td className="py-4 px-6">{job.job.disability}</td>
                 </tr>
               );
             })}
