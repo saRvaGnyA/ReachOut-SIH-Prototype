@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Auth, IconOctagon } from '@supabase/ui';
 import { supabase } from '../../utils/supabaseClient';
-import { useSpeechSynthesis } from 'react-speech-kit';
+import { useSpeechSynthesis, useSpeechRecognition } from 'react-speech-kit';
 import { useDropzone } from 'React-dropzone';
 
 function UserProfile({ user }) {
@@ -115,6 +115,9 @@ function UserProfile({ user }) {
     //fetch the data from database.
     //set the values of the state variables.
     setupUser();
+    speak({
+      text: 'Do you want to enable voice recognition for filling form. Speak yes or no.',
+    });
   }, []);
 
   async function fileSelectedHandler(event) {
@@ -224,10 +227,71 @@ function UserProfile({ user }) {
 
   //Speech recognition part.
   const [speech, setSpeech] = useState(true);
+  const [focusValue, setFocusValue] = useState('');
   const [value, setValue] = useState(
     "Reach out works for the  society's development",
   );
   const { speak } = useSpeechSynthesis();
+  const { listen, listening, stop } = useSpeechRecognition({
+    onResult: (result) => {
+      if (focusValue === 'firstname') {
+        setFirstName(result);
+      } else if (focusValue === 'lastname') {
+        setLastName(result);
+      } else if (focusValue === 'phonenumber') {
+        setPhone(result);
+      } else if (focusValue === 'aadhar') {
+        setAadhar(result);
+      } else if (focusValue === 'age') {
+        setAge(result);
+      } else if (focusValue === 'severity') {
+        setSeverity(result);
+      } else if (focusValue === 'location') {
+        setLocation(result);
+      } else if (focusValue === 'disability') {
+        setDisability(result);
+      } else if (focusValue === 'disabilitytype') {
+        setDisabilityType(result);
+      } else if (focusValue === 'severity') {
+        setSeverity(result);
+      } else if (focusValue === 'qualifications') {
+        setQualifications(result);
+      }
+    },
+  });
+  function voice(e) {
+    if (e.keyCode == 45) {
+      console.log('listening started');
+      listen();
+    } else if (e.keyCode == 27) {
+      console.log('listening stopped');
+      stop();
+    } else if (e.keyCode === 46) {
+      if (focusValue === 'firstname') {
+        setFirstName('');
+      } else if (focusValue === 'lastname') {
+        setLastName('');
+      } else if (focusValue === 'phonenumber') {
+        setPhone('');
+      } else if (focusValue === 'aadhar') {
+        setAadhar('');
+      } else if (focusValue === 'age') {
+        setAge('');
+      } else if (focusValue === 'severity') {
+        setSeverity('');
+      } else if (focusValue === 'location') {
+        setLocation('');
+      } else if (focusValue === 'disability') {
+        setDisability('');
+      } else if (focusValue === 'disabilitytype') {
+        setDisabilityType('');
+      } else if (focusValue === 'severity') {
+        setSeverity('');
+      } else if (focusValue === 'qualifications') {
+        setQualifications('');
+      }
+    }
+  }
 
   return (
     <div>
@@ -264,7 +328,14 @@ function UserProfile({ user }) {
                     }}
                     disabled={!edit}
                     onFocus={() => {
-                      speech && speak({ text: 'Enter your first name' });
+                      speech &&
+                        speak({
+                          text: 'Enter your first name. Press Insert to start and escape to stop the input.',
+                        });
+                      setFocusValue('firstname');
+                    }}
+                    onKeyDown={(e) => {
+                      speech && voice(e);
                     }}
                     required
                   />
@@ -287,7 +358,14 @@ function UserProfile({ user }) {
                     }}
                     disabled={!edit}
                     onFocus={() => {
-                      speech && speak({ text: 'Enter your last name' });
+                      speech &&
+                        speak({
+                          text: 'Enter your last name. Press Insert to start and escape to stop the input.',
+                        });
+                      setFocusValue('lastname');
+                    }}
+                    onKeyDown={(e) => {
+                      speech && voice(e);
                     }}
                     required
                   />
@@ -311,7 +389,14 @@ function UserProfile({ user }) {
                     }}
                     disabled={!edit}
                     onFocus={() => {
-                      speech && speak({ text: 'Enter your phone number' });
+                      speech &&
+                        speak({
+                          text: 'Enter your phone number. Press Insert to start and escape to stop the input.',
+                        });
+                      setFocusValue('phonenumber');
+                    }}
+                    onKeyDown={(e) => {
+                      speech && voice(e);
                     }}
                     required
                   />
@@ -336,6 +421,7 @@ function UserProfile({ user }) {
                         speak({
                           text: 'Select your disability type. Press enter and use down arrow key for selection and then press enter',
                         });
+                      setFocusValue('disabilitytype');
                     }}
                   >
                     <option selected>Choose appropriate option</option>
@@ -367,8 +453,12 @@ function UserProfile({ user }) {
                     onFocus={() => {
                       speech &&
                         speak({
-                          text: 'Enter your severity of disability out of 10',
+                          text: 'Enter your severity of disability out of 10. Press Insert to start and escape to stop the input.',
                         });
+                      setFocusValue('severity');
+                    }}
+                    onKeyDown={(e) => {
+                      speech && voice(e);
                     }}
                     required
                   />
@@ -393,8 +483,12 @@ function UserProfile({ user }) {
                     onFocus={() => {
                       speech &&
                         speak({
-                          text: 'Enter your age',
+                          text: 'Enter your age. Press Insert to start and escape to stop the input.',
                         });
+                      setFocusValue('age');
+                    }}
+                    onKeyDown={(e) => {
+                      speech && voice(e);
                     }}
                     required
                   />
@@ -420,8 +514,12 @@ function UserProfile({ user }) {
                   onFocus={() => {
                     speech &&
                       speak({
-                        text: 'Enter your aadhar number',
+                        text: 'Enter your aadhar number. Press Insert to start and escape to stop the input.',
                       });
+                    setFocusValue('aadhar');
+                  }}
+                  onKeyDown={(e) => {
+                    speech && voice(e);
                   }}
                   required
                 />
@@ -446,8 +544,12 @@ function UserProfile({ user }) {
                   onFocus={() => {
                     speech &&
                       speak({
-                        text: 'Enter the specific disability you have',
+                        text: 'Enter the specific disability you have. Press Insert to start and escape to stop the input.',
                       });
+                    setFocusValue('disability');
+                  }}
+                  onKeyDown={(e) => {
+                    speech && voice(e);
                   }}
                   required
                 />
@@ -473,8 +575,12 @@ function UserProfile({ user }) {
                   onFocus={() => {
                     speech &&
                       speak({
-                        text: 'Enter the location where you stay',
+                        text: 'Enter the location where you stay. Press Insert to start and escape to stop the input.',
                       });
+                    setFocusValue('location');
+                  }}
+                  onKeyDown={(e) => {
+                    speech && voice(e);
                   }}
                   required
                 />
@@ -499,8 +605,12 @@ function UserProfile({ user }) {
                   onFocus={() => {
                     speech &&
                       speak({
-                        text: 'Enter your one best and highest qualification degree',
+                        text: 'Enter your one best and highest qualification degree. Press Insert to start and escape to stop the input.',
                       });
+                    setFocusValue('qualifications');
+                  }}
+                  onKeyDown={(e) => {
+                    speech && voice(e);
                   }}
                   required
                 />
