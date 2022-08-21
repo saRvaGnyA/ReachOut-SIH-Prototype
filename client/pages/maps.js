@@ -84,6 +84,18 @@ function Map() {
     }
   }
   console.log(distance);
+
+  const homemarker = {
+    url: 'homemarker.png',
+    size: new google.maps.Size(33, 45),
+    origin: new google.maps.Point(0, 0),
+    anchor: new google.maps.Point(0, 32),
+  };
+  const shape = {
+    coords: [1, 1, 1, 20, 18, 20, 18, 1],
+    type: 'poly',
+  };
+
   return (
     <div>
       <form>
@@ -141,6 +153,7 @@ function Map() {
                   {nearbyUsers.map((item) => {
                     return <Marker position={item}></Marker>;
                   })}
+                  <Marker position={center} icon={homemarker}></Marker>
                 </GoogleMap>
               </div>
             </div>
