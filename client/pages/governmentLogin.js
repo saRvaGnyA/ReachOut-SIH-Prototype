@@ -1,8 +1,15 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
 
 function governmentLogin() {
+  const router = useRouter();
+
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
+
+  useEffect(() => {
+    localStorage.setItem('accessLevel', 'government');
+  }, []);
 
   const verify = async () => {
     const query = JSON.stringify({
@@ -30,6 +37,8 @@ function governmentLogin() {
 
     const responseJson = await response.json();
     console.log(responseJson);
+    localStorage.setItem('admin', responseJson.data.admin[0].id);
+    router.push('/createdSchemes');
   };
 
   function loginSubmit(e) {
@@ -44,8 +53,8 @@ function governmentLogin() {
 
   return (
     <div>
-      <form className="m-10">
-        <div className="grid gap-6 mb-6 md:grid-cols-2">
+      <form className="m-10 flex justify-center">
+        <div className="grid gap-6 mb-6 w-1/2">
           <div>
             <label
               for="name"
