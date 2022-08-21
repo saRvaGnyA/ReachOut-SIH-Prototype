@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react';
+import { Auth } from '@supabase/ui';
+import { supabase } from '../utils/supabaseClient';
 import PopUpModalJobs from '../components/PopUpModals/PopUpModalJobs';
 
-function jobsPage() {
+function JobsPage() {
   const [jobs, setJobs] = useState([]);
   const [category, setCategory] = useState('All');
   const [isLoading, setIsLoading] = useState(true);
@@ -9,6 +11,8 @@ function jobsPage() {
   const [modal, setModal] = useState(false);
   const [present, setPresent] = useState(true);
   const [selected, setSelected] = useState({});
+
+  const { user } = Auth.useUser();
 
   const get_jobs = async (ans) => {
     console.log(ans);
@@ -67,7 +71,7 @@ function jobsPage() {
     const query = JSON.stringify({
       query: `
       query MyQuery {
-        application(where: {job_id: {_eq: "${job.id}"}, _and: {profile_id: {_eq: "126427dc-ebc4-4362-8a53-27eb091ed536"}}}) {
+        application(where: {job_id: {_eq: "${job.id}"}, _and: {profile_id: {_eq: "${user.id}"}}}) {
           id
           job_id
           profile_id
@@ -303,7 +307,10 @@ function jobsPage() {
             <tbody>
               {jobs.map((job) => {
                 return (
-                  <tr className="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
+                  <tr
+                    key={job.id}
+                    className="bg-white border-b dark:bg-gray-900 dark:border-gray-700"
+                  >
                     <th
                       scope="row"
                       className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
@@ -322,7 +329,7 @@ function jobsPage() {
                         onClick={() => {
                           openPopUp(job);
                         }}
-                        className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                        className="font-medium text-blue-600 dark:text-blue-500 hover:underline cursor-pointer"
                       >
                         Apply
                       </p>
@@ -338,10 +345,21 @@ function jobsPage() {
         <PopUpModalJobs
           selected={selected}
           func={changePopUpState}
+          setP={setPresent}
           registered={present}
+          user={user}
         />
       )}
     </div>
   );
 }
-export default jobsPage;
+
+export default function logi() {
+  return (
+    <Auth.UserContextProvider supabaseClient={supabase}>
+      <JobsPage supabaseClient={supabase}>
+        <Auth supabaseClient={supabase} />
+      </JobsPage>
+    </Auth.UserContextProvider>
+  );
+}

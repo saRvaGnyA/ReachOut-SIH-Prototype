@@ -7,7 +7,7 @@ function PopUpModalJobs(props) {
     const query = JSON.stringify({
       query: `
       mutation MyMutation {
-        insert_application(objects: {job_id: "${props.selected.id}", profile_id: "126427dc-ebc4-4362-8a53-27eb091ed536"}){
+        insert_application(objects: {job_id: "${props.selected.id}", profile_id: "${props.user.id}"}){
             returning {
                 id
             }
@@ -30,6 +30,7 @@ function PopUpModalJobs(props) {
 
     const responseJson = await response.json();
     console.log(responseJson);
+    props.setP(true);
     props.func();
   };
 
@@ -49,7 +50,7 @@ function PopUpModalJobs(props) {
               application.
             </p>
             <p
-              className="inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              className="inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 cursor-pointer"
               onClick={() => {
                 props.func();
               }}
@@ -74,7 +75,7 @@ function PopUpModalJobs(props) {
               {props.selected.description}
             </p>
             <p
-              className="m-2 inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              className="m-2 inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 cursor-pointer"
               onClick={() => {
                 apply_for_job();
               }}
@@ -82,7 +83,7 @@ function PopUpModalJobs(props) {
               Confirm
             </p>
             <p
-              className="m-2 inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              className="m-2 inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 cursor-pointer"
               onClick={() => {
                 props.func();
               }}
