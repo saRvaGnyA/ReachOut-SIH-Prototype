@@ -1,11 +1,16 @@
 import React, { useEffect, useState } from 'react';
+import { Auth } from '@supabase/ui';
+import { supabase } from '../utils/supabaseClient';
 import PopUpModalScheme from '../components/PopUpModals/PopUpModalScheme';
 
-function schemes() {
+function Schemes() {
   const [isLoading, setIsLoading] = useState(true);
   const [modal, setModal] = useState(false);
   const [present, setPresent] = useState(true);
   const [selected, setSelected] = useState({});
+  const [schemes, setSchemes] = useState([]);
+
+  const { user } = Auth.useUser();
 
   const get_schemes = async () => {
     const query = JSON.stringify({
@@ -42,8 +47,9 @@ function schemes() {
     setIsLoading(false);
   };
 
-  const [schemes, setSchemes] = useState([]);
   useEffect(() => {
+    // Fetch schemes offered by the ministries from the database.
+    // set the state variables
     get_schemes();
   }, []);
 
@@ -56,7 +62,7 @@ function schemes() {
     const query = JSON.stringify({
       query: `
       query MyQuery {
-        beneficiary(where: {profile_id: {_eq: "126427dc-ebc4-4362-8a53-27eb091ed536"}, scheme_id: {_eq: "${scheme.id}"}}) {
+        beneficiary(where: {profile_id: {_eq: "${user.id}"}, scheme_id: {_eq: "${scheme.id}"}}) {
           id
           profile_id
           scheme_id
@@ -121,7 +127,10 @@ function schemes() {
           <tbody>
             {schemes.map((scheme) => {
               return (
-                <tr className="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
+                <tr
+                  key={scheme.id}
+                  className="bg-white border-b dark:bg-gray-900 dark:border-gray-700"
+                >
                   <th
                     scope="row"
                     className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
@@ -136,7 +145,7 @@ function schemes() {
                       onClick={() => {
                         openPopUp(scheme);
                       }}
-                      className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                      className="font-medium text-blue-600 dark:text-blue-500 hover:underline cursor-pointer"
                     >
                       Apply
                     </p>
@@ -151,11 +160,21 @@ function schemes() {
         <PopUpModalScheme
           selected={selected}
           func={changePopUpState}
+          setP={setPresent}
           registered={present}
+          user={user}
         />
       )}
     </div>
   );
 }
 
-export default schemes;
+export default function logi() {
+  return (
+    <Auth.UserContextProvider supabaseClient={supabase}>
+      <Schemes supabaseClient={supabase}>
+        <Auth supabaseClient={supabase} />
+      </Schemes>
+    </Auth.UserContextProvider>
+  );
+}

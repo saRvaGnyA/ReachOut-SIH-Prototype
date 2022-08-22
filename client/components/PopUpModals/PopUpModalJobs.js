@@ -1,5 +1,3 @@
-import { useState } from 'react';
-
 function PopUpModalJobs(props) {
   console.log(props.selected);
 
