@@ -1,10 +1,15 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
+import { PieChart, Tooltip, Pie, Legend, Cell } from 'recharts';
 
 const createdScheme = () => {
+  const COLORS = ['#77c878', '#8884d8', '#82ca9d'];
+
   const router = useRouter();
   const [applications, setApplications] = useState({});
   const [isLoading, setIsLoading] = useState(true);
+  const [raw, setRaw] = useState([]);
+  const [disabilityType, setDisabilityType] = useState([]);
 
   const getBeneficiaries = async () => {
     const query = JSON.stringify({
@@ -43,8 +48,104 @@ const createdScheme = () => {
     setIsLoading(false);
   };
 
+  const getStats = async () => {
+    const query = JSON.stringify({
+      query: `query MyQuery {
+  beneficiary(where: {scheme_id: {_eq: "${router.query.id}"}}) {
+    status
+  }
+}
+`,
+    });
+
+    const response = await fetch(
+      'https://reachout-sih.herokuapp.com/v1/graphql',
+      {
+        headers: {
+          'content-type': 'application/json',
+          'x-hasura-admin-secret': process.env.HASURA_ADMIN_SECRET,
+        },
+        method: 'POST',
+        body: query,
+      },
+    );
+
+    const responseJson = await response.json();
+    console.log(responseJson);
+    const res = responseJson.data.beneficiary;
+    let freqMap = {};
+    console.log(res);
+    for (const ben of res) {
+      if (!freqMap[ben.status]) {
+        freqMap[ben.status] = 0;
+      }
+      freqMap[ben.status] += 1;
+    }
+    let arr = [];
+    for (const [key, value] of Object.entries(freqMap)) {
+      let status;
+      if (key == 0) {
+        status = 'Enrolled';
+      } else if (key == 1) {
+        status = 'Accepted';
+      } else {
+        status = 'Rejected';
+      }
+      arr.push({ status: status, value: value });
+    }
+    console.log(arr);
+    setRaw(arr);
+  };
+
+  const getDisabilityTypes = async () => {
+    const query = JSON.stringify({
+      query: `query MyQuery {
+  beneficiary(where: {scheme_id: {_eq: "${router.query.id}"}}) {
+    profile {
+      disability_type
+    }
+  }
+}
+`,
+    });
+
+    const response = await fetch(
+      'https://reachout-sih.herokuapp.com/v1/graphql',
+      {
+        headers: {
+          'content-type': 'application/json',
+          'x-hasura-admin-secret': process.env.HASURA_ADMIN_SECRET,
+        },
+        method: 'POST',
+        body: query,
+      },
+    );
+
+    const responseJson = await response.json();
+    console.log(responseJson);
+    const res = responseJson.data.beneficiary;
+
+    let freqMap = {};
+    console.log(res);
+    for (const ben of res) {
+      if (!freqMap[ben.profile.disability_type]) {
+        freqMap[ben.profile.disability_type] = 0;
+      }
+      freqMap[ben.profile.disability_type] += 1;
+    }
+
+    let arr = [];
+    for (const [key, value] of Object.entries(freqMap)) {
+      arr.push({ type: key, value: value });
+    }
+    console.log(arr);
+    setDisabilityType(arr);
+  };
+
   useEffect(() => {
     getBeneficiaries();
+    getStats();
+    getDisabilityTypes();
   }, []);
 
   const accept = async (id) => {
@@ -191,6 +292,46 @@ const createdScheme = () => {
             })}
           </tbody>
         </table>
+        <div className="flex justify-around">
+          <PieChart width={400} height={350}>
+            <Pie
+              data={raw}
+              dataKey="value"
+              nameKey="status"
+              cx="50%"
+              cy="50%"
+              label
+              legendType="square"
+              outerRadius={100}
+              fill="#8884d8"
+            >
+              {raw.map((entry, index) => (
+                <Cell fill={COLORS[index % COLORS.length]} />
+              ))}
+            </Pie>
+            <Legend></Legend>
+            <Tooltip />
+          </PieChart>
+          <PieChart width={400} height={350}>
+            <Pie
+              data={disabilityType}
+              dataKey="value"
+              nameKey="type"
+              cx="50%"
+              cy="50%"
+              label
+              legendType="square"
+              outerRadius={100}
+              fill="#8884d8"
+            >
+              {raw.map((entry, index) => (
+                <Cell fill={COLORS[index % COLORS.length]} />
+              ))}
+            </Pie>
+            <Legend></Legend>
+            <Tooltip />
+          </PieChart>
+        </div>
       </div>
     </div>
   );
