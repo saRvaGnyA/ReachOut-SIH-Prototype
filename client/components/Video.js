@@ -4,12 +4,12 @@ import React, { useEffect, useRef } from 'react';
 
 function Video() {
   const FPS = 3;
-  const WS_URL = 'wss://reachout-gesture-api.herokuapp.com/ws';
+  const WS_URL = 'wss://reachout-gesture-api.herokuapp.com/get_gesture';
   const webcamRef = useRef(null);
 
   const capture = () => {
     const imageSrc = webcamRef.current.getScreenshot();
-    return imageSrc;
+    return JSON.stringifyimageSrc;
   };
 
   useEffect(() => {
