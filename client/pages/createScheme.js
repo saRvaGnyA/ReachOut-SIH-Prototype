@@ -1,12 +1,12 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Image from 'next/image';
 
 function createJob() {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [type, setType] = useState('');
-  const [admin, setAdmin] = useState(localStorage.getItem('admin'));
-  console.log(admin)
+  const [admin, setAdmin] = useState('');
+  console.log(admin);
   const [eligibility, setEligibility] = useState('');
   const insert_scheme = async () => {
     const query = JSON.stringify({
@@ -31,6 +31,9 @@ function createJob() {
       },
     );
 
+    useEffect(() => {
+      setAdmin(localStorage.getItem('admin'));
+    }, []);
     const responseJson = await response.json();
     console.log(responseJson);
   };
