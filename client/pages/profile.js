@@ -15,13 +15,16 @@ function Profile() {
 
   if (!item) {
     return <h1>Loading...</h1>;
-  } else if (item === 'user') {
+  } else if (item === 'user' && localStorage.getItem('supabase.auth.token')) {
     return (
       <div>
         <UserProfile user={user} />
       </div>
     );
-  } else if (item === 'company') {
+  } else if (
+    item === 'company' &&
+    localStorage.getItem('supabase.auth.token')
+  ) {
     return (
       <div>
         <CompanyProfile user={user} />

@@ -1,176 +1,36 @@
 import Image from 'next/image';
+import Link from 'next/link';
+import Slideshow from './SlideShow';
+import Flowchart from './Flowchart';
 
 function Body() {
   return (
-    <div class="bg-zinc-600">
-      <section class="text-gray-400 bg-gray-100 dark:bg-gray-900 body-font ">
-        <img
-          src="https://mcmscache.epapr.in/post_images/website_350/post_24558985/full.jpg"
-          className="object-cover object-center"
-          width="100%"
-          alt="FlowBite Logo"
-          objectFit="contain"
-        />
-      </section>
+    <div class="bg-transparent">
+      <div class="w-full h-full">
+        <Slideshow />
+      </div>
       <section class="bg-gray-100 text-zinc-900 dark:text-gray-400 dark:bg-gray-900 body-font">
-        <div class="container px-5 py-44 mx-auto flex flex-wrap">
-          <div class="flex flex-wrap w-full">
-            <div class="lg:w-2/5 md:w-1/2 md:pr-10 md:py-6">
-              <div class="flex relative pb-12">
-                <div class="h-full w-10 absolute inset-0 flex items-center justify-center">
-                  <div class="h-full w-1 bg-gray-800 pointer-events-none"></div>
-                </div>
-                <div class="flex-shrink-0 w-10 h-10 rounded-full bg-indigo-500 inline-flex items-center justify-center text-white relative z-10">
-                  <svg
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    class="w-5 h-5"
-                    viewBox="0 0 24 24"
-                  >
-                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-                  </svg>
-                </div>
-                <div class="flex-grow pl-4">
-                  <h2 class="font-medium title-font text-sm dark:text-white mb-1 tracking-wider">
-                    STEP 1
-                  </h2>
-                  <p class="leading-relaxed">
-                    SignUp on the portal to benefit from the government Schemes
-                    and apply for a job.
-                  </p>
-                </div>
-              </div>
-              <div class="flex relative pb-12">
-                <div class="h-full w-10 absolute inset-0 flex items-center justify-center">
-                  <div class="h-full w-1 bg-gray-800 pointer-events-none"></div>
-                </div>
-                <div class="flex-shrink-0 w-10 h-10 rounded-full bg-indigo-500 inline-flex items-center justify-center text-white relative z-10">
-                  <svg
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    class="w-5 h-5"
-                    viewBox="0 0 24 24"
-                  >
-                    <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
-                  </svg>
-                </div>
-                <div class="flex-grow pl-4">
-                  <h2 class="font-medium title-font text-sm dark:text-white mb-1 tracking-wider">
-                    STEP 2
-                  </h2>
-                  <p class="leading-relaxed">
-                    Filter out the government schemes available according to
-                    your choice.
-                  </p>
-                </div>
-              </div>
-              <div class="flex relative pb-12">
-                <div class="h-full w-10 absolute inset-0 flex items-center justify-center">
-                  <div class="h-full w-1 bg-gray-800 pointer-events-none"></div>
-                </div>
-                <div class="flex-shrink-0 w-10 h-10 rounded-full bg-indigo-500 inline-flex items-center justify-center text-white relative z-10">
-                  <svg
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    class="w-5 h-5"
-                    viewBox="0 0 24 24"
-                  >
-                    <circle cx="12" cy="5" r="3"></circle>
-                    <path d="M12 22V8M5 12H2a10 10 0 0020 0h-3"></path>
-                  </svg>
-                </div>
-                <div class="flex-grow pl-4">
-                  <h2 class="font-medium title-font text-sm dark:text-white mb-1 tracking-wider">
-                    STEP 3
-                  </h2>
-                  <p class="leading-relaxed">
-                    Apply for the perfect job opportunity you are looking for
-                    from thousand of job opportunities available.
-                  </p>
-                </div>
-              </div>
-              <div class="flex relative pb-12">
-                <div class="h-full w-10 absolute inset-0 flex items-center justify-center">
-                  <div class="h-full w-1 bg-gray-800 pointer-events-none"></div>
-                </div>
-                <div class="flex-shrink-0 w-10 h-10 rounded-full bg-indigo-500 inline-flex items-center justify-center text-white relative z-10">
-                  <svg
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    class="w-5 h-5"
-                    viewBox="0 0 24 24"
-                  >
-                    <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"></path>
-                    <circle cx="12" cy="7" r="4"></circle>
-                  </svg>
-                </div>
-                <div class="flex-grow pl-4">
-                  <h2 class="font-medium title-font text-sm dark:text-white mb-1 tracking-wider">
-                    STEP 4
-                  </h2>
-                  <p class="leading-relaxed">
-                    Fill up your details to benefit from the government schemes
-                    and avail new job opportunities.
-                  </p>
-                </div>
-              </div>
-              <div class="flex relative">
-                <div class="flex-shrink-0 w-10 h-10 rounded-full bg-indigo-500 inline-flex items-center justify-center text-white relative z-10">
-                  <svg
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    class="w-5 h-5"
-                    viewBox="0 0 24 24"
-                  >
-                    <path d="M22 11.08V12a10 10 0 11-5.93-9.14"></path>
-                    <path d="M22 4L12 14.01l-3-3"></path>
-                  </svg>
-                </div>
-                <div class="flex-grow pl-4">
-                  <h2 class="font-medium title-font text-sm dark:text-white mb-1 tracking-wider">
-                    FINISH
-                  </h2>
-                  <p class="leading-relaxed">
-                    Rest assured as the company contacts you back in a while.
-                  </p>
-                </div>
-              </div>
-            </div>
-            <img
-              class="lg:w-3/5 md:w-1/2 object-cover object-center rounded-lg md:mt-0 mt-12"
-              src="https://factohr-1a56a.kxcdn.com/wp-content/themes/factohr-theme/images/recruitment/recruitment-software-main-slider.png"
-              alt="step"
-            />
-          </div>
+        <div class="w-100vw h-100vh">
+          <Flowchart />
         </div>
       </section>
+
       <section class="text-zinc-900 bg-gray-100 dark:text-gray-400 dark:bg-gray-900 body-font">
-        <div class="container px-5  mx-auto">
-          <div class="flex flex-col text-center w-full mb-20">
-            <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 dark:text-white text-zinc-900">
+        <div class="container px-5 py-2  mx-auto">
+          <div class="grid grid-cols-1 divide-y mb-8">
+            <div></div>
+            <div></div>
+          </div>
+          <div class="flex flex-col text-center w-full mb-7  ">
+            <h1 class="sm:text-4xl text-4xl font-medium title-font mb-4 dark:text-white text-zinc-900">
               Features of ReachOut
             </h1>
-            <p class="lg:w-2/3 mx-auto leading-relaxed text-base">
-              After logged in user can avail various government schemes , apply
-              to to job's available.
+            <p class="lg:w-2/3 mx-auto leading-loose text-xl ">
+              After logged in user can avail various government schemes and
+              apply to the job's available for them.
             </p>
           </div>
-          <div class="flex flex-wrap">
+          <div class="flex flex-wrap justify-evenly">
             <div class="max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 m-10">
               <div>
                 <img
@@ -189,6 +49,17 @@ function Body() {
                   Register yourself for the perfect job oppertunities waiting
                   just for you!.
                 </p>
+                <Link
+                  href="/"
+                  class="block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                >
+                  <button
+                    type="button"
+                    class="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
+                  >
+                    Apply for Job
+                  </button>
+                </Link>
               </div>
             </div>
             <div class="max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 m-10">
@@ -210,6 +81,17 @@ function Body() {
                   Get access to various opportunities which are hard to find
                   anywhere.
                 </p>
+                <Link
+                  href="/"
+                  class="block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                >
+                  <button
+                    type="button"
+                    class="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mt-20 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
+                  >
+                    Apply for Job
+                  </button>
+                </Link>
               </div>
             </div>
 
@@ -222,15 +104,25 @@ function Body() {
                 />
               </div>
               <div class="p-5">
-                <a href="#">
-                  <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-                    Nearest Job
-                  </h5>
-                </a>
+                <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                  Nearest Job
+                </h5>
+
                 <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
                   Find out the nearby job oppertunities available from your
                   location.
                 </p>
+                <Link
+                  href="/maps"
+                  class="block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                >
+                  <button
+                    type="button"
+                    class="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
+                  >
+                    View on Map
+                  </button>
+                </Link>
               </div>
             </div>
             <div class="max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 m-10">
@@ -251,6 +143,17 @@ function Body() {
                   Companies can put up job offers and look for hiring new
                   recruiters.
                 </p>
+                <Link
+                  href="/"
+                  class="block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                >
+                  <button
+                    type="button"
+                    class="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mt-14 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
+                  >
+                    Post a Job
+                  </button>
+                </Link>
               </div>
             </div>
 
@@ -272,6 +175,17 @@ function Body() {
                   Government ministries can add new schemes for the disabled
                   people.
                 </p>
+                <Link
+                  href="/"
+                  class="block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                >
+                  <button
+                    type="button"
+                    class="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mt-8 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
+                  >
+                    Add Schemes
+                  </button>
+                </Link>
               </div>
             </div>
             <div class="max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 m-10">
@@ -292,6 +206,17 @@ function Body() {
                   Benefit yourself from all the government schemes available for
                   you.
                 </p>
+                <Link
+                  href="/"
+                  class="block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                >
+                  <button
+                    type="button"
+                    class="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mt-14 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
+                  >
+                    Apply for Government Schemes
+                  </button>
+                </Link>
               </div>
             </div>
           </div>
