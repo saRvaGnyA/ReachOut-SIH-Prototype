@@ -50,7 +50,6 @@ function Footer() {
           <a href="/" className="hover:underline">
             ReachOut
           </a>
-          . All Rights Reserved.
         </span>
       </footer>
     </div>
