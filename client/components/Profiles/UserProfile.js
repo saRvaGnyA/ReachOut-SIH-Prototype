@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
-import { Auth } from '@supabase/ui';
+import { Auth, IconOctagon } from '@supabase/ui';
 import { supabase } from '../../utils/supabaseClient';
-import { useSpeechSynthesis } from 'react-speech-kit';
+import { useSpeechSynthesis, useSpeechRecognition } from 'react-speech-kit';
+import { useDropzone } from 'React-dropzone';
 
 function UserProfile({ user }) {
   const [edit, setEdit] = useState(false);
@@ -16,6 +17,17 @@ function UserProfile({ user }) {
   const [disability, setDisability] = useState(''); //
   const [location, setLocation] = useState(''); //
   const [qualifications, setQualifications] = useState('');
+  const [publicURL, setPublicURL] = useState(null);
+  const [resumeURL, setResumeURL] = useState(null);
+
+  const { getRootProps, getInputProps, isDragActive, acceptedFiles } =
+    useDropzone({});
+
+  const files = acceptedFiles.map((file) => (
+    <li key={file.path}>
+      {file.path} - {file.size} bytes
+    </li>
+  ));
 
   const setupUser = async () => {
     console.log(user.id);
@@ -63,6 +75,36 @@ function UserProfile({ user }) {
       setLocation(u.place);
       setDisabilityType(u.disability_type);
       setQualifications(u.qualifications);
+
+      const { data, error: errori } = await supabase.storage
+        .from('certificate')
+        .download(`public/${user.id}.pdf`);
+
+      if (!errori) {
+        const { publicURL: publicurl, error } = supabase.storage
+          .from('certificate')
+          .getPublicUrl(`public/${user.id}.pdf`);
+
+        if (!error) {
+          console.log(publicurl);
+          setPublicURL(publicurl);
+        }
+      }
+
+      const { data: dataj, error: errorj } = await supabase.storage
+        .from('resume')
+        .download(`public/${user.id}.pdf`);
+
+      if (!errorj) {
+        const { publicURL: resumeurl, error: error1 } = supabase.storage
+          .from('resume')
+          .getPublicUrl(`public/${user.id}.pdf`);
+
+        if (!error1) {
+          console.log(resumeurl);
+          setResumeURL(resumeurl);
+        }
+      }
     } else {
       setNewUser(true);
       setEdit(true);
@@ -73,17 +115,49 @@ function UserProfile({ user }) {
     //fetch the data from database.
     //set the values of the state variables.
     setupUser();
+    speak({
+      text: 'Do you want to enable voice recognition for filling form. Speak yes or no.',
+    });
   }, []);
 
-  function fileSelectedHandler(event) {
-    var file = event.target.files[0];
-    var reader = new FileReader();
-    reader.onload = function (FileLoadEvent) {
-      var srcData = FileLoadEvent.target.result;
-      setBase64(srcData);
-      console.log(base64);
-    };
-    reader.readAsDataURL(file);
+  async function fileSelectedHandler(event) {
+    var cfktFile = event.target.files[0];
+    // var reader = new FileReader();
+    // reader.onload = function (FileLoadEvent) {
+    //   var srcData = FileLoadEvent.target.result;
+    //   setBase64(srcData);
+    //   console.log(base64);
+    // };
+    // reader.readAsDataURL(file);
+    console.log(event.target);
+    const { data, error } = await supabase.storage
+      .from('certificate')
+      .upload(`public/${user.id}.pdf`, cfktFile, {
+        cacheControl: '3600',
+        upsert: false,
+      });
+    console.log(data);
+    console.log(error);
+  }
+
+  async function fileSelectedHandler2(event) {
+    var cfktFile = event.target.files[0];
+    // var reader = new FileReader();
+    // reader.onload = function (FileLoadEvent) {
+    //   var srcData = FileLoadEvent.target.result;
+    //   setBase64(srcData);
+    //   console.log(base64);
+    // };
+    // reader.readAsDataURL(file);
+    console.log(event.target);
+    const { data, error } = await supabase.storage
+      .from('resume')
+      .upload(`public/${user.id}.pdf`, cfktFile, {
+        cacheControl: '3600',
+        upsert: false,
+      });
+    console.log(data);
+    console.log(error);
   }
 
   const submitForm = async () => {
@@ -153,10 +227,71 @@ function UserProfile({ user }) {
 
   //Speech recognition part.
   const [speech, setSpeech] = useState(true);
+  const [focusValue, setFocusValue] = useState('');
   const [value, setValue] = useState(
     "Reach out works for the  society's development",
   );
   const { speak } = useSpeechSynthesis();
+  const { listen, listening, stop } = useSpeechRecognition({
+    onResult: (result) => {
+      if (focusValue === 'firstname') {
+        setFirstName(result);
+      } else if (focusValue === 'lastname') {
+        setLastName(result);
+      } else if (focusValue === 'phonenumber') {
+        setPhone(result);
+      } else if (focusValue === 'aadhar') {
+        setAadhar(result);
+      } else if (focusValue === 'age') {
+        setAge(result);
+      } else if (focusValue === 'severity') {
+        setSeverity(result);
+      } else if (focusValue === 'location') {
+        setLocation(result);
+      } else if (focusValue === 'disability') {
+        setDisability(result);
+      } else if (focusValue === 'disabilitytype') {
+        setDisabilityType(result);
+      } else if (focusValue === 'severity') {
+        setSeverity(result);
+      } else if (focusValue === 'qualifications') {
+        setQualifications(result);
+      }
+    },
+  });
+  function voice(e) {
+    if (e.keyCode == 45) {
+      console.log('listening started');
+      listen();
+    } else if (e.keyCode == 27) {
+      console.log('listening stopped');
+      stop();
+    } else if (e.keyCode === 46) {
+      if (focusValue === 'firstname') {
+        setFirstName('');
+      } else if (focusValue === 'lastname') {
+        setLastName('');
+      } else if (focusValue === 'phonenumber') {
+        setPhone('');
+      } else if (focusValue === 'aadhar') {
+        setAadhar('');
+      } else if (focusValue === 'age') {
+        setAge('');
+      } else if (focusValue === 'severity') {
+        setSeverity('');
+      } else if (focusValue === 'location') {
+        setLocation('');
+      } else if (focusValue === 'disability') {
+        setDisability('');
+      } else if (focusValue === 'disabilitytype') {
+        setDisabilityType('');
+      } else if (focusValue === 'severity') {
+        setSeverity('');
+      } else if (focusValue === 'qualifications') {
+        setQualifications('');
+      }
+    }
+  }
 
   return (
     <div>
@@ -193,7 +328,14 @@ function UserProfile({ user }) {
                     }}
                     disabled={!edit}
                     onFocus={() => {
-                      speech && speak({ text: 'Enter your first name' });
+                      speech &&
+                        speak({
+                          text: 'Enter your first name. Press Insert to start and escape to stop the input.',
+                        });
+                      setFocusValue('firstname');
+                    }}
+                    onKeyDown={(e) => {
+                      speech && voice(e);
                     }}
                     required
                   />
@@ -216,7 +358,14 @@ function UserProfile({ user }) {
                     }}
                     disabled={!edit}
                     onFocus={() => {
-                      speech && speak({ text: 'Enter your last name' });
+                      speech &&
+                        speak({
+                          text: 'Enter your last name. Press Insert to start and escape to stop the input.',
+                        });
+                      setFocusValue('lastname');
+                    }}
+                    onKeyDown={(e) => {
+                      speech && voice(e);
                     }}
                     required
                   />
@@ -240,7 +389,14 @@ function UserProfile({ user }) {
                     }}
                     disabled={!edit}
                     onFocus={() => {
-                      speech && speak({ text: 'Enter your phone number' });
+                      speech &&
+                        speak({
+                          text: 'Enter your phone number. Press Insert to start and escape to stop the input.',
+                        });
+                      setFocusValue('phonenumber');
+                    }}
+                    onKeyDown={(e) => {
+                      speech && voice(e);
                     }}
                     required
                   />
@@ -265,6 +421,7 @@ function UserProfile({ user }) {
                         speak({
                           text: 'Select your disability type. Press enter and use down arrow key for selection and then press enter',
                         });
+                      setFocusValue('disabilitytype');
                     }}
                   >
                     <option selected>Choose appropriate option</option>
@@ -296,8 +453,12 @@ function UserProfile({ user }) {
                     onFocus={() => {
                       speech &&
                         speak({
-                          text: 'Enter your severity of disability out of 10',
+                          text: 'Enter your severity of disability out of 10. Press Insert to start and escape to stop the input.',
                         });
+                      setFocusValue('severity');
+                    }}
+                    onKeyDown={(e) => {
+                      speech && voice(e);
                     }}
                     required
                   />
@@ -322,8 +483,12 @@ function UserProfile({ user }) {
                     onFocus={() => {
                       speech &&
                         speak({
-                          text: 'Enter your age',
+                          text: 'Enter your age. Press Insert to start and escape to stop the input.',
                         });
+                      setFocusValue('age');
+                    }}
+                    onKeyDown={(e) => {
+                      speech && voice(e);
                     }}
                     required
                   />
@@ -349,8 +514,12 @@ function UserProfile({ user }) {
                   onFocus={() => {
                     speech &&
                       speak({
-                        text: 'Enter your aadhar number',
+                        text: 'Enter your aadhar number. Press Insert to start and escape to stop the input.',
                       });
+                    setFocusValue('aadhar');
+                  }}
+                  onKeyDown={(e) => {
+                    speech && voice(e);
                   }}
                   required
                 />
@@ -375,8 +544,12 @@ function UserProfile({ user }) {
                   onFocus={() => {
                     speech &&
                       speak({
-                        text: 'Enter the specific disability you have',
+                        text: 'Enter the specific disability you have. Press Insert to start and escape to stop the input.',
                       });
+                    setFocusValue('disability');
+                  }}
+                  onKeyDown={(e) => {
+                    speech && voice(e);
                   }}
                   required
                 />
@@ -402,8 +575,12 @@ function UserProfile({ user }) {
                   onFocus={() => {
                     speech &&
                       speak({
-                        text: 'Enter the location where you stay',
+                        text: 'Enter the location where you stay. Press Insert to start and escape to stop the input.',
                       });
+                    setFocusValue('location');
+                  }}
+                  onKeyDown={(e) => {
+                    speech && voice(e);
                   }}
                   required
                 />
@@ -428,112 +605,165 @@ function UserProfile({ user }) {
                   onFocus={() => {
                     speech &&
                       speak({
-                        text: 'Enter your one best and highest qualification degree',
+                        text: 'Enter your one best and highest qualification degree. Press Insert to start and escape to stop the input.',
                       });
+                    setFocusValue('qualifications');
+                  }}
+                  onKeyDown={(e) => {
+                    speech && voice(e);
                   }}
                   required
                 />
               </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-white">
-                  {' '}
-                  Upload appropriate document that proves the your disability{' '}
-                </label>
-                <div className="mt-2 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
-                  <div className="space-y-1 text-center">
-                    <svg
-                      className="mx-auto h-12 w-12 text-gray-400"
-                      stroke="currentColor"
-                      fill="none"
-                      viewBox="0 0 48 48"
-                      aria-hidden="true"
-                    >
-                      <path
-                        d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                      />
-                    </svg>
-                    <div className="flex text-sm text-gray-600">
-                      <label
-                        for="file-upload"
-                        className="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500"
+              {!publicURL ? (
+                <div {...getRootProps({ className: 'dropzone' })}>
+                  <label className="block text-sm font-medium text-gray-700 dark:text-white">
+                    {' '}
+                    Upload appropriate document that proves your disability (Eg.
+                    Disability Certificate){' '}
+                  </label>
+                  <div className="mt-2 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
+                    <div className="space-y-1 text-center">
+                      <svg
+                        className="mx-auto h-12 w-12 text-gray-400"
+                        stroke="currentColor"
+                        fill="none"
+                        viewBox="0 0 48 48"
+                        aria-hidden="true"
                       >
-                        <span>Upload a file</span>
-                        <input
-                          id="file-upload"
-                          name="file-upload"
-                          type="file"
-                          className="sr-only"
-                          onChange={fileSelectedHandler}
-                          onFocus={() => {
-                            speech &&
-                              speak({
-                                text: 'Upload here an appropriate document that proves the your disability ',
-                              });
-                          }}
-                          disabled={!edit}
+                        <path
+                          d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
                         />
-                      </label>
-                      <p className="pl-1">or drag and drop</p>
+                      </svg>
+                      <div className="flex text-sm text-gray-600">
+                        <label
+                          for="file-upload"
+                          className="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500"
+                        >
+                          <span>Upload a file</span>
+                          <input
+                            id="file-upload"
+                            name="file-upload"
+                            type="file"
+                            className="sr-only"
+                            {...getInputProps()}
+                            onChange={fileSelectedHandler}
+                            onFocus={() => {
+                              speech &&
+                                speak({
+                                  text: 'Upload an appropriate document that proves your disability like your disability certificate',
+                                });
+                            }}
+                            disabled={!edit}
+                          />
+                        </label>
+                        <p className="pl-1">
+                          {!isDragActive
+                            ? 'or drag and drop'
+                            : 'release to drop'}
+                        </p>
+                      </div>
+                      <p className="text-xs text-gray-500">
+                        PNG, JPG, GIF up to 10MB
+                      </p>
+                      <aside className="text-xs text-gray-500">
+                        <ul>{files}</ul>
+                      </aside>
                     </div>
-                    <p className="text-xs text-gray-500">
-                      PNG, JPG, GIF up to 10MB
-                    </p>
                   </div>
                 </div>
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-white pt-5">
-                  {' '}
-                  Upload your resume{' '}
-                </label>
-                <div className="mt-2 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
-                  <div className="space-y-1 text-center">
-                    <svg
-                      className="mx-auto h-12 w-12 text-gray-400"
-                      stroke="currentColor"
-                      fill="none"
-                      viewBox="0 0 48 48"
-                      aria-hidden="true"
-                    >
-                      <path
-                        d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                      />
-                    </svg>
-                    <div className="flex text-sm text-gray-600">
-                      <label
-                        for="file-upload"
-                        className="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500"
+              ) : (
+                <div>
+                  <h2 className="block text-sm font-medium text-gray-700 dark:text-white my-4">
+                    Disability Certificate Uploaded
+                  </h2>
+                  <object
+                    width="100%"
+                    height="400"
+                    data={publicURL}
+                    type="application/pdf"
+                  >
+                    {' '}
+                  </object>
+                </div>
+              )}
+              {!resumeURL ? (
+                <div {...getRootProps({ className: 'dropzone' })}>
+                  <label className="block text-sm font-medium text-gray-700 dark:text-white pt-5">
+                    {' '}
+                    Upload your resume{' '}
+                  </label>
+                  <div className="mt-2 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
+                    <div className="space-y-1 text-center">
+                      <svg
+                        className="mx-auto h-12 w-12 text-gray-400"
+                        stroke="currentColor"
+                        fill="none"
+                        viewBox="0 0 48 48"
+                        aria-hidden="true"
                       >
-                        <span>Upload a file</span>
-                        <input
-                          id="file-upload"
-                          name="file-upload"
-                          type="file"
-                          className="sr-only"
-                          onChange={fileSelectedHandler}
-                          disabled={!edit}
-                          onFocus={() => {
-                            speech &&
-                              speak({
-                                text: 'Upload here your resume',
-                              });
-                          }}
+                        <path
+                          d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
                         />
-                      </label>
-                      <p className="pl-1">or drag and drop</p>
+                      </svg>
+                      <div className="flex text-sm text-gray-600">
+                        <label
+                          for="file-upload"
+                          className="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500"
+                        >
+                          <span>Upload a file</span>
+                          <input
+                            id="file-upload"
+                            name="file-upload"
+                            type="file"
+                            className="sr-only"
+                            {...getInputProps()}
+                            onChange={fileSelectedHandler2}
+                            disabled={!edit}
+                            onFocus={() => {
+                              speech &&
+                                speak({
+                                  text: 'Upload here your resume',
+                                });
+                            }}
+                          />
+                        </label>
+                        <p className="pl-1">
+                          {!isDragActive
+                            ? 'or drag and drop'
+                            : 'release to drop'}
+                        </p>
+                      </div>
+                      <p className="text-xs text-gray-500">
+                        PNG, JPG, GIF up to 10MB
+                      </p>
+                      <aside className="text-xs text-gray-500">
+                        <ul>{files}</ul>
+                      </aside>
                     </div>
-                    <p className="text-xs text-gray-500">
-                      PNG, JPG, GIF up to 10MB
-                    </p>
                   </div>
                 </div>
-              </div>
+              ) : (
+                <div>
+                  <h2 className="block text-sm font-medium text-gray-700 dark:text-white my-4">
+                    Resume Uploaded
+                  </h2>
+                  <object
+                    width="100%"
+                    height="400"
+                    data={resumeURL}
+                    type="application/pdf"
+                  >
+                    {' '}
+                  </object>
+                </div>
+              )}
               <div className="px-4 py-3 bg-gray-50 text-right sm:px-6 dark:bg-zinc-800">
                 <button
                   type="submit"

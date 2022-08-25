@@ -1,5 +1,3 @@
-import { useState } from 'react';
-
 function PopUpModalScheme(props) {
   console.log(props.selected);
 
@@ -7,7 +5,7 @@ function PopUpModalScheme(props) {
     const query = JSON.stringify({
       query: `
       mutation MyMutation {
-        insert_beneficiary(objects: {profile_id: "126427dc-ebc4-4362-8a53-27eb091ed536", scheme_id: "${props.selected.id}", status: "1"}){
+        insert_beneficiary(objects: {profile_id: "${props.user.id}", scheme_id: "${props.selected.id}", status: "0"}){
             returning {
                 id
             }
@@ -30,6 +28,7 @@ function PopUpModalScheme(props) {
 
     const responseJson = await response.json();
     console.log(responseJson);
+    props.setP(true);
     props.func();
   };
 
@@ -44,12 +43,12 @@ function PopUpModalScheme(props) {
               </h5>
             </a>
             <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-              Once You have already applied for the scheme, you cannot again apply
-              for it. Kindly wait for the government officials to respond to your
-              application.
+              Once You have already applied for the scheme, you cannot again
+              apply for it. Kindly wait for the government officials to respond
+              to your application.
             </p>
             <p
-              className="inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              className="inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 cursor-pointer"
               onClick={() => {
                 props.func();
               }}
@@ -74,7 +73,7 @@ function PopUpModalScheme(props) {
               {props.selected.description}
             </p>
             <p
-              className="m-2 inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              className="m-2 inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 cursor-pointer"
               onClick={() => {
                 apply_for_scheme();
               }}
@@ -82,7 +81,7 @@ function PopUpModalScheme(props) {
               Confirm
             </p>
             <p
-              className="m-2 inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              className="m-2 inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 cursor-pointer"
               onClick={() => {
                 props.func();
               }}

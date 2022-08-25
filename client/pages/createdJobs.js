@@ -1,14 +1,22 @@
 import { useState, useEffect } from 'react';
+import { Auth } from '@supabase/ui';
+import { supabase } from '../utils/supabaseClient';
+import Link from 'next/link';
 
 function CreatedJobs() {
   const [isLoading, setIsLoading] = useState(true);
   const [createdJobs, setCreatedJobs] = useState([]);
+  const { user } = Auth.useUser();
+
+  useEffect(() => {
+    get_jobs();
+  }, []);
 
   const get_jobs = async () => {
     const query = JSON.stringify({
       query: `
       query MyQuery {
-        job(where: {company_id: {_eq: "1008fe2a-6a5c-425c-9db1-6711417f9959"}}) {
+        job(where: {company_id: {_eq: "${user.id}"}}) {
           description
           disability
           id
@@ -41,10 +49,9 @@ function CreatedJobs() {
     setIsLoading(false);
   };
 
-  useEffect(() => {
-    //Fetch the data for the company for the jobs they have created .
-    get_jobs();
-  }, []);
+  if (isLoading) {
+    return <h1 className="text-3xl text-center p-3">Loading...</h1>;
+  }
 
   return (
     <div>
@@ -80,12 +87,18 @@ function CreatedJobs() {
               <th scope="col" className="py-3 px-6 bg-gray-50 dark:bg-gray-800">
                 Salary
               </th>
+              <th scope="col" className="py-3 px-6 bg-gray-50 dark:bg-gray-800">
+                Action
+              </th>
             </tr>
           </thead>
           <tbody>
             {createdJobs.map((job) => {
               return (
-                <tr className="border-b border-gray-200 dark:border-gray-700">
+                <tr
+                  key={job.id}
+                  className="border-b border-gray-200 dark:border-gray-700"
+                >
                   <th
                     scope="row"
                     className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800"
@@ -104,6 +117,13 @@ function CreatedJobs() {
                   <td className="py-4 px-6 bg-gray-50 dark:bg-gray-800">
                     {job.salary}
                   </td>
+                  <td className="py-4 px-6">
+                    <Link href={`/createdJob/${job.id}`}>
+                      <p className="font-medium text-blue-600 dark:text-blue-500 hover:underline cursor-pointer">
+                        View Applications
+                      </p>
+                    </Link>
+                  </td>
                 </tr>
               );
             })}
@@ -114,4 +134,12 @@ function CreatedJobs() {
   );
 }
 
-export default CreatedJobs;
+export default function logi() {
+  return (
+    <Auth.UserContextProvider supabaseClient={supabase}>
+      <CreatedJobs supabaseClient={supabase}>
+        <Auth supabaseClient={supabase} />
+      </CreatedJobs>
+    </Auth.UserContextProvider>
+  );
+}

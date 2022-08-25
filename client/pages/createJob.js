@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
 
 function createJob() {
@@ -9,11 +9,19 @@ function createJob() {
   const [sector, setSector] = useState('');
   const [disability, setDisability] = useState('');
   const [location, setLocation] = useState('');
+  const [id, setId] = useState('');
+
+  useEffect(() => {
+    const userId = JSON.parse(localStorage.getItem('supabase.auth.token'))
+      .currentSession.user.id;
+    console.log(userId);
+    setId(userId);
+  }, []);
 
   const insert_job = async () => {
     const query = JSON.stringify({
       query: `mutation MyMutation {
-        insert_job(objects: {company_id: "1008fe2a-6a5c-425c-9db1-6711417f9959", description: "${description}", disability: "${disability}", location: "${location}", position: "${jobPosition}", qualification: "${qualification}", salary: "${salary}", sector: "${sector}"}){
+        insert_job(objects: {company_id: "${id}", description: "${description}", disability: "${disability}", location: "${location}", position: "${jobPosition}", qualification: "${qualification}", salary: "${salary}", sector: "${sector}"}){
           returning {
             company_id
           }
