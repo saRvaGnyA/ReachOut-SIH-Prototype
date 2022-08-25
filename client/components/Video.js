@@ -34,7 +34,7 @@ function Video() {
     };
   }, []);
   return (
-    <div class="floating-videoCam">
+    <div class="floating-videoCam" id="flip-horizontal">
       <Webcam audio={false} ref={webcamRef} screenshotFormat="image/jpeg" />
     </div>
   );
