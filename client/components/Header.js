@@ -5,10 +5,12 @@ import AdminHeader from './Headers/AdminHeader';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useTheme } from 'next-themes';
+import Sidebar from './Sidebar';
 
 function Header() {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
+  const [navbar, setNavbar] = useState(false);
 
   useEffect(() => {
     setMounted(true);
@@ -41,13 +43,13 @@ function Header() {
       <div>
         <nav className="bg-white px-2 sm:px-4 py-2.5 dark:bg-zinc-900 border-b-4 border-indigo-500">
           <div className="container flex flex-wrap justify-between items-center mx-auto">
-            <a href="https://flowbite.com/" className="flex items-center">
+            <a href="/" className="flex items-center">
               <Image
                 src="/icon-192x192.png"
                 width={60}
                 height={60}
                 className="mr-3 h-6 sm:h-9"
-                alt="Flowbite Logo"
+                alt="Reachout"
               />
               <span className="self-center text-xl font-semibold whitespace-nowrap dark:text-white">
                 ReachOut
@@ -59,24 +61,41 @@ function Header() {
               className="inline-flex items-center p-2 ml-3 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
               aria-controls="navbar-default"
               aria-expanded="false"
+              onClick={() => setNavbar(!navbar)}
             >
               <span className="sr-only">Open main menu</span>
-              <svg
-                className="w-6 h-6"
-                aria-hidden="true"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  fill-rule="evenodd"
-                  d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
-                  clip-rule="evenodd"
-                ></path>
-              </svg>
+              {navbar ? (
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="w-6 h-6 text-white"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              ) : (
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="w-6 h-6 text-white"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth={2}
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M4 6h16M4 12h16M4 18h16"
+                  />
+                </svg>
+              )}
             </button>
             <div
-              className="hidden w-full md:block md:w-auto"
+              className="hidden w-full md:block md:w-auto ${navbar ? 'block' : 'hidden'}"
               id="navbar-default"
             >
               <ul className="flex flex-col p-4 mt-4 bg-gray-50 rounded-lg border border-gray-100 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 md:bg-white dark:bg-zinc-900 md:dark:bg-zinc-900 dark:border-gray-700">
@@ -130,6 +149,7 @@ function Header() {
               </ul>
             </div>
           </div>
+          {navbar ? <Sidebar /> : ''}
         </nav>
       </div>
     );
