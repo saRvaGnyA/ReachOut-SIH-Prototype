@@ -31,13 +31,12 @@ function createJob() {
       },
     );
 
-    useEffect(() => {
-      setAdmin(localStorage.getItem('admin'));
-    }, []);
     const responseJson = await response.json();
     console.log(responseJson);
   };
-
+  useEffect(() => {
+    setAdmin(localStorage.getItem('admin'));
+  }, []);
   function createSchemeFunc(e) {
     e.preventDefault();
     const obj = {
