@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 
 function Footer() {
   return (
@@ -22,9 +23,9 @@ function Footer() {
           </a>
           <ul className="flex flex-wrap items-center mb-6 text-sm text-gray-500 sm:mb-0 dark:text-gray-400">
             <li>
-              <a href="#" className="mr-4 hover:underline md:mr-6 ">
-                About
-              </a>
+              <Link href="/governmentLogin">
+                <a className="mr-4 hover:underline md:mr-6 ">Admin Login</a>
+              </Link>
             </li>
             <li>
               <a href="#" className="mr-4 hover:underline md:mr-6">
@@ -46,10 +47,9 @@ function Footer() {
         <hr className="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
         <span className="block text-sm text-gray-500 sm:text-center dark:text-gray-400">
           © 2022{' '}
-          <a href="https://flowbite.com/" className="hover:underline">
-            Flowbite™
+          <a href="/" className="hover:underline">
+            ReachOut
           </a>
-          . All Rights Reserved.
         </span>
       </footer>
     </div>
