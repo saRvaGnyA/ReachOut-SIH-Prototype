@@ -5,7 +5,8 @@ function createJob() {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [type, setType] = useState('');
-  const [admin, setAdmin] = useState('810df666-2aef-412a-a11f-0255824d600e');
+  const [admin, setAdmin] = useState(localStorage.getItem('admin'));
+  console.log(admin)
   const [eligibility, setEligibility] = useState('');
   const insert_scheme = async () => {
     const query = JSON.stringify({
