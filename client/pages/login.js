@@ -6,13 +6,18 @@ import { useState, useEffect } from 'react';
 
 const Home = (props) => {
   // const [user, setUser] = useState('')
+  const { user } = Auth.useUser();
+  console.log(user);
   const router = useRouter();
   const [type, setType] = useState(null);
   const [token, setToken] = useState('');
-  useEffect(() => {
-    setToken(localStorage.getItem('supabase.auth.token'));
-  }, []);
-  if (token) {
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     setToken(localStorage.getItem('supabase.auth.token'));
+  //   }, 100);
+  // }, []);\
+
+  if (user) {
     router.push(
       {
         pathname: '/profile',
@@ -21,6 +26,7 @@ const Home = (props) => {
       'profile',
     );
   }
+
   // return (
   //   <div classNameName="lg:p-20 flex justify-center items-center my-10 lg:my-0">
   //     <Typography.Text>Signed in: {user.email}</Typography.Text>

@@ -3,12 +3,19 @@ import Link from 'next/link';
 import { useTheme } from 'next-themes';
 import { useState, useEffect } from 'react';
 import Router from 'next/router';
+import { supabase } from '../../utils/supabaseClient';
 import Sidebar from './CompanySidebar';
 
 function UserHeader() {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const [navbar, setNavbar] = useState(false);
+
+  const signOutHandler = async () => {
+    const { error } = await supabase.auth.signOut();
+    localStorage.removeItem('supabase.auth.token');
+    Router.push('/');
+  };
 
   useEffect(() => {
     setMounted(true);
@@ -120,8 +127,7 @@ function UserHeader() {
               <li>
                 <a
                   onClick={() => {
-                    localStorage.removeItem('supabase.auth.token');
-                    Router.push('/');
+                    signOutHandler();
                   }}
                   className="block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent cursor-pointer"
                 >
