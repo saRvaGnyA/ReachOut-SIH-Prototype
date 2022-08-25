@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Auth } from '@supabase/ui';
 import { supabase } from '../../utils/supabaseClient';
-import { useDropzone } from 'React-dropzone';
+import { useDropzone } from 'react-dropzone';
 
 function CompanyProfile({ user }) {
   const [edit, setEdit] = useState(false);

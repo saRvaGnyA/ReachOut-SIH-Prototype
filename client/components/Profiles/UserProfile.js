@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Auth, IconOctagon } from '@supabase/ui';
 import { supabase } from '../../utils/supabaseClient';
 import { useSpeechSynthesis, useSpeechRecognition } from 'react-speech-kit';
-import { useDropzone } from 'React-dropzone';
+import { useDropzone } from 'react-dropzone';
 
 function UserProfile({ user }) {
   const [edit, setEdit] = useState(false);
