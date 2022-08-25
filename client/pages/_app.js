@@ -25,7 +25,7 @@ function MyApp({ Component, pageProps }) {
         <Component {...pageProps} />
         <Footer />
       </div>
-      <Video />
+      {/* <Video /> */}
     </ThemeProvider>
   );
 }

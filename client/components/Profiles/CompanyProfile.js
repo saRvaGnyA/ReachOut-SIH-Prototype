@@ -451,9 +451,7 @@ function CompanyProfile({ user }) {
                     name="about"
                     rows="3"
                     className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md p-2"
-                    placeholder=" Location 1,
-                    Location 2,
-                    Other Details"
+                    placeholder="About company"
                     value={about}
                     onChange={(e) => {
                       setAbout(e.target.value);
@@ -461,10 +459,6 @@ function CompanyProfile({ user }) {
                     disabled={!edit}
                   ></textarea>
                 </div>
-                <p className="mt-2 text-sm text-gray-500 dark:text-gray-200">
-                  ( Enter each Location in new line adding comma at the end of
-                  line )
-                </p>
                 <br />
               </div>
               <div className="mb-6">
