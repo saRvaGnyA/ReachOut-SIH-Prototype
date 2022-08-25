@@ -5,10 +5,10 @@ import { supabase } from '../utils/supabaseClient';
 import { useState } from 'react';
 
 const Home = (props) => {
-  const { user } = Auth.useUser();
+  // const [user, setUser] = useState('')
   const router = useRouter();
   const [type, setType] = useState(null);
-  if (user) {
+  if (localStorage.getItem('supabase.auth.token')) {
     router.push(
       {
         pathname: '/profile',
