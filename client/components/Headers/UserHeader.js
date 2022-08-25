@@ -2,6 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useTheme } from 'next-themes';
 import { useState, useEffect } from 'react';
+import Router from 'next/router';
 import Sidebar from './UserSidebar';
 
 function UserHeader() {
@@ -131,6 +132,17 @@ function UserHeader() {
                 >
                   Contact
                 </Link>
+              </li>
+              <li>
+                <a
+                  onClick={() => {
+                    localStorage.removeItem('supabase.auth.token');
+                    Router.push('/');
+                  }}
+                  className="block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent cursor-pointer"
+                >
+                  Sign Out
+                </a>
               </li>
               <li>
                 <label

@@ -18,21 +18,22 @@ function Header() {
 
   if (!mounted) return null;
 
-  const visitor = '';
+  const visitor = localStorage.getItem('accessLevel');
+  console.log(localStorage.getItem('supabase.auth.token'));
 
-  if (visitor === 'User') {
+  if (visitor === 'user' && localStorage.getItem('supabase.auth.token')) {
     return (
       <div>
         <UserHeader />
       </div>
     );
-  } else if (visitor === 'Company') {
+  } else if (visitor === 'company' && localStorage.getItem('supabase.auth.token')) {
     return (
       <div>
         <CompanyHeader />
       </div>
     );
-  } else if (visitor === 'Admin') {
+  } else if (visitor === 'government' && localStorage.getItem('admin')) {
     return (
       <div>
         <AdminHeader />
@@ -43,18 +44,20 @@ function Header() {
       <div>
         <nav className="bg-white px-2 sm:px-4 py-2.5 dark:bg-zinc-900 border-b-4 border-indigo-500">
           <div className="container flex flex-wrap justify-between items-center mx-auto">
-            <a href="/" className="flex items-center">
-              <Image
-                src="/icon-192x192.png"
-                width={60}
-                height={60}
-                className="mr-3 h-6 sm:h-9"
-                alt="Reachout"
-              />
-              <span className="self-center text-xl font-semibold whitespace-nowrap dark:text-white">
-                ReachOut
-              </span>
-            </a>
+            <Link href="/">
+              <a className="flex items-center">
+                <Image
+                  src="/icon-192x192.png"
+                  width={60}
+                  height={60}
+                  className="mr-3 h-6 sm:h-9"
+                  alt="Reachout"
+                />
+                <span className="self-center text-xl font-semibold whitespace-nowrap dark:text-white">
+                  ReachOut
+                </span>
+              </a>
+            </Link>
             <button
               data-collapse-toggle="navbar-default"
               type="button"
@@ -142,7 +145,7 @@ function Header() {
                       }}
                     ></div>
                     <span className="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">
-                      {theme === 'light' ? 'DarkMode' : 'LightMode'}
+                      {theme === 'light' ? 'Dark Mode' : 'Light Mode'}
                     </span>
                   </label>
                 </li>
