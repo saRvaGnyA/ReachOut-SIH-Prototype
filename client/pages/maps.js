@@ -34,40 +34,64 @@ function Map() {
 
   let arr = [
     {
-      lat: parseFloat(19.19443222884145),
-      lng: parseFloat(72.84613530780784),
+      lat: parseFloat(10.996885945028543),
+      lng: parseFloat(76.84890747788064),
     },
     {
-      lat: parseFloat(19.20337583618798),
-      lng: parseFloat(72.85956859588623),
+      lat: parseFloat(11.156203184010092),
+      lng: parseFloat(76.94183707237244),
     },
     {
-      lat: parseFloat(19.19945782353501),
-      lng: parseFloat(72.84604947711937),
+      lat: parseFloat(10.982281096523172),
+      lng: parseFloat(76.96912770761209),
     },
     {
-      lat: parseFloat(19.20038992529954),
-      lng: parseFloat(72.8624959338949),
+      lat: parseFloat(11.03464880196182),
+      lng: parseFloat(76.92851722240448),
     },
     {
-      lat: parseFloat(19.193743175937936),
-      lng: parseFloat(72.85545781743983),
+      lat: parseFloat(11.000891420109369),
+      lng: parseFloat(77.26263999938965),
     },
     {
-      lat: parseFloat(19.20873851048727),
-      lng: parseFloat(72.85335496557215),
+      lat: parseFloat(11.104983952002042),
+      lng: parseFloat(77.17503905296326),
     },
     {
-      lat: parseFloat(20.506876734232385),
-      lng: parseFloat(73.31951923400982),
+      lat: parseFloat(10.865970848144526),
+      lng: parseFloat(76.94056034088135),
     },
     {
-      lat: parseFloat(21.07178033055075),
-      lng: parseFloat(73.12176532775982),
+      lat: parseFloat(11.057862321256001),
+      lng: parseFloat(76.96551561355591),
     },
     {
-      lat: parseFloat(20.928187671260243),
-      lng: parseFloat(73.96771259338482),
+      lat: parseFloat(11.00849519876812),
+      lng: parseFloat(76.9562029838562),
+    },
+    {
+      lat: parseFloat(11.021198415195455),
+      lng: parseFloat(76.9642415111026),
+    },
+    {
+      lat: parseFloat(11.012581358848452),
+      lng: parseFloat(76.95064544677734),
+    },
+    {
+      lat: parseFloat(12.968956724393923),
+      lng: parseFloat(77.5019621542984),
+    },
+    {
+      lat: parseFloat(11.666357855938887),
+      lng: parseFloat(78.15791123331715),
+    },
+    {
+      lat: parseFloat(11.411707717671627),
+      lng: parseFloat(76.70386855203184),
+    },
+    {
+      lat: parseFloat(11.341583379711278),
+      lng: parseFloat(77.72509862710028),
     },
   ]; //get points of location of companies in this array
   let nearbyUsers = [];
@@ -83,7 +107,6 @@ function Map() {
       nearbyUsers = [...nearbyUsers, arr[i]];
     }
   }
-  console.log(distance);
 
   const homemarker = {
     url: 'homemarker.png',
