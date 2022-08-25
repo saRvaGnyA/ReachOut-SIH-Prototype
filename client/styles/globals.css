@@ -26,7 +26,7 @@
 .cls-14,
 .cls-16,
 .cls-8 {
-  stroke-linecap : round;
+  stroke-linecap: round;
   stroke-linejoin: round;
 }
 
@@ -122,75 +122,75 @@
 }
 
 .floating-btn {
-  width          : 60px;
-  height         : 60px;
-  background     : dodgerblue;
-  display        : flex;
-  align-items    : center;
+  width: 60px;
+  height: 60px;
+  background: dodgerblue;
+  display: flex;
+  align-items: center;
   justify-content: center;
   text-decoration: none;
-  border-radius  : 50%;
-  color          : #ffffff;
-  font-size      : 40px;
-  box-shadow     : 2px 2px 5px rgba(0, 0, 0, 0.25);
-  position       : fixed;
-  right          : 40px;
-  bottom         : 60px;
-  transition     : background 0.25s;
+  border-radius: 50%;
+  color: #ffffff;
+  font-size: 40px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.25);
+  position: fixed;
+  right: 40px;
+  bottom: 60px;
+  transition: background 0.25s;
 }
 
 .floating-btn-1 {
-  width          : 60px;
-  height         : 60px;
-  background     : rgba(243, 228, 17, 0.769);
-  display        : flex;
-  align-items    : center;
+  width: 60px;
+  height: 60px;
+  background: rgba(243, 228, 17, 0.769);
+  display: flex;
+  align-items: center;
   justify-content: center;
   text-decoration: none;
-  border-radius  : 50%;
-  color          : #ffffff;
-  font-size      : 40px;
-  box-shadow     : 2px 2px 5px rgba(0, 0, 0, 0.25);
-  position       : fixed;
-  right          : 40px;
-  bottom         : 130px;
-  transition     : background 0.25s;
+  border-radius: 50%;
+  color: #ffffff;
+  font-size: 40px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.25);
+  position: fixed;
+  right: 40px;
+  bottom: 130px;
+  transition: background 0.25s;
 }
 
 .floating-btn-2 {
-  width          : 60px;
-  height         : 60px;
-  background     : greenyellow;
-  display        : flex;
-  align-items    : center;
+  width: 60px;
+  height: 60px;
+  background: greenyellow;
+  display: flex;
+  align-items: center;
   justify-content: center;
   text-decoration: none;
-  border-radius  : 50%;
-  color          : #ffffff;
-  font-size      : 40px;
-  box-shadow     : 2px 2px 5px rgba(0, 0, 0, 0.25);
-  position       : fixed;
-  right          : 40px;
-  bottom         : 200px;
-  transition     : background 0.25s;
+  border-radius: 50%;
+  color: #ffffff;
+  font-size: 40px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.25);
+  position: fixed;
+  right: 40px;
+  bottom: 200px;
+  transition: background 0.25s;
 }
 
 .floating-btn-3 {
-  width          : 60px;
-  height         : 60px;
-  background     : rgb(255, 49, 83);
-  display        : flex;
-  align-items    : center;
+  width: 60px;
+  height: 60px;
+  background: rgb(255, 49, 83);
+  display: flex;
+  align-items: center;
   justify-content: center;
   text-decoration: none;
-  border-radius  : 50%;
-  color          : #ffffff;
-  font-size      : 40px;
-  box-shadow     : 2px 2px 5px rgba(0, 0, 0, 0.25);
-  position       : fixed;
-  right          : 40px;
-  bottom         : 270px;
-  transition     : background 0.25s;
+  border-radius: 50%;
+  color: #ffffff;
+  font-size: 40px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.25);
+  position: fixed;
+  right: 40px;
+  bottom: 270px;
+  transition: background 0.25s;
 }
 
 .floating-btn:active {
@@ -225,17 +225,34 @@
   font-size: xx-large;
 }
 
-#dropdownRadioHelper {}
+#dropdownRadioHelper {
+}
 
 .floating-popup {
-  display        : flex;
-  align-items    : center;
+  display: flex;
+  align-items: center;
   justify-content: center;
   text-decoration: none;
-  position       : fixed;
-  left           : 30%;
-  right          : 30%;
-  top            : 30%;
-  bottom         : 30%;
-  transition     : background 0.25s;
+  position: fixed;
+  left: 30%;
+  right: 30%;
+  top: 30%;
+  bottom: 30%;
+  transition: background 0.25s;
+}
+.floating-videoCam {
+  width: 150px;
+  height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  border-radius: 10%;
+  color: #ffffff;
+  font-size: 40px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.25);
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  transition: background 0.25s;
 }
