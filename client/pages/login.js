@@ -2,13 +2,17 @@ import Router from 'next/router';
 import { Auth, Typography, Button } from '@supabase/ui';
 import { useRouter } from 'next/router';
 import { supabase } from '../utils/supabaseClient';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 const Home = (props) => {
   // const [user, setUser] = useState('')
   const router = useRouter();
   const [type, setType] = useState(null);
-  if (localStorage.getItem('supabase.auth.token')) {
+  const [token, setToken] = useState('');
+  useEffect(() => {
+    setToken(localStorage.getItem('supabase.auth.token'));
+  }, []);
+  if (token) {
     router.push(
       {
         pathname: '/profile',
