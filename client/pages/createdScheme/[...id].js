@@ -160,7 +160,7 @@ const createdScheme = () => {
     console.log('Run accept');
     const query = JSON.stringify({
       query: `mutation MyMutation {
-  update_beneficiary(where: {id: {_eq: "${id}"}}, _set: {status: 1,description:"${description}"}) {
+  update_beneficiary(where: {id: {_eq: "${id}"}}, _set: {status: 1,justification:"${description}"}) {
     returning {
       id
     }
