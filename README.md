@@ -76,7 +76,7 @@ The web-app has 3 access levels implemented
 ### Assets
 - [GitHub Repo](https://github.com/saRvaGnyA/ReachOut-SIH-Prototype)
 - [GitHub Repo for the Model](https://github.com/devdev29/reachout_gesture_api)
-- [Drive link for PPT](https://drive.google.com/file/d/1eF7qrWvrQ6HNJY8iYsmH9DSbSUEg1XPt/view?usp=sharing)
+- [Drive link for PPT](https://drive.google.com/file/d/1F_k7yIUlL0oD8h6HqsRT9rpqy_92XGkU/view?usp=sharing)
 
 ### Backend (Heroku)
 - [ReachOut Server](https://reachout-sih.herokuapp.com/)
