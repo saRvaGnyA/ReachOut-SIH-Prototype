@@ -129,6 +129,7 @@ The web-app has 3 access levels implemented
 - [ ] Add E-KYC verification on the platform, and all other financial employment-related services from APISetu for streamlining the hiring process
 - [ ] Payment Gateway Integration for transparency 
 - [ ] Upskilling platform based on job requirements
+- [ ] Resume Parsing (Partially Implemented)
 
 ## 🔨Impact
 
