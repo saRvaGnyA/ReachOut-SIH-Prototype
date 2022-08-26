@@ -104,7 +104,7 @@ function Contact() {
           for="message"
           className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400"
         >
-          Your message
+          We appreciate your feedback
         </label>
         <textarea
           id="message"
