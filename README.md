@@ -51,8 +51,8 @@ The web-app has 3 access levels implemented
 
 ### Flow for the User Access Level
 
-![image](https://user-images.githubusercontent.com/24823649/186803986-c3aa1b7a-ad6f-40cb-94ab-266179721db6.png)
-  
+![image](https://user-images.githubusercontent.com/24823649/186869688-78ad7f51-4154-4969-8e89-59896dd3ed80.png)
+
 ### Flow for the Admin Access Level (Government)
 
 ![image](https://user-images.githubusercontent.com/24823649/186803910-a7b239e6-4020-4f85-95aa-ef2e1f3ac9e3.png)
