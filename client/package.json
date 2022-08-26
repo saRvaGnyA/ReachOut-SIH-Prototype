@@ -32,7 +32,8 @@
     "react-speech-recognition": "^3.9.1",
     "react-webcam": "^7.0.1",
     "recharts": "2.1.12",
-    "sass": "^1.54.4"
+    "sass": "^1.54.4",
+    "twilio": "^3.81.0"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.8",

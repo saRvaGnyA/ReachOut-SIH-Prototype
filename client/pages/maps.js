@@ -3,6 +3,7 @@ import React from 'react';
 import { useJsApiLoader, GoogleMap, Marker } from '@react-google-maps/api';
 import { useState, useEffect } from 'react';
 import { getDistance, isPointWithinRadius } from 'geolib';
+import { useSpeechSynthesis, useSpeechRecognition } from 'react-speech-kit';
 // import geolib from 'geolib';
 import * as geolib from 'geolib';
 
@@ -10,9 +11,29 @@ function Map() {
   const [latitude, setLatitude] = useState(0);
   const [longitude, setLongitude] = useState(0);
   const [distance, setDistance] = useState();
+  const [focus, setFocus] = useState(false);
   useEffect(() => {
     getCurrentLocation();
   }, []);
+
+  function voice(e) {
+    if (e.keyCode == 45) {
+      console.log('listening started');
+      listen();
+    } else if (e.keyCode == 27) {
+      console.log('listening stopped');
+      stop();
+    } else if (e.keyCode === 46) {
+      setDistance(0);
+    }
+  }
+
+  const { speak } = useSpeechSynthesis();
+  const { listen, listening, stop } = useSpeechRecognition({
+    onResult: (result) => {
+      setDistance(result);
+    },
+  });
 
   const { isLoaded } = useJsApiLoader({
     googleMapsApiKey: 'AIzaSyBLYAWKNXFfi-sbuvNhldYMNP6-_ql-xOo',
@@ -145,7 +166,27 @@ function Map() {
                   onChange={(e) => {
                     setDistance(e.target.value);
                   }}
+                  onFocus={() => {
+                    setFocus(true);
+                  }}
+                  onKeyDown={(e) => {
+                    voice(e);
+                  }}
                   required
+                />
+              </div>
+              <div class="slidecontainer">
+                <input
+                  type="range"
+                  min="0"
+                  max="150"
+                  value={distance}
+                  onChange={(e) => {
+                    setDistance(e.target.value);
+                  }}
+                  class="slider"
+                  style={{ margin: '10px', width: '200px' }}
+                  id="myRange"
                 />
               </div>
             </div>
