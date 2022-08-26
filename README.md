@@ -108,10 +108,11 @@ The web-app has 3 access levels implemented
 ### Accessibility 
 
 - [x] The entire website is designed with web accessibility (a11y) and GIGW (Guidelines for Indian Government Websites) at the forefront
-- [x] Designing web components keeping visually impaired in mind (color-blind, high-contrast UI)
-- [x] Voice and keyboard navigation for better accessibility
+- [x] Designing web components using a color-blind friendly scheme and implemented a high-contrast UI
+- [x] Voice and keyboard navigation
 - [x] Speech to Text for search, forms and navigation
 - [x] Gesture Detection for navigation
+- [x] A full-fledged accessibility toolbar for fonts and cursors
 
 ### Platform
 
