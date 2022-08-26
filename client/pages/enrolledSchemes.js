@@ -224,6 +224,9 @@ function EnrolledSchemes() {
               <th scope="col" className="py-3 px-6">
                 Eligibility
               </th>
+              <th scope="col" className="py-3 px-6">
+                Justification
+              </th>
               <th scope="col" className="py-3 px-6 bg-gray-50 dark:bg-gray-800">
                 Type
               </th>
@@ -244,6 +247,7 @@ function EnrolledSchemes() {
                     {job.scheme.description}
                   </td>
                   <td className="py-4 px-6">{job.scheme.eligibility}</td>
+                  <td className="py-4 px-6">{job.justification}</td>
                   <td className="py-4 px-6 bg-gray-50 dark:bg-gray-800">
                     {job.scheme.type}
                   </td>
