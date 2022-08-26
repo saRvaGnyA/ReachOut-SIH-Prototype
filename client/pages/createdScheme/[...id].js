@@ -160,9 +160,18 @@ const createdScheme = () => {
     console.log('Run accept');
     const query = JSON.stringify({
       query: `mutation MyMutation {
-  update_beneficiary(where: {id: {_eq: "${id}"}}, _set: {status: 1,description:"${description}"}) {
+  update_beneficiary(where: {id: {_eq: "${id}"}}, _set: {status: 1, justification: "${description}"}) {
     returning {
       id
+      profile {
+        mobile
+      }
+      scheme {
+        name
+        admin {
+          name
+        }
+      }
     }
   }
 }
@@ -183,14 +192,46 @@ const createdScheme = () => {
 
     const responseJson = await response.json();
     console.log(responseJson);
+
+    const phone =
+      '+91' +
+      String(responseJson.data.update_beneficiary.returning[0].profile.mobile);
+
+    const scheme_name =
+      responseJson.data.update_beneficiary.returning[0].scheme.name;
+
+    const admin_name =
+      responseJson.data.update_beneficiary.returning[0].scheme.admin.name;
+
+    const msg = `The scheme ${scheme_name} by ${admin_name} you applied for has been approved. Thanks and Regards, ReachOut`;
+
+    const res = await fetch('/api/sendMessage', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ phone: phone, message: msg }),
+    });
+    const apiResponse = await res.json();
+    console.log(apiResponse);
   };
 
   const reject = async (id, description) => {
     const query = JSON.stringify({
       query: `mutation MyMutation {
-  update_beneficiary(where: {id: {_eq: "${id}"}}, _set: {status: 2,justification:"${description}"}) {
+  update_beneficiary(where: {id: {_eq: "${id}"}}, _set: {status: 2, justification: "${description}"}) {
     returning {
       id
+      profile {
+        mobile
+      }
+      scheme {
+        name
+        admin {
+          name
+        }
+      }
+      justification
     }
   }
 }
@@ -211,6 +252,31 @@ const createdScheme = () => {
 
     const responseJson = await response.json();
     console.log(responseJson);
+
+    const phone =
+      '+91' +
+      String(responseJson.data.update_beneficiary.returning[0].profile.mobile);
+
+    const scheme_name =
+      responseJson.data.update_beneficiary.returning[0].scheme.name;
+
+    const admin_name =
+      responseJson.data.update_beneficiary.returning[0].scheme.admin.name;
+
+    const reason =
+      responseJson.data.update_beneficiary.returning[0].justification;
+
+    const msg = `The scheme ${scheme_name} by ${admin_name} you applied for has been rejected. Reason: ${reason}.Thanks and Regards, ReachOut`;
+
+    const res = await fetch('/api/sendMessage', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ phone: phone, message: msg }),
+    });
+    const apiResponse = await res.json();
+    console.log(apiResponse);
   };
 
   if (isLoading) {
