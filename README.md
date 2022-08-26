@@ -43,6 +43,30 @@ Our idea “ReachOut” aims to build a progressive web app that makes access fo
   </tr>
   </table>
   
+The web-app has 3 access levels implemented
+1. User
+2. Admin (Government)
+3. Company
+
+### Flow for the User Access Level
+
+![image](https://user-images.githubusercontent.com/24823649/186803986-c3aa1b7a-ad6f-40cb-94ab-266179721db6.png)
+  
+### Flow for the Admin Access Level (Government)
+
+![image](https://user-images.githubusercontent.com/24823649/186803910-a7b239e6-4020-4f85-95aa-ef2e1f3ac9e3.png)
+
+### Flow for the Company Access Level
+
+![image](https://user-images.githubusercontent.com/24823649/186804039-12923f65-a3dc-4452-aaef-f982ed37d96d.png)
+  
+### Flowcharts for the Model
+
+![WhatsApp Image 2022-08-26 at 6 13 10 AM](https://user-images.githubusercontent.com/24823649/186803619-8be1770a-c349-4c71-9740-38f78b5118f4.jpeg)  
+
+![WhatsApp Image 2022-08-26 at 6 12 43 AM](https://user-images.githubusercontent.com/24823649/186803641-b8e025e7-4770-4f74-8aec-8279b967a9e5.jpeg)
+
+  
 ## 🔗Links
 
 ### Frontend (Vercel)
