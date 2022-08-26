@@ -21,6 +21,7 @@
 - [Tech Stack](#tech-stack)
 - [Progress](#progress)
 - [Future Scope](#future-scope)
+- [Impact](#impact)
 - [Project Setup](#project-setup)
 - [Usage](#usage)
 - [Team Members](#team-members)
@@ -42,7 +43,7 @@ Our idea “ReachOut” aims to build a progressive web app that makes access fo
     </td>
   </tr>
   </table>
-  
+    
 The web-app has 3 access levels implemented
 1. User
 2. Admin (Government)
@@ -104,11 +105,39 @@ The web-app has 3 access levels implemented
 
 ## 📈Progress
 
-- [x] 
+### Accessibility 
+
+- [x] The entire website is designed with web accessibility (a11y) and GIGW (Guidelines for Indian Government Websites) at the forefront
+- [x] Designing web components keeping visually impaired in mind (color-blind, high-contrast UI)
+- [x] Voice and keyboard navigation for better accessibility
+- [x] Speech to Text for search, forms and navigation
+- [x] Gesture Detection for navigation
+
+### Platform
+
+- [x] A profile for every user, with Aadhar Number, Disability Certificate and Resume details required
+- [x] Govt authorities can add the schemes for the disabled, and the disabled users can benefit from these schemes without leaving the portal
+- [x] Companies can register their job positions, and people with special needs can apply for those jobs, Companies can hire test candidates for accessibility testing of their products
+- [x] Map feature for locating nearby job opportunities
+- [x] Notifications and status updates for the enrolled schemes and jobs  
+- [x] Dashboard for Analyzing scheme responses and demographics
+- [x] Backend and Database Connectivity 
 
 ## 🔮Future Scope
 
+- [ ] Complete the face ID login
+- [ ] Add E-KYC verification on the platform, and all other financial employment-related services from APISetu for streamlining the hiring process
+- [ ] Payment Gateway Integration for transparency 
+- [ ] Upskilling platform based on job requirements
 
+## 🔨Impact
+
+- Setting the standard for accessibility on government portals by utilizing state-of-the-art accessibility features
+- Streamline the entire process for the user
+- Increase awareness by recommending schemes
+- Improve outreach and transparency of the schemes
+- Social and personal empowerment by extending the same system to private firms and NGOs
+- Enable efficient policy-making by analyzing the data and feedback provided by the platform
 
 ## 🛠Project Setup
 
