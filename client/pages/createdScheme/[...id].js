@@ -55,11 +55,11 @@ const createdScheme = () => {
     getBeneficiaries();
   }, []);
 
-  const accept = async (id) => {
+  const accept = async (id, description) => {
     console.log('Run accept');
     const query = JSON.stringify({
       query: `mutation MyMutation {
-  update_beneficiary(where: {id: {_eq: "${id}"}}, _set: {status: 1}) {
+  update_beneficiary(where: {id: {_eq: "${id}"}}, _set: {status: 1,description:"${description}"}) {
     returning {
       id
     }
@@ -84,10 +84,10 @@ const createdScheme = () => {
     console.log(responseJson);
   };
 
-  const reject = async (id) => {
+  const reject = async (id, description) => {
     const query = JSON.stringify({
       query: `mutation MyMutation {
-  update_beneficiary(where: {id: {_eq: "${id}"}}, _set: {status: 2}) {
+  update_beneficiary(where: {id: {_eq: "${id}"}}, _set: {status: 2,justification:"${description}"}) {
     returning {
       id
     }

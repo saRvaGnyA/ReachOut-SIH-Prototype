@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 function PopUpModalConfirm(props) {
   const [info, setInfo] = useState({});
+  const [description, setDescription] = useState('');
   const getInfo = async () => {
     const query = JSON.stringify({
       query: `query MyQuery {
@@ -84,10 +85,23 @@ function PopUpModalConfirm(props) {
               Are you sure that you want to accept this application for this
               scheme.
             </p>
+            <div>
+              <input
+                type="text"
+                id="first_name"
+                class="mb-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                placeholder="Add description if you want"
+                value={description}
+                onChange={(e) => {
+                  setDescription(e.target.value);
+                }}
+                required
+              />
+            </div>
             <p
               className="m-2 inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 cursor-pointer"
               onClick={() => {
-                props.accept(props.uuid);
+                props.accept(props.uuid, description);
                 props.change_modal_state();
               }}
             >
@@ -119,10 +133,23 @@ function PopUpModalConfirm(props) {
               Are you sure that you want to reject this application for this
               scheme.
             </p>
+            <div>
+              <input
+                type="text"
+                id="first_name"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                placeholder="Add description if you want"
+                value={description}
+                onChange={(e) => {
+                  setDescription(e.target.value);
+                }}
+                required
+              />
+            </div>
             <p
               className="m-2 inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 cursor-pointer"
               onClick={() => {
-                props.reject(props.uuid);
+                props.reject(props.uuid, description);
                 props.change_modal_state();
               }}
             >
