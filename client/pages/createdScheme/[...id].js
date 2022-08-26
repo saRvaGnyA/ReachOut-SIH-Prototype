@@ -1,10 +1,23 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
+import PopUpModalConfirm from '../../components/PopUpModals/PopUpModalConfirm';
+import { PieChart, Tooltip, Pie, Legend, Cell } from 'recharts';
 
 const createdScheme = () => {
+  const COLORS = ['#77c878', '#8884d8', '#82ca9d'];
+
   const router = useRouter();
   const [applications, setApplications] = useState({});
   const [isLoading, setIsLoading] = useState(true);
+  const [modal, setModal] = useState(false);
+  const [uuid, setUuid] = useState('');
+  const [accrej, setAccrej] = useState('');
+  const [raw, setRaw] = useState([]);
+  const [disabilityType, setDisabilityType] = useState([]);
+
+  function change_modal_state() {
+    setModal(!modal);
+  }
 
   const getBeneficiaries = async () => {
     const query = JSON.stringify({
@@ -43,14 +56,111 @@ const createdScheme = () => {
     setIsLoading(false);
   };
 
+  const getStats = async () => {
+    const query = JSON.stringify({
+      query: `query MyQuery {
+  beneficiary(where: {scheme_id: {_eq: "${router.query.id}"}}) {
+    status
+  }
+}
+`,
+    });
+
+    const response = await fetch(
+      'https://reachout-sih.herokuapp.com/v1/graphql',
+      {
+        headers: {
+          'content-type': 'application/json',
+          'x-hasura-admin-secret': process.env.HASURA_ADMIN_SECRET,
+        },
+        method: 'POST',
+        body: query,
+      },
+    );
+
+    const responseJson = await response.json();
+    console.log(responseJson);
+    const res = responseJson.data.beneficiary;
+    let freqMap = {};
+    console.log(res);
+    for (const ben of res) {
+      if (!freqMap[ben.status]) {
+        freqMap[ben.status] = 0;
+      }
+      freqMap[ben.status] += 1;
+    }
+    let arr = [];
+    for (const [key, value] of Object.entries(freqMap)) {
+      let status;
+      if (key == 0) {
+        status = 'Enrolled';
+      } else if (key == 1) {
+        status = 'Accepted';
+      } else {
+        status = 'Rejected';
+      }
+      arr.push({ status: status, value: value });
+    }
+    console.log(arr);
+    setRaw(arr);
+  };
+
+  const getDisabilityTypes = async () => {
+    const query = JSON.stringify({
+      query: `query MyQuery {
+  beneficiary(where: {scheme_id: {_eq: "${router.query.id}"}}) {
+    profile {
+      disability_type
+    }
+  }
+}
+`,
+    });
+
+    const response = await fetch(
+      'https://reachout-sih.herokuapp.com/v1/graphql',
+      {
+        headers: {
+          'content-type': 'application/json',
+          'x-hasura-admin-secret': process.env.HASURA_ADMIN_SECRET,
+        },
+        method: 'POST',
+        body: query,
+      },
+    );
+
+    const responseJson = await response.json();
+    console.log(responseJson);
+    const res = responseJson.data.beneficiary;
+
+    let freqMap = {};
+    console.log(res);
+    for (const ben of res) {
+      if (!freqMap[ben.profile.disability_type]) {
+        freqMap[ben.profile.disability_type] = 0;
+      }
+      freqMap[ben.profile.disability_type] += 1;
+    }
+
+    let arr = [];
+    for (const [key, value] of Object.entries(freqMap)) {
+      arr.push({ type: key, value: value });
+    }
+    console.log(arr);
+    setDisabilityType(arr);
+  };
+
   useEffect(() => {
     getBeneficiaries();
+    getStats();
+    getDisabilityTypes();
   }, []);
 
-  const accept = async (id) => {
+  const accept = async (id, description) => {
+    console.log('Run accept');
     const query = JSON.stringify({
       query: `mutation MyMutation {
-  update_beneficiary(where: {id: {_eq: "${id}"}}, _set: {status: 1}) {
+  update_beneficiary(where: {id: {_eq: "${id}"}}, _set: {status: 1,description:"${description}"}) {
     returning {
       id
     }
@@ -75,10 +185,10 @@ const createdScheme = () => {
     console.log(responseJson);
   };
 
-  const reject = async (id) => {
+  const reject = async (id, description) => {
     const query = JSON.stringify({
       query: `mutation MyMutation {
-  update_beneficiary(where: {id: {_eq: "${id}"}}, _set: {status: 2}) {
+  update_beneficiary(where: {id: {_eq: "${id}"}}, _set: {status: 2,justification:"${description}"}) {
     returning {
       id
     }
@@ -157,31 +267,21 @@ const createdScheme = () => {
                   <td className="py-4 px-6">
                     <p
                       onClick={() => {
-                        if (application.status === 0) {
-                          application.status = 1;
-                          accept(application.id);
-                        }
+                        setUuid(application.id);
+                        setAccrej('Approve');
+                        setModal(!modal);
                       }}
-                      className={`font-medium text-blue-600 dark:text-blue-500 hover:underline ${
-                        application.status !== 0
-                          ? 'cursor-not-allowed'
-                          : 'cursor-pointer'
-                      }`}
+                      className={`font-medium text-blue-600 dark:text-blue-500 hover:underline cursor-pointer`}
                     >
                       Approve Beneficiary <br />
                     </p>
                     <p
                       onClick={() => {
-                        if (application.status === 0) {
-                          application.status = 2;
-                          reject(application.id);
-                        }
+                        setUuid(application.id);
+                        setAccrej('Reject');
+                        setModal(!modal);
                       }}
-                      className={`font-medium text-blue-600 dark:text-blue-500 hover:underline ${
-                        application.status !== 0
-                          ? 'cursor-not-allowed'
-                          : 'cursor-pointer'
-                      }`}
+                      className={`font-medium text-blue-600 dark:text-blue-500 hover:underline cursor-pointer`}
                     >
                       Reject
                     </p>
@@ -191,7 +291,57 @@ const createdScheme = () => {
             })}
           </tbody>
         </table>
+        <div className="flex justify-around">
+          <PieChart width={400} height={350}>
+            <Pie
+              data={raw}
+              dataKey="value"
+              nameKey="status"
+              cx="50%"
+              cy="50%"
+              label
+              legendType="square"
+              outerRadius={100}
+              fill="#8884d8"
+            >
+              {raw.map((entry, index) => (
+                <Cell fill={COLORS[index % COLORS.length]} />
+              ))}
+            </Pie>
+            <Legend></Legend>
+            <Tooltip />
+          </PieChart>
+          <PieChart width={400} height={350}>
+            <Pie
+              data={disabilityType}
+              dataKey="value"
+              nameKey="type"
+              cx="50%"
+              cy="50%"
+              label
+              legendType="square"
+              outerRadius={100}
+              fill="#8884d8"
+            >
+              {raw.map((entry, index) => (
+                <Cell fill={COLORS[index % COLORS.length]} />
+              ))}
+            </Pie>
+            <Legend></Legend>
+            <Tooltip />
+          </PieChart>
+        </div>
       </div>
+      {modal && (
+        <PopUpModalConfirm
+          id={router.query.id}
+          change_modal_state={change_modal_state}
+          accept={accept}
+          reject={reject}
+          accrej={accrej}
+          uuid={uuid}
+        />
+      )}
     </div>
   );
 };

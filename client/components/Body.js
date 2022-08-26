@@ -1,9 +1,18 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import Slideshow from './SlideShow';
-import Flowchart from './Flowchart';
+import Flowchart from './Flowcharts/Flowchart';
+import CompanyFlowchart from './Flowcharts/CompanyFlowchart';
+import GovtFlowchart from './Flowcharts/GovtFlowchart'
+import { useState, useEffect } from 'react';
 
 function Body() {
+  const [level, setLevel] = useState('');
+
+  useEffect(() => {
+    setLevel(localStorage.getItem('accessLevel'));
+  }, []);
+
   return (
     <div class="bg-transparent">
       <div class="w-full h-full">
@@ -11,7 +20,9 @@ function Body() {
       </div>
       <section class="bg-gray-100 text-zinc-900 dark:text-gray-400 dark:bg-gray-900 body-font">
         <div class="w-100vw h-100vh">
-          <Flowchart />
+          {level === 'user' && <Flowchart />}
+          {level === 'company' && <CompanyFlowchart />}
+          {level === 'government' && <GovtFlowchart />}
         </div>
       </section>
 
