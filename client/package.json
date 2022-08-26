@@ -23,6 +23,7 @@
     "react-dom": "18.2.0",
     "react-dropzone": "^14.2.2",
     "react-flow-renderer": "^10.3.16",
+    "react-geocode": "^0.2.3",
     "react-pdf": "^5.7.2",
     "react-slideshow-image": "^4.0.4",
     "react-speech-kit": "^3.0.1",
