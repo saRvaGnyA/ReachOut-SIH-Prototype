@@ -120,7 +120,7 @@ The web-app has 3 access levels implemented
 - [x] Govt authorities can add the schemes for the disabled, and the disabled users can benefit from these schemes without leaving the portal
 - [x] Companies can register their job positions, and people with special needs can apply for those jobs, Companies can hire test candidates for accessibility testing of their products
 - [x] Map feature for locating nearby job opportunities
-- [x] Notifications and status updates for the enrolled schemes and jobs  
+- [x] SMS Notifications and status updates for the enrolled schemes and jobs  
 - [x] Dashboard for Analyzing scheme responses and demographics
 - [x] Backend and Database Connectivity 
 
@@ -132,6 +132,7 @@ The web-app has 3 access levels implemented
 - [ ] Upskilling platform based on job requirements
 - [ ] Resume Parsing (Partially Implemented)
 - [ ] Extend the built system to other aspects of the differently abled's life
+- [ ] Translation to regional languages (localization) 
 
 ## 🔨Impact
 
