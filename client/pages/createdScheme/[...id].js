@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
+import PopUpModalConfirm from '../../components/PopUpModals/PopUpModalConfirm';
 import { PieChart, Tooltip, Pie, Legend, Cell } from 'recharts';
 
 const createdScheme = () => {
@@ -8,8 +9,15 @@ const createdScheme = () => {
   const router = useRouter();
   const [applications, setApplications] = useState({});
   const [isLoading, setIsLoading] = useState(true);
+  const [modal, setModal] = useState(false);
+  const [uuid, setUuid] = useState('');
+  const [accrej, setAccrej] = useState('');
   const [raw, setRaw] = useState([]);
   const [disabilityType, setDisabilityType] = useState([]);
+
+  function change_modal_state() {
+    setModal(!modal);
+  }
 
   const getBeneficiaries = async () => {
     const query = JSON.stringify({
@@ -148,10 +156,11 @@ const createdScheme = () => {
     getDisabilityTypes();
   }, []);
 
-  const accept = async (id) => {
+  const accept = async (id, description) => {
+    console.log('Run accept');
     const query = JSON.stringify({
       query: `mutation MyMutation {
-  update_beneficiary(where: {id: {_eq: "${id}"}}, _set: {status: 1}) {
+  update_beneficiary(where: {id: {_eq: "${id}"}}, _set: {status: 1,description:"${description}"}) {
     returning {
       id
     }
@@ -176,10 +185,10 @@ const createdScheme = () => {
     console.log(responseJson);
   };
 
-  const reject = async (id) => {
+  const reject = async (id, description) => {
     const query = JSON.stringify({
       query: `mutation MyMutation {
-  update_beneficiary(where: {id: {_eq: "${id}"}}, _set: {status: 2}) {
+  update_beneficiary(where: {id: {_eq: "${id}"}}, _set: {status: 2,justification:"${description}"}) {
     returning {
       id
     }
@@ -258,31 +267,21 @@ const createdScheme = () => {
                   <td className="py-4 px-6">
                     <p
                       onClick={() => {
-                        if (application.status === 0) {
-                          application.status = 1;
-                          accept(application.id);
-                        }
+                        setUuid(application.id);
+                        setAccrej('Approve');
+                        setModal(!modal);
                       }}
-                      className={`font-medium text-blue-600 dark:text-blue-500 hover:underline ${
-                        application.status !== 0
-                          ? 'cursor-not-allowed'
-                          : 'cursor-pointer'
-                      }`}
+                      className={`font-medium text-blue-600 dark:text-blue-500 hover:underline cursor-pointer`}
                     >
                       Approve Beneficiary <br />
                     </p>
                     <p
                       onClick={() => {
-                        if (application.status === 0) {
-                          application.status = 2;
-                          reject(application.id);
-                        }
+                        setUuid(application.id);
+                        setAccrej('Reject');
+                        setModal(!modal);
                       }}
-                      className={`font-medium text-blue-600 dark:text-blue-500 hover:underline ${
-                        application.status !== 0
-                          ? 'cursor-not-allowed'
-                          : 'cursor-pointer'
-                      }`}
+                      className={`font-medium text-blue-600 dark:text-blue-500 hover:underline cursor-pointer`}
                     >
                       Reject
                     </p>
@@ -333,6 +332,16 @@ const createdScheme = () => {
           </PieChart>
         </div>
       </div>
+      {modal && (
+        <PopUpModalConfirm
+          id={router.query.id}
+          change_modal_state={change_modal_state}
+          accept={accept}
+          reject={reject}
+          accrej={accrej}
+          uuid={uuid}
+        />
+      )}
     </div>
   );
 };
