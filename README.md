@@ -51,8 +51,8 @@ The web-app has 3 access levels implemented
 
 ### Flow for the User Access Level
 
-![image](https://user-images.githubusercontent.com/24823649/186803986-c3aa1b7a-ad6f-40cb-94ab-266179721db6.png)
-  
+![image](https://user-images.githubusercontent.com/24823649/186869688-78ad7f51-4154-4969-8e89-59896dd3ed80.png)
+
 ### Flow for the Admin Access Level (Government)
 
 ![image](https://user-images.githubusercontent.com/24823649/186803910-a7b239e6-4020-4f85-95aa-ef2e1f3ac9e3.png)
@@ -76,7 +76,7 @@ The web-app has 3 access levels implemented
 ### Assets
 - [GitHub Repo](https://github.com/saRvaGnyA/ReachOut-SIH-Prototype)
 - [GitHub Repo for the Model](https://github.com/devdev29/reachout_gesture_api)
-- [Drive link for PPT](https://drive.google.com/file/d/1eF7qrWvrQ6HNJY8iYsmH9DSbSUEg1XPt/view?usp=sharing)
+- [Drive link for PPT](https://drive.google.com/file/d/1F_k7yIUlL0oD8h6HqsRT9rpqy_92XGkU/view?usp=sharing)
 
 ### Backend (Heroku)
 - [ReachOut Server](https://reachout-sih.herokuapp.com/)
@@ -120,7 +120,7 @@ The web-app has 3 access levels implemented
 - [x] Govt authorities can add the schemes for the disabled, and the disabled users can benefit from these schemes without leaving the portal
 - [x] Companies can register their job positions, and people with special needs can apply for those jobs, Companies can hire test candidates for accessibility testing of their products
 - [x] Map feature for locating nearby job opportunities
-- [x] Notifications and status updates for the enrolled schemes and jobs  
+- [x] SMS Notifications and status updates for the enrolled schemes and jobs  
 - [x] Dashboard for Analyzing scheme responses and demographics
 - [x] Backend and Database Connectivity 
 
@@ -132,6 +132,7 @@ The web-app has 3 access levels implemented
 - [ ] Upskilling platform based on job requirements
 - [ ] Resume Parsing (Partially Implemented)
 - [ ] Extend the built system to other aspects of the differently abled's life
+- [ ] Translation to regional languages (localization) 
 
 ## 🔨Impact
 
