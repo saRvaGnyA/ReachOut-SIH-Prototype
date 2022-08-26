@@ -131,6 +131,7 @@ The web-app has 3 access levels implemented
 - [ ] Payment Gateway Integration for transparency 
 - [ ] Upskilling platform based on job requirements
 - [ ] Resume Parsing (Partially Implemented)
+- [ ] Extend the built system to other aspects of the differently abled's life
 
 ## 🔨Impact
 
