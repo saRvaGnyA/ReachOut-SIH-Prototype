@@ -101,7 +101,7 @@ The web-app has 3 access levels implemented
 ### Machine Learning
 
 - Tensorflow (for gesture detection)
-- Gensen (for document parsing)
+- Gensim (for document parsing)
 
 ## 📈Progress
 
