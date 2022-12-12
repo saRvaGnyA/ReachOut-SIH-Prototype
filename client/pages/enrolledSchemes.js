@@ -36,7 +36,7 @@ function EnrolledSchemes() {
     });
 
     const response = await fetch(
-      'https://reachout-sih.herokuapp.com/v1/graphql',
+      'https://reachout-sih.hasura.app/v1/graphql',
       {
         headers: {
           'content-type': 'application/json',
@@ -46,7 +46,7 @@ function EnrolledSchemes() {
         body: query,
       },
     );
-
+      console.log("respone of this is",response)
     const responseJson = await response.json();
     console.log(responseJson);
     setEnrolledJobs(responseJson.data.beneficiary);
@@ -78,7 +78,7 @@ function EnrolledSchemes() {
     });
 
     const response = await fetch(
-      'https://reachout-sih.herokuapp.com/v1/graphql',
+      'https://reachout-sih.hasura.app/v1/graphql',
       {
         headers: {
           'content-type': 'application/json',
@@ -120,7 +120,7 @@ function EnrolledSchemes() {
     });
 
     const response = await fetch(
-      'https://reachout-sih.herokuapp.com/v1/graphql',
+      'https://reachout-sih.hasura.app/v1/graphql',
       {
         headers: {
           'content-type': 'application/json',

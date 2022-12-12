@@ -24,7 +24,7 @@ function governmentLogin() {
     });
 
     const response = await fetch(
-      'https://reachout-sih.herokuapp.com/v1/graphql',
+      'https://reachout-sih.hasura.app/v1/graphql',
       {
         headers: {
           'content-type': 'application/json',
