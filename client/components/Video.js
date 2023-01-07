@@ -4,7 +4,7 @@ import React, { useEffect, useRef } from 'react';
 
 function Video() {
   const FPS = 5;
-  const WS_URL = 'wss://reachoutgestureapi-production.up.railway.app/get_gesture';
+  const WS_URL = 'ws://reachoutgestureapi-production.up.railway.app:8080/get_gesture';
   const webcamRef = useRef(null);
 
   const capture = () => {
