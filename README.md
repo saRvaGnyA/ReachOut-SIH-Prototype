@@ -60,27 +60,29 @@ The web-app has 3 access levels implemented
 ### Flow for the Company Access Level
 
 ![image](https://user-images.githubusercontent.com/24823649/186804039-12923f65-a3dc-4452-aaef-f982ed37d96d.png)
-  
+
 ### Flowcharts for the Model
 
-![WhatsApp Image 2022-08-26 at 6 13 10 AM](https://user-images.githubusercontent.com/24823649/186803619-8be1770a-c349-4c71-9740-38f78b5118f4.jpeg)  
+![WhatsApp Image 2022-08-26 at 6 13 10 AM](https://user-images.githubusercontent.com/24823649/186803619-8be1770a-c349-4c71-9740-38f78b5118f4.jpeg)
 
 ![WhatsApp Image 2022-08-26 at 6 12 43 AM](https://user-images.githubusercontent.com/24823649/186803641-b8e025e7-4770-4f74-8aec-8279b967a9e5.jpeg)
 
-  
 ## 🔗Links
 
 ### Frontend (Vercel)
+
 - [**ReachOut**](https://reach-out-sih-prototype.vercel.app/) 🚀
 
 ### Assets
+
 - [GitHub Repo](https://github.com/saRvaGnyA/ReachOut-SIH-Prototype)
 - [GitHub Repo for the Model](https://github.com/devdev29/reachout_gesture_api)
 - [Drive link for PPT](https://drive.google.com/file/d/1F_k7yIUlL0oD8h6HqsRT9rpqy_92XGkU/view?usp=sharing)
 
-### Backend (Heroku)
-- [ReachOut Server](https://reachout-sih.herokuapp.com/)
-- [ReachOut Gesture Detection Model Deployment](https://reachout-gesture-api.herokuapp.com/)
+### Backend (Hasura and Railway)
+
+- [ReachOut Server](https://reachout-sih.hasura.app/)
+- [ReachOut Gesture Detection Model Deployment](https://reachoutgestureapi-production.up.railway.app/)
 
 ## 🤖Tech-Stack
 
@@ -105,7 +107,7 @@ The web-app has 3 access levels implemented
 
 ## 📈Progress
 
-### Accessibility 
+### Accessibility
 
 - [x] The entire website is designed with web accessibility (a11y) and GIGW (Guidelines for Indian Government Websites) at the forefront
 - [x] Designing web components using a color-blind friendly scheme and implemented a high-contrast UI
@@ -120,19 +122,19 @@ The web-app has 3 access levels implemented
 - [x] Govt authorities can add the schemes for the disabled, and the disabled users can benefit from these schemes without leaving the portal
 - [x] Companies can register their job positions, and people with special needs can apply for those jobs, Companies can hire test candidates for accessibility testing of their products
 - [x] Map feature for locating nearby job opportunities
-- [x] SMS Notifications and status updates for the enrolled schemes and jobs  
+- [x] SMS Notifications and status updates for the enrolled schemes and jobs
 - [x] Dashboard for Analyzing scheme responses and demographics
-- [x] Backend and Database Connectivity 
+- [x] Backend and Database Connectivity
 
 ## 🔮Future Scope
 
 - [ ] Complete the face ID login
 - [ ] Add E-KYC verification on the platform, and all other financial employment-related services from APISetu for streamlining the hiring process
-- [ ] Payment Gateway Integration for transparency 
+- [ ] Payment Gateway Integration for transparency
 - [ ] Upskilling platform based on job requirements
 - [ ] Resume Parsing (Partially Implemented)
 - [ ] Extend the built system to other aspects of the differently abled's life
-- [ ] Translation to regional languages (localization) 
+- [ ] Translation to regional languages (localization)
 
 ## 🔨Impact
 

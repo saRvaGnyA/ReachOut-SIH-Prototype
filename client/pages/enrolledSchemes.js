@@ -35,17 +35,14 @@ function EnrolledSchemes() {
 `,
     });
 
-    const response = await fetch(
-      'https://reachout-sih.herokuapp.com/v1/graphql',
-      {
-        headers: {
-          'content-type': 'application/json',
-          'x-hasura-admin-secret': process.env.HASURA_ADMIN_SECRET,
-        },
-        method: 'POST',
-        body: query,
+    const response = await fetch('https://reachout-sih.hasura.app/v1/graphql', {
+      headers: {
+        'content-type': 'application/json',
+        'x-hasura-admin-secret': process.env.HASURA_ADMIN_SECRET,
       },
-    );
+      method: 'POST',
+      body: query,
+    });
 
     const responseJson = await response.json();
     console.log(responseJson);
@@ -77,17 +74,14 @@ function EnrolledSchemes() {
 `,
     });
 
-    const response = await fetch(
-      'https://reachout-sih.herokuapp.com/v1/graphql',
-      {
-        headers: {
-          'content-type': 'application/json',
-          'x-hasura-admin-secret': process.env.HASURA_ADMIN_SECRET,
-        },
-        method: 'POST',
-        body: query,
+    const response = await fetch('https://reachout-sih.hasura.app/v1/graphql', {
+      headers: {
+        'content-type': 'application/json',
+        'x-hasura-admin-secret': process.env.HASURA_ADMIN_SECRET,
       },
-    );
+      method: 'POST',
+      body: query,
+    });
 
     const responseJson = await response.json();
     console.log(responseJson);
@@ -119,17 +113,14 @@ function EnrolledSchemes() {
 `,
     });
 
-    const response = await fetch(
-      'https://reachout-sih.herokuapp.com/v1/graphql',
-      {
-        headers: {
-          'content-type': 'application/json',
-          'x-hasura-admin-secret': process.env.HASURA_ADMIN_SECRET,
-        },
-        method: 'POST',
-        body: query,
+    const response = await fetch('https://reachout-sih.hasura.app/v1/graphql', {
+      headers: {
+        'content-type': 'application/json',
+        'x-hasura-admin-secret': process.env.HASURA_ADMIN_SECRET,
       },
-    );
+      method: 'POST',
+      body: query,
+    });
 
     const responseJson = await response.json();
     console.log(responseJson);
@@ -288,27 +279,27 @@ function EnrolledSchemes() {
           </thead>
           <tbody>
             {rejectedJobs.map((job) => {
-               return (
-                 <tr className="border-b border-gray-200 dark:border-gray-700">
-                   <th
-                     scope="row"
-                     className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800"
-                   >
-                     {job.scheme.admin.name}
-                   </th>
-                   <td className="py-4 px-6">{job.scheme.name}</td>
-                   <td className="py-4 px-6 bg-gray-50 dark:bg-gray-800">
-                     {job.scheme.description}
-                   </td>
-                   <td className="py-4 px-6">{job.scheme.eligibility}</td>
-                   <td className="py-4 px-6 bg-gray-50 dark:bg-gray-800">
-                     {job.scheme.type}
-                   </td>
-                   <td className="py-4 px-6 bg-gray-50 dark:bg-gray-800">
-                     {job.justification}
-                   </td>
-                 </tr>
-               );
+              return (
+                <tr className="border-b border-gray-200 dark:border-gray-700">
+                  <th
+                    scope="row"
+                    className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800"
+                  >
+                    {job.scheme.admin.name}
+                  </th>
+                  <td className="py-4 px-6">{job.scheme.name}</td>
+                  <td className="py-4 px-6 bg-gray-50 dark:bg-gray-800">
+                    {job.scheme.description}
+                  </td>
+                  <td className="py-4 px-6">{job.scheme.eligibility}</td>
+                  <td className="py-4 px-6 bg-gray-50 dark:bg-gray-800">
+                    {job.scheme.type}
+                  </td>
+                  <td className="py-4 px-6 bg-gray-50 dark:bg-gray-800">
+                    {job.justification}
+                  </td>
+                </tr>
+              );
             })}
           </tbody>
         </table>

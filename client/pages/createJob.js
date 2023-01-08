@@ -30,17 +30,14 @@ function createJob() {
       `,
     });
 
-    const response = await fetch(
-      'https://reachout-sih.herokuapp.com/v1/graphql',
-      {
-        headers: {
-          'content-type': 'application/json',
-          'x-hasura-admin-secret': process.env.HASURA_ADMIN_SECRET,
-        },
-        method: 'POST',
-        body: query,
+    const response = await fetch('https://reachout-sih.hasura.app/v1/graphql', {
+      headers: {
+        'content-type': 'application/json',
+        'x-hasura-admin-secret': process.env.HASURA_ADMIN_SECRET,
       },
-    );
+      method: 'POST',
+      body: query,
+    });
 
     const responseJson = await response.json();
     console.log(responseJson);
