@@ -78,6 +78,8 @@ The web-app has 3 access levels implemented
 - [GitHub Repo](https://github.com/saRvaGnyA/ReachOut-SIH-Prototype)
 - [GitHub Repo for the Model](https://github.com/devdev29/reachout_gesture_api)
 - [Drive link for PPT](https://drive.google.com/file/d/1F_k7yIUlL0oD8h6HqsRT9rpqy_92XGkU/view?usp=sharing)
+- [Proposal](https://drive.google.com/file/d/1R_qrXHaZnXEex8Mq1my6KxGQG5zhpsFK/view)
+- [Gesture Recognition Demo GIF](https://drive.google.com/file/d/1sZBhren3iH0qQV86jrkQiLz9aYQdIBNR/view)
 
 ### Backend (Hasura and Railway)
 
